@@ -1,0 +1,94 @@
+GitHub Homework 2022-07-21 - Exercise 2
+
+Carl Tang Yong Han
+
+Linux - File and Filesystem:
+
+
+1. Change the directory to your home directory.
+$ cd
+
+2. Print out your current directory.
+$ pwd
+
+3. Create a folder named Algo1.
+$ mkdir Algo1
+
+4. Within Algo1, create subfolders named config, bin, logs, and scripts.
+$ mkdir config bin logs scripts
+
+5. Within config, create empty files named config.config and variables.
+$ cd config
+$ touch config.config variables
+
+6. Within scripts, create empty files named start.sh, stop.sh and admin.sh.
+$ cd ../scripts
+$ touch start.sh stop.sh admin.sh
+
+7. Within logs, create an empty file named today.log.
+$ cd ../logs
+$ touch today.log
+
+8. Go back to your home directory.
+$ cd
+
+9. Long list everything recursively.
+$ ls -lr
+
+10. Remove the file named variables in the config directory.
+$ cd Algo1/config
+$ rm variables
+
+11. Remove the bin directory that you previously created.
+$ cd
+$ rmdir Algo1/bin
+
+12. Change back to your home directory.
+$ cd
+
+13. Create the bin directory again within Algo1.
+$ cd Algo1
+$ mkdir bin
+
+14. Create a directory in the logs folder named oldlogs.
+$ cd logs
+$ mkdir oldlogs
+
+15. Within oldlogs, create folders named 2019, 2018, and 2017.
+$ cd oldlogs
+$ mkdir 2019 2018 2017
+
+16. Within 2017, create an empty file named 2017.log.
+$ cd 2017
+$ touch 2017.log
+
+17. Within 2018, create an empty file named 2018.log.
+$ cd ../2018
+$ touch 2018.log
+
+18. Within 2019, create an empty file named 2019.log.
+$ cd ../2019
+$ touch 2019.log
+
+19. Change back to your home directory.
+$ cd
+
+20. Remove oldlogs using one command.
+$ rmdir Algo1/logs/oldlogs
+
+21. Ensure you are in your home directory.
+$ cd
+
+22. Search for all files from your home directory that end in .sh.
+$ find /home -name *.sh
+
+23. Go into the scripts directory and use a command to remove both the start and stop script without specifying each file separately: rm s*.sh
+$ cd Algo1/scripts
+$ rm s*.sh
+
+24. Run the following command to store your results in the directory that the trainer has provided – substitute your name and the date in your file.
+$ history > CarlTangYongHan.220721.module3
+
+
+### NOTE: As AWS is too laggy today, I could only write my answers here without actually verifying the commands on a Linux server.
+### I also did not actually create any history as in question 24.
