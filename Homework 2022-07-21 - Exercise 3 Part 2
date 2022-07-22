@@ -1,0 +1,71 @@
+GitHub Homework 2022-07-21 - Exercise 3 Part 2
+
+Carl Tang Yong Han
+
+Linux - Permissions:
+
+
+16. Check you can see your new path appended to the end of the path variable
+ubuntu@ip-172-31-17-240:~$ echo $PATH
+
+17. If you have Algo1 still created from previous exercises, remove the directory structure and all files within it
+(Note: different user name, hence previous directory not available)
+However, if it was available, the command would be:
+ubuntu@ip-172-31-17-240:~$ rmdir Algo1
+
+18. Make a directory named Payment1
+ubuntu@ip-172-31-17-240:~$ mkdir Payment1
+
+19. Within Payment1, make three directories named logs, configuration, and scripts
+ubuntu@ip-172-31-17-240:~/Payment1$ mkdir logs configuration scripts
+
+20. Within scripts, create an empty file named start.sh
+ubuntu@ip-172-31-17-240:~/Payment1$ touch scripts/start.sh
+
+21. Within configuration, create an empty file named instance.properties
+ubuntu@ip-172-31-17-240:~/Payment1$ touch configuration/instance.properties
+
+22. Give everyone permission to read the instance.properties file, but assign write and execute permissons only to yourself
+ubuntu@ip-172-31-17-240:~/Payment1$ sudo chmod 744 configuration/instance.properties 
+
+23. Set permissions on the file start.sh so that everyone can execute and so that the group and owner can read and write
+ubuntu@ip-172-31-17-240:~/Payment1$ sudo chmod 771 scripts/start.sh
+
+24. Direct the output of man cat into a file in your home directory named cat.output
+ubuntu@ip-172-31-17-240:~$ man cat > cat.output
+
+25. Change the permission of that file so everyone can read it but only the group can write and execute
+ubuntu@ip-172-31-17-240:~$ sudo chmod 474 cat.output
+
+26. Go back to your home directory
+ubuntu@ip-172-31-17-240:~$ cd ~
+
+27. Prove your location
+ubuntu@ip-172-31-17-240:~$ pwd
+/home/ubuntu
+
+28. Remove the directory Payment1 along with all subdirectories
+ubuntu@ip-172-31-17-240:~$ rm -r Payment1
+
+29. Delete the cat.output file, but with a warning first to the user
+ubuntu@ip-172-31-17-240:~$ rm -i cat.output
+
+30. Create a directory named temp
+ubuntu@ip-172-31-17-240:~$ mkdir temp
+
+31. Set a variable named MYTEMP that references the new temp directory you just created
+ubuntu@ip-172-31-17-240:~$ MYTEMP='~/temp'
+
+32. Run a command to see the value of the MYTEMP variable
+ubuntu@ip-172-31-17-240:~$ echo $MYTEMP
+
+33. Now set the value of $MYTEMP to nothing
+ubuntu@ip-172-31-17-240:~$ env -u MYTEMP
+
+34. Remove the temp directory that you created
+ubuntu@ip-172-31-17-240:~$ rmdir temp
+
+35. Run the following command to store your results in the specified directory the trainer gave. Replace the name and date with the correct values:
+ubuntu@ip-172-31-17-240:~$ history > CarlTangYongHan.220722.module4
+### NOTE: I have re-connected my EC2 instance, hence my history chain is broken.
+The first part of history is gone.
