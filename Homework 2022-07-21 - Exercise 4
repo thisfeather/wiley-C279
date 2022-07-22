@@ -1,0 +1,99 @@
+GitHub Homework 2022-07-21 - Exercise 4
+
+Carl Tang Yong Han
+
+Linux - Reading Files:
+
+
+1. Using the cat command, display the contents of the script you ran to the screen.
+ubuntu@ip-172-31-17-240:~$ cat fixGenerator.sh
+
+2. Use the cat command to display the contents of the script you ran to the screen but with line numbers.
+ubuntu@ip-172-31-17-240:~$ cat -n fixGenerator.sh 
+
+3. Read the contents of the log file created using cat but direct it to a new file in your home directory named newlog.log
+ubuntu@ip-172-31-17-240:~$ cat fixlog20220722083853.log > newlog.log
+
+4. Create a directory named logs
+ubuntu@ip-172-31-17-240:~$ mkdir logs
+
+5. Move the newlog.log into the logs directory.
+ubuntu@ip-172-31-17-240:~$ mv newlog.log ./logs
+
+6. Cat the original log file you created again. This time, append its output to the newlog.log file you just moved.
+ubuntu@ip-172-31-17-240:~$ cat fixlog20220722083853.log >> logs/newlog.log
+
+7. Create a soft link named Daily to your newlog.log file in the logs directory.
+ubuntu@ip-172-31-17-240:~$ ln -s logs/newlog.log logs/Daily
+
+8. Return to your home directory.
+ubuntu@ip-172-31-17-240:~$ cd ~
+
+9. Cat the original fix log file created into a less so that you can browse the file.
+ubuntu@ip-172-31-17-240:~$ cat fixlog20220722083853.log | less
+
+10. Using the search function in less, look for any new order messages.
+(You may need to refer back to your fix training to look up the appropriate fix tag.)
+######### (No command here)
+
+11. Exit less and run a search using grep for all new order messages. Redirect the output to a file named newOrders.log in the logs directory.
+ubuntu@ip-172-31-17-240:~$ grep '34=17' fixlog20220722082634.log > logs/newOrders.log
+
+12. Copy the newOrders.log file from the logs directory to your home directory.
+ubuntu@ip-172-31-17-240:~$ cp logs/newOrders.log ~
+
+13. Run a command to find out how many lines are in the newOrders.log file.
+ubuntu@ip-172-31-17-240:~$ wc -l newOrders.log 
+(Output: 39 newOrders.log) There are 39 lines.
+
+14. Run a command to pull out all of the messages with the instruction buy in fix (you may need to look up the tag again) from the original log file and put them into a new log file in the logs directory named buyMessages.log
+ubuntu@ip-172-31-17-240:~$ grep "54=1" fixlog20220722083853.log > logs/buyMessages.log
+
+15. Count how many lines are in that file.
+ubuntu@ip-172-31-17-240:~$ wc -l logs/buyMessages.log
+(Output: 84 logs/buyMessages.log) There are 84 lines.
+
+16. Count how many new orders are in the buyMessages.log.
+ubuntu@ip-172-31-17-240:~$ grep -c "39=0" logs/buyMessages.log 
+(Output: 20) There are 20 new orders in the buyMessages.log
+
+17. Create a new version of the logfile named noNewOrders.log that has everything except new order messages in it and put it in the logs directory.
+ubuntu@ip-172-31-17-240:~$ grep -v "39=0" fixlog20220722083853.log > logs/noNewOrders.log
+
+18. Count how many words are in the noNewOrders.log.
+ubuntu@ip-172-31-17-240:~$ wc logs/buyMessages.log 
+(Output:    84  1708 19864 logs/buyMessages.log) There are 1708 words.
+
+19. Show the last 5 lines of the noNewOrders.log to the screen.
+ubuntu@ip-172-31-17-240:~$ tail -n 5 logs/noNewOrders.log 
+
+20. Find all the messages relating to Apple in the original log file and show the first two lines to the screen.
+ubuntu@ip-172-31-17-240:~$ grep "AAPL" fixlog20220722083853.log | head -n 2
+
+21. Add a soft link named fix to your fixGenerator script.
+ubuntu@ip-172-31-17-240:~$ ln -s fixGenerator.sh fix
+
+22. Tail the log file created looking for new orders only in your tail command. (This will not actually cause any updates to the screen because the log file is not currently being updated.)
+ubuntu@ip-172-31-17-240:~$ tail -f fixlog20220722083853.log | grep "39=0"
+
+23. Create a new directory named superLogs
+ubuntu@ip-172-31-17-240:~$ mkdir superLogs
+
+24. Copy everything in the logs directory into the superLogs directory.
+ubuntu@ip-172-31-17-240:~$ cp -r logs superLogs/
+
+25. Run a single grep command with an option on grep to count the number of messages for FB in the original log file that was created.
+ubuntu@ip-172-31-17-240:~$ grep -c "FB" fixlog20220722083853.log 
+(Output: 5)
+
+26. Count the number of words in the original logfile.
+ubuntu@ip-172-31-17-240:~$ wc -w fixlog20220722083853.log 
+(Output: 4467 fixlog20220722083853.log), 4467 words.
+
+27. Find the number of new order messages for Netflix in the original log file.
+ubuntu@ip-172-31-17-240:~$ grep "NFLX" fixlog20220722083853.log | grep -c "39=0"
+(Output: 1)
+
+28. Run the following command to put your results in the directory specified by your instructor.
+ubuntu@ip-172-31-17-240:~$ history > CarlTangYongHan.220722.module5
+#### NOTE: As the AWS Ubuntu instance had frozen many times today and needed multiple reconnections, the history file is probably not complete.
