@@ -1,0 +1,58 @@
+GitHub Homework 2022-07-21 - Exercise 3
+
+Carl Tang Yong Han
+
+Linux - Working with Variables:
+
+
+1. Create a variable named STOCK and assign it a value of AAPL
+ubuntu@ip-172-31-17-240:~$ STOCK=AAPL
+
+2. Print the value of the variable out to the screen
+ubuntu@ip-172-31-17-240:~$ echo $STOCK
+
+3. Change the value of the variable STOCK to be the previous value with _US appended onto the end
+ubuntu@ip-172-31-17-240:~$ STOCK=AAPL_US
+
+4. Create a new variable named PRICE with value 290.84
+ubuntu@ip-172-31-17-240:~$ PRICE=290.84
+
+5. Print out to the screen a sentence ‘The current price of is ’ where you call the variables and get their values
+ubuntu@ip-172-31-17-240:~$ echo "The current price of $STOCK is $PRICE"
+
+6. Create a variable named WHOAMI and assign it your current username. Do this in one command.
+ubuntu@ip-172-31-17-240:~$ WHOAMI=`logname`
+
+7. Using just $ and () assign a variable named SERVERTYPE by using the uname command
+ubuntu@ip-172-31-17-240:~$ SERVERTYPE=$(uname)
+
+8. Write a command to show to the screen the value of running the command assigned to SERVERTYPE
+ubuntu@ip-172-31-17-240:~$ echo $SERVERTYPE
+
+9. Assign a variable named CMD the command uname -i (not the value of running the command but the command itself)
+ubuntu@ip-172-31-17-240:~$ CMD="uname -i"
+
+10. Using echo and the variable CMD, show how you echo the value of CMD (not execute the command)
+ubuntu@ip-172-31-17-240:~$ echo $CMD
+
+11. Using echo and the variable CMD, print what the CMD returns when run to the screen
+ubuntu@ip-172-31-17-240:~$ echo `$CMD`
+
+12. Change directory to your home directory
+ubuntu@ip-172-31-17-240:~$ cd ~
+
+13. Create a directory named scripts
+ubuntu@ip-172-31-17-240:~$ mkdir scripts
+
+14. Print out your $PATH Value
+ubuntu@ip-172-31-17-240:~$ echo $PATH
+
+15. Append your newly created script directory to your path variable
+ubuntu@ip-172-31-17-240:~$ export PATH=$PATH:~/scripts
+
+
+
+
+
+
+
