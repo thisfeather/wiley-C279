@@ -1,0 +1,56 @@
+GitHub Homework 2022-07-25 - Exercise 7
+
+Carl Tang Yong Han
+
+Linux - Editing Files on vi:
+
+Part 1: Avengers
+________________________________________________
+Captain America - Endgame
+
+Six stones, three teams, one shot. Five years ago, we lost. All of us. We lost friends. We lost family. We lost a part of ourselves. Today, we have a chance to take it all back. You know your teams. You know your missions. Get THE stones. Get them back. One round trip each. No mistakes. No do-overs. Most of us are going somewhere we know. that doesn't mean we should know what to expect. Be careful. Look out for each other. This is THE fight of our lives, and we're gonna win. Whatever it takes. .
+line count 6
+word count 98
+Six stones, three teams, one shot. Five years ago, we lost. All of us. We lost friends. We lost family. We lost a part of ourselves. Today, we have a chance to take it all back. You know your teams. You know your missions. Get THE stones. Get them back. One round trip each. No mistakes. No do-overs. Most of us are going somewhere we know. that doesn't mean we should know what to expect. Be careful. Look out for each other. This is THE fight of our lives, and we're gonna win. Whatever it takes. .
+________________________________________________
+
+
+Part 2: Log Files
+________________________________________________
+8=FIX4.4; 35=8; 34=52; 49=MS; 56=MTHREE; 52=2022-07-25-09:39:15; 55=AAPL; 40=2; 11=algo20220725093915
+; 31=1276.37; 150=0; 39=0; 54=1; 44=1276.37; 32=0; 17=exec20220725093915; 38=1999; 60=2022-07-25-09:3
+9:15; 6=0; 14=0; 37=algo20220725093915; 10=200;
+8=FIX4.4; 35=8; 34=54; 49=MS; 56=MTHREE; 52=2022-07-25-09:39:16; 55=MSFT; 40=2; 11=algo20220725093916
+; 31=59.89; 150=0; 39=0; 54=1; 44=59.89; 32=0; 17=exec20220725093916; 38=10119; 60=2022-07-25-09:39:1
+6; 6=0; 14=0; 37=algo20220725093916; 10=200;
+8=FIX4.4; 35=8; 34=57; 49=MS; 56=MTHREE; 52=2022-07-25-09:39:18; 55=AMZN; 40=2; 11=algo20220725093918
+; 31=133.47; 150=0; 39=0; 54=2; 44=133.47; 32=0; 17=exec20220725093918; 38=21763; 60=2022-07-25-09:39
+:18; 6=0; 14=0; 37=algo20220725093918; 10=200;
+8=FIX4.4; 35=8; 34=62; 49=MS; 56=MTHREE; 52=2022-07-25-09:39:22; 55=FB; 40=2; 11=algo20220725093922; 
+31=430.62; 150=0; 39=0; 54=1; 44=430.62; 32=0; 17=exec20220725093922; 38=31291; 60=2022-07-25-09:39:2
+2; 6=0; 14=0; 37=algo20220725093922; 10=200;
+8=FIX4.4; 35=8; 34=65; 49=MS; 56=MTHREE; 52=2022-07-25-09:39:24; 55=GOOG; 40=2; 11=algo20220725093924
+; 31=42.05; 150=0; 39=0; 54=1; 44=42.05; 32=0; 17=exec20220725093924; 38=12; 60=2022-07-25-09:39:24; 
+6=0; 14=0; 37=algo20220725093924; 10=200;
+8=FIX4.4; 35=8; 34=69; 49=MS; 56=MTHREE; 52=2022-07-25-09:39:27; 55=GOOGL; 40=2; 11=algo2022072509392
+7; 31=289.20; 150=0; 39=0; 54=1; 44=289.20; 32=0; 17=exec20220725093927; 38=26231; 60=2022-07-25-09:3
+9:27; 6=0; 14=0; 37=algo20220725093927; 10=200;
+8=FIX4.4; 35=8; 34=71; 49=MS; 56=MTHREE; 52=2022-07-25-09:39:28; 55=INTC; 40=2; 11=algo20220725093928
+; 31=339.13; 150=0; 39=0; 54=1; 44=339.13; 32=0; 17=exec20220725093928; 38=10398; 60=2022-07-25-09:39
+:28; 6=0; 14=0; 37=algo20220725093928; 10=200;
+8=FIX4.4; 35=8; 34=75; 49=MS; 56=MTHREE; 52=2022-07-25-09:39:31; 55=PEP; 40=2; 11=algo20220725093931;
+ 31=36.21; 150=0; 39=0; 54=2; 44=36.21; 32=0; 17=exec20220725093931; 38=21220; 60=2022-07-25-09:39:31
+; 6=0; 14=0; 37=algo20220725093931; 10=200;
+8=FIX4.4; 35=8; 34=78; 49=MS; 56=MTHREE; 52=2022-07-25-09:39:33; 55=NFLX; 40=2; 11=algo20220725093933
+; 31=306.71; 150=0; 39=0; 54=2; 44=306.71; 32=0; 17=exec20220725093933; 38=15820; 60=2022-07-25-09:39
+:33; 6=0; 14=0; 37=algo20220725093933; 10=200;
+8=FIX4.4; 35=8; 34=82; 49=MS; 56=MTHREE; 52=2022-07-25-09:39:36; 55=CSCO; 40=2; 11=algo20220725093936
+; 31=233.73; 150=0; 39=0; 54=1; 44=233.73; 32=0; 17=exec20220725093936; 38=17455; 60=2022-07-25-09:39
+:36; 6=0; 14=0; 37=algo20220725093936; 10=200;
+8=FIX4.4; 35=8; 34=88; 49=MS; 56=MTHREE; 52=2022-07-25-09:39:41; 55=AMGN; 40=2; 11=algo20220725093941
+; 31=116.62; 150=0; 39=0; 54=2; 44=116.62; 32=0; 17=exec20220725093941; 38=5058; 60=2022-07-25-09:39:
+41; 6=0; 14=0; 37=algo20220725093941; 10=200;
+________________________________________________
+
+
+### Instead of showing the Bash input and output, I am showing the outcomes of vi editing here instead.
