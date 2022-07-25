@@ -1,0 +1,72 @@
+GitHub Homework 2022-07-25 - Exercise 6
+
+Carl Tang Yong Han
+
+Linux - Disk Space:
+
+
+
+1. Run a command to see the disk usage across your file system.
+ubuntu@ip-172-31-17-240:~$ df
+
+2. Run the command again. This time ensure the output is in human-readable format and added to a file named filesystem.usage in your home directory.
+ubuntu@ip-172-31-17-240:~$ df -h > ~/filesystem.usage
+
+3. Show the disk usage for your home directory.
+ubuntu@ip-172-31-17-240:~$ du ~
+
+4. Show the disk usage for your home directory in human-readable format and add it a file named disk.usage in your home directory.
+ubuntu@ip-172-31-17-240:~$ du -h ~ > ~/disk.usage
+
+5. Run a disk check specifically showing output for all files and folders in human-readable format. Put the results into usage2 in your home directory.
+ubuntu@ip-172-31-17-240:~$ du -ah > ~/usage2
+
+6. Show the disk usage for everything in /var.
+ubuntu@ip-172-31-17-240:~$ du -ah /var
+
+7. Run a disk usage command on your home directory that will follow any links if you have them set up and display the output in human-readable format.
+ubuntu@ip-172-31-17-240:~$ du ~ -Lch
+
+8. Create a folder named disk in your home directory.
+ubuntu@ip-172-31-17-240:~$ mkdir disk
+
+9. Copy your output files from exercise 2, exercise 4, and exercise 5 into this folder.
+ubuntu@ip-172-31-17-240:~$ cp filesystem.usage disk.usage usage2 disk
+
+10. Move into the disk folder.
+ubuntu@ip-172-31-17-240:~$ cd disk
+
+11. Run a command to create an archive tar file named disk.tar that includes everything in this folder.
+ubuntu@ip-172-31-17-240:~/disk$ tar -cvf disk.tar .
+
+12. Reverse the previous command and undo the archive.
+ubuntu@ip-172-31-17-240:~/disk$ tar -xvf disk.tar 
+
+13. Now run an archive of these files to ensure it creates a g-zipped tarball named disk.tar.gz in a single-line command.
+ubuntu@ip-172-31-17-240:~/disk$ tar -cvzf disk.tar.gz *
+
+14. Create an empty file named newdisk in this directory.
+ubuntu@ip-172-31-17-240:~/disk$ touch newdisk
+
+15. Uncompress the gz file you created so that it is back to being just a tar file.
+ubuntu@ip-172-31-17-240:~/disk$ tar -xvzf disk.tar.gz 
+
+16. Add the newdisk file to the tar file.
+ubuntu@ip-172-31-17-240:~/disk$ tar -rvf disk.tar newdisk 
+
+17. Compress the tar file again to make a g-zipped tarball again.
+ubuntu@ip-172-31-17-240:~/disk$ tar -cvzf disk.tar.gz *
+
+18. Create another directory named disk_output in your home directory.
+ubuntu@ip-172-31-17-240:~/disk$ mkdir ~/disk_output
+
+19. Uncompress your tarball to the directory you just created.
+ubuntu@ip-172-31-17-240:~/disk$ tar -xvzf disk.tar.gz -C ~/disk_output/
+
+20. Go back to your home directory and run a command to g-zip your disk_output directory. Ensure it recursively compresses everything.
+ubuntu@ip-172-31-17-240:~/disk$ cd ~
+ubuntu@ip-172-31-17-240:~$ gzip -r disk_output/
+(Prompt: gzip: disk_output/disk.tar.gz already exists; do you wish to overwrite (y or n)? Input: y)
+
+21. Run the following command to put your results in the directory specified by your instructor.
+history > CarlTangYongHan.22-07-25.module7
