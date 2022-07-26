@@ -1,0 +1,69 @@
+GitHub Homework 2022-07-26 - Exercise 9
+
+Carl Tang Yong Han
+
+Linux - Advanced Commands:
+
+
+ubuntu@ip-172-31-17-240:~$ ./fixGenerator.sh &
+
+1. Create a directory named logs.
+ubuntu@ip-172-31-17-240:~$ mkdir logs
+
+2. Move the log output from the fixGenerator script into the logs directory. (Be sure the script has finished before doing this.)
+ubuntu@ip-172-31-17-240:~$ mv fixlog20220726045121.log ~/logs
+
+3. From the command line, replace all instances of MTHREE in the file with M3 and put the output into a new file named fixlog2.log in the logs directory.
+ubuntu@ip-172-31-17-240:~$ sed 's/MTHREE/M3/g' fixlog20220726045121.log > logs/fixlog2.log
+
+4. Run a command to pull all fill messages from fixlog2.log and put the output into a new logfile named fills.log.
+(You may need to look up how to tell if a message is a fill.)
+ubuntu@ip-172-31-17-240:~$ grep "39=2" logs/fixlog2.log > logs/fills.log
+
+5. Run a command to pull all cancel acknowledgement messages (39=4) from fixlog2.log into a new log named cancels.log in the same directory.
+ubuntu@ip-172-31-17-240:~$ grep "39=4" logs/fixlog2.log > logs/cancels.log
+
+6. Run a command to create a new log file named partialFills.log and add the partial fills from fills.log to the new file.
+ubuntu@ip-172-31-17-240:~$ grep "39=1" logs/fills.log > logs/partialFills.log
+### NOTE: Fills and Partial Fills are mutually exclusive, and doing the above command will create an empty file.
+Therefore i am pulling partial fills from fixlog2.log instead:
+ubuntu@ip-172-31-17-240:~$ grep "39=1" logs/fixlog2.log > logs/partialFills.log
+
+7. Use awk to create a new file out of the partial fill log that has the following tags only:
+Symbol (55); orderID (11); side(54); fill price (31); fill quantity (32); execution id (17).
+Name the file parsedPartialFills.log and make sure you print the columns in the order listed here.
+Attempt 1 (not the intended results):
+ubuntu@ip-172-31-17-240:~$ awk '/55=/ && /11=/ && /54=/ && /31=/ && /32=/ && /17=/ {print}' logs/partialFills.log > logs/parsedPartialFills.log
+Attempt 2:
+ubuntu@ip-172-31-17-240:~$ awk '{print $7 $9 $13 $10 $15 $16}' logs/partialFills.log > logs/parsedPartialFills.log
+
+8. Using an editor, remove the first part of every fix tag (so you are left with the value only) and turn the file into a comma separated list with no spaces.
+This is how you might have to get a file ready to send to a trader.
+ubuntu@ip-172-31-17-240:~/logs$ sed 's/55=//g; s/11=//g; s/54=//g; s/31=//g; s/32=//g; s/17=//g; s/;/,/g' parsedPartialFills.log 
+To turn the list to a file, this is done instead:
+ubuntu@ip-172-31-17-240:~/logs$ sed 's/55=//g; s/11=//g; s/54=//g; s/31=//g; s/32=//g; s/17=//g; s/;/,/g' parsedPartialFills.log > .module10.csv
+
+9. In the file, add a row of column headers separated by commas. The headers should be Symbol, OrderID, Side, Price, Qty, and ExecID.
+ubuntu@ip-172-31-17-240:~/logs$ vi .module10.csv
+(Editing was done with vi)
+
+10. Save the file as .module10.csv in the location specified by your instructor.
+(File already created in logs before editing was done.)
+
+11. Make a copy of the cancels file and name it cancels2.log.
+ubuntu@ip-172-31-17-240:~$ cp logs/cancels.log logs/cancels2.log
+
+12. Open the cancels2.log file in an editor. Find the first symbol (tag 55) in the first line and add the letter A to the beginning of the value.
+(If it was 55=GOOG, it will become 55=AGOOG.)
+ubuntu@ip-172-31-17-240:~$ vi logs/cancels2.log 
+Editing done as instructed:
+8=FIX4.4; 35=8; 34=88; 49=MS; 56=M3; 52=2022-07-26-04:53:26; 151=8358; 55=AAMGN; 11=C_algo20220726045
+325; 31=0; 150=4; 39=4; 54=1; 17=exec20220726045326; 32=0; 41=algo20220726045325; 38=13930; 60=2022-0
+7-26-04:53:26; 6=0.0; 14=2786; 37=algo20220726045325; 10=252;
+
+13. Run a difference between the original cancels file and the new file you just edited.
+ubuntu@ip-172-31-17-240:~$ diff -c logs/cancels.log logs/cancels2.log 
+
+14. Now run the history command and put it into an output file named name.YYMMDD.module10 in the directory specified by your instructor.
+ubuntu@ip-172-31-17-240:~$ history > CarlTangYongHan.220726.module10
+
