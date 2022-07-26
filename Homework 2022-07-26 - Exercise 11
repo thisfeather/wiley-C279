@@ -1,0 +1,111 @@
+GitHub Homework 2022-07-26 - Exercise 11
+
+Carl Tang Yong Han
+
+Linux - Useful Scripting Tools and Linux Commands:
+
+
+
+1. Create a variable named TEXT with the value "The number is "
+ubuntu@ip-172-31-17-240:~$ TEXT="The number is "
+
+2. Write a for loop that prints numbers 1-25 after printing the value of TEXT each time.
+ubuntu@ip-172-31-17-240:~$ for i in {1..25}; do echo "$TEXT$i";done
+The number is 1
+The number is 2
+The number is 3
+The number is 4
+The number is 5
+The number is 6
+The number is 7
+The number is 8
+The number is 9
+The number is 10
+The number is 11
+The number is 12
+The number is 13
+The number is 14
+The number is 15
+The number is 16
+The number is 17
+The number is 18
+The number is 19
+The number is 20
+The number is 21
+The number is 22
+The number is 23
+The number is 24
+The number is 25
+
+3. Run the same command, this time redirecting the output to a file named forloop.out.
+ubuntu@ip-172-31-17-240:~$ for i in {1..25}; do echo "$TEXT$i";done > forloop.out
+
+4. Write a sed command that creates a new output file from forloop.out where instead of saying "the number is ", it will now say "the number is not ".
+Name the file forloop2.out
+ubuntu@ip-172-31-17-240:~$ sed 's/is /is not /g' forloop.out > forloop2.out
+ubuntu@ip-172-31-17-240:~$ cat forloop2.out 
+The number is not 1
+The number is not 2
+The number is not 3
+The number is not 4
+The number is not 5
+The number is not 6
+The number is not 7
+The number is not 8
+The number is not 9
+The number is not 10
+The number is not 11
+The number is not 12
+The number is not 13
+The number is not 14
+The number is not 15
+The number is not 16
+The number is not 17
+The number is not 18
+The number is not 19
+The number is not 20
+The number is not 21
+The number is not 22
+The number is not 23
+The number is not 24
+The number is not 25
+
+5. Try running the following if statement to get familiar with it:
+ubuntu@ip-172-31-17-240:~$ i=1
+ubuntu@ip-172-31-17-240:~$ if(( $i==1 ))
+> then
+> echo "i is equal to 1"
+> elif(($i==2))
+> then
+> echo "i is equal to 2"
+> else
+> echo "i is neither 1 or 2"
+> fi
+i is equal to 1
+
+6. Change the value of i to be something not 1 or 2 and check that the statement works again.
+ubuntu@ip-172-31-17-240:~$ i=5
+ubuntu@ip-172-31-17-240:~$ if(($i==1))
+> then
+> echo "i is equal to 1"
+> elif(($i==2))
+> then
+> echo "i is equal to 2"
+> else
+> echo "i is neither 1 or 2"
+> fi
+i is neither 1 or 2
+
+7. Create a variable of today's date named TODAY in the format of DD.MM.YYYY.
+ubuntu@ip-172-31-17-240:~$ DATE=`date +%d.%m.%Y`
+
+8. Create another variable named GENDATE that has the command to generate and store the same date.
+ubuntu@ip-172-31-17-240:~$ GENDATE="DATE=`date +%d.%m.%Y`"
+
+9. Create a file named output.log with today’s date as an extension using the variable you just created.
+ubuntu@ip-172-31-17-240:~$ touch output.log.$DATE
+
+10. Run the history command and put the output into a file named name.YYMMDD.module1112 in the directory specified by your instructor.
+ubuntu@ip-172-31-17-240:~$ history > CarlTangYongHan.220726.module1112
+
+
