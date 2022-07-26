@@ -1,0 +1,144 @@
+GitHub Homework 2022-07-26 - Exercise 10 Additional
+
+Carl Tang Yong Han
+
+Linux - Useful Scripting Tools:
+
+
+
+1. Create a script to summarize available disk space and present in a logical and readable fashion
+ubuntu@ip-172-31-17-240:~$ vi scripting.sh
+
+Script written as follows:
+
+___________________
+#!/bin/bash
+
+df -h
+___________________
+
+Change permission to allow execution:
+ubuntu@ip-172-31-17-240:~$ sudo chmod 777 scripting.sh 
+
+Run the script:
+ubuntu@ip-172-31-17-240:~$ ./scripting.sh 
+
+Outcomes:
+__________________________________
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root       7.6G  2.1G  5.5G  28% /
+tmpfs           484M     0  484M   0% /dev/shm
+tmpfs           194M  868K  193M   1% /run
+tmpfs           5.0M     0  5.0M   0% /run/lock
+/dev/xvda15     105M  5.3M  100M   5% /boot/efi
+tmpfs            97M  4.0K   97M   1% /run/user/1000
+__________________________________
+
+
+
+A cleaner version with only two columns will be this:
+ubuntu@ip-172-31-17-240:~$ vi cleanScript.sh
+
+Script written as follows:
+
+___________________
+#!/bin/bash
+
+df -h --output=source,avail > diskInfoFromScript
+___________________
+
+
+Change permission to allow execution:
+ubuntu@ip-172-31-17-240:~$ sudo chmod 777 cleanScript.sh 
+
+Run the script:
+ubuntu@ip-172-31-17-240:~$ ./cleanScript.sh 
+
+Outcomes:
+ubuntu@ip-172-31-17-240:~$ cat diskInfoFromScript 
+_________________________________
+Filesystem     Avail
+/dev/root       5.5G
+tmpfs           484M
+tmpfs           193M
+tmpfs           5.0M
+/dev/xvda15     100M
+tmpfs            97M
+_________________________________
+
+
+
+2. Write a shell script which uses function to print hello world
+ubuntu@ip-172-31-17-240:~$ vi sayHello.sh
+
+Script written as follows:
+
+_____________________________
+#!/bin/bash
+
+echo "Hello World"
+
+_____________________________
+
+Change permission to allow execution:
+ubuntu@ip-172-31-17-240:~$ sudo chmod 777 sayHello.sh 
+
+Run the script to show output:
+ubuntu@ip-172-31-17-240:~$ ./sayHello.sh 
+Hello World
+
+
+A more interactive version will look like this:
+ubuntu@ip-172-31-17-240:~$ vi interactiveHello.sh
+
+Script written as follows:
+
+_____________________________
+#!/bin/bash
+
+echo "$response"
+
+while [ "$response" != "N" ] && [ "$response" != "n" ]
+do
+echo "Do you want me to greet the World?"
+echo "It's okay if you don't, just input 'N'."
+
+read response
+
+if [ "$response" != "N" ] && [ "$response" != "n" ]
+then
+echo "Hello World!!"
+fi
+done
+_____________________________
+
+
+
+Change permission to allow execution:
+ubuntu@ip-172-31-17-240:~$ sudo chmod 777 interactiveHello.sh 
+
+Run the script to show output:
+ubuntu@ip-172-31-17-240:~$ ./interactiveHello.sh
+
+Example Outcomes:
+__________________________________
+Do you want me to greet the World?
+It's okay if you don't, just input 'N'.
+r                           (this is user input)
+Hello World!!
+Do you want me to greet the World?
+It's okay if you don't, just input 'N'.
+U                           (this is user input)
+Hello World!!
+Do you want me to greet the World?
+It's okay if you don't, just input 'N'.
+n                           (this is user input)
+(the script quits with user input "n")
+__________________________________
+
+
+
+
+
+
+
