@@ -73,5 +73,160 @@ You are in charge of creating a program for the lottery in your area! The option
 Create a script that picks 5 for each draw plus a bonus ball number between 1 and 10. Output the numbers to a file that has the date in its name.
 Create another script that will allow users to check their lottery numbers and advise them if they match or not and how many matches they got.
 
+Script CarlTangYongHan-scripting-activity3A.txt
+____________________________________
+#!/bin/bash
 
 
+# Keep track of unchosen numbers
+leftover=50
+
+# Available numbers in the pool
+poolArray=(`seq 1 50`)
+
+# Keep track of unchosen numbers from 1 - 10
+remainingOfTen=10
+
+touch luckyDraw
+
+function draw()
+{
+        # Check leftover pool size:
+        leftover=${#poolArray[@]}
+
+        if [ $leftover != 0 ]
+        then
+                # Randomly pick a number from leftover pool:
+                R=$(($RANDOM%$leftover))
+
+                selected=${poolArray[$R]}
+
+                # Check if selected number falls within 1-10
+                if [ $selected -ge 1 ] && [ $selected -le 10 ]
+                then
+                        (( remainingOfTen=remainingOfTen-1 ))
+                fi
+
+                # Remove picked number from pool:
+                unset poolArray[$R]
+
+                # Produce selected number:
+                echo $selected
+        fi
+}
+
+for i in {1..5}
+do
+# Add lucky number to record
+draw >> luckyDraw
+done
+
+# Draw from 1 - 10 if applicable
+if [ $remainingOfTen -ge 1 ]
+then
+R10=$(($RANDOM%$remainingOfTen))
+
+selected10=${poolArray[$R10]}
+unset poolArray[$R10]
+(( remainingOfTen=remainingOfTen-1 ))
+       
+echo $selected10 >> luckyDraw
+fi
+
+
+mv luckyDraw luckyDraw`date +%Y%m%d`
+
+___________________________________________
+
+
+Script CarlTangYongHan-scripting-activity3A.txt
+____________________________________
+#!/bin/bash
+
+filename="luckyDraw20220728"
+
+echo This is for lottery check,
+echo please enter your six numbers.
+
+# count of lucky matches
+match=0
+# user inputs of 6 numbers kept in array
+inputs=()
+# actual winning numbers kept in array
+actual=()
+
+# Read data from lucky draw and load into array
+while read num
+do
+	actual+=($num)
+done < $filename
+
+# Interact with user
+for i in {1..6}
+do
+	actual+=($num)
+	echo Your input $i please:
+	read input
+	inputs+=($input)
+	if [ $input == ${actual[$((i-1))]} ]
+	then
+		echo Your input $i matches!
+		match=$((match+1))
+	else
+		echo "Sorry, your input $i doesn't match"
+		echo The actual lucky number is ${actual[$((i-1))]}.
+	fi
+	n=$((n+1))
+done
+
+if [ $match == 6 ]
+then
+	echo Congratulations, you match 100%!
+else
+	echo You matched $match out of 6 numbers.
+fi
+
+echo Actual lucky numbers: ${actual[@]}
+echo Your number set is:-- ${inputs[@]}
+______________________________________________
+
+Example running of script:
+ubuntu@ip-172-31-17-240:~$ cat luckyDraw20220728 
+13
+7
+39
+41
+37
+6
+ubuntu@ip-172-31-17-240:~$ ./CarlTangYongHan-scripting-activity3B.txt
+This is for lottery check,
+please enter your six numbers.
+Your input 1 please:
+11
+Sorry, your input 1 doesn't match
+The actual lucky number is 13.
+Your input 2 please:
+7
+Your input 2 matches!
+Your input 3 please:
+23
+Sorry, your input 3 doesn't match
+The actual lucky number is 39.
+Your input 4 please:
+34
+Sorry, your input 4 doesn't match
+The actual lucky number is 41.
+Your input 5 please:
+37
+Your input 5 matches!
+Your input 6 please:
+45
+Sorry, your input 6 doesn't match
+The actual lucky number is 6.
+You matched 2 out of 6 numbers.
+Actual lucky numbers: 13 7 39 41 37 6
+Your number set is:-- 11 7 23 34 37 45
+_______________________________________
+
+
+Activity 4:
