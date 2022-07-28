@@ -230,3 +230,63 @@ _______________________________________
 
 
 Activity 4:
+
+
+
+
+
+
+
+
+
+
+
+
+Activity 5:
+Write a script that takes a number as an input and reverses it out to the user.
+For example, if the original number is 74985, the output should be 58947.
+
+Script CarlTangYongHan-scripting-activity5.txt
+_________________________________
+#!/bin/bash
+
+echo Please input your number.
+read input
+
+# For calculation:
+number=$input
+
+# For concatenating string:
+numString=""
+
+# Remainder (dynamic):
+R=0
+
+while [ $number != 0 ]
+do
+	R=$((number%10))
+	number=$(((number-R)/10))
+	numString+="$R"
+done
+
+echo Reverted number is: $numString
+__________________________________
+
+Example running of script:
+ubuntu@ip-172-31-17-240:~$ ./CarlTangYongHan-scripting-activity5.txt
+Please input your number.
+1234
+Reverted number is: 4321
+ubuntu@ip-172-31-17-240:~$ ./CarlTangYongHan-scripting-activity5.txt
+Please input your number.
+234500
+Reverted number is: 005432
+__________________________________
+
+
+Activity 6:
+Create a script that takes two number parameters a and b and then shows True if a is larger than b or False otherwise.
+Create a second version of the script that then tells the user the difference between the two numbers.
+Remember to code defensively – ensure that your script handles things appropriately if someone enters things incorrectly!
+
+
