@@ -1,0 +1,77 @@
+GitHub Homework 2022-07-28 - Exercise 13 Scripting Exercises
+
+Carl Tang Yong Han
+
+Linux - Scripting Exercises:
+
+
+For each activity, save your working script to a text file named as:
+yourname-scripting-activity#.txt
+
+
+Activity 1:
+Create a simple shell script to tell the user about their session – they need to know:
+
+What their username is
+What the current date is
+What the time is
+What their current working directory is
+How many files they have in that directory
+What is the biggest file in their current directory
+
+Script CarlTangYongHan-scripting-activity1.txt
+_____________________________________________
+#!/bin/bash
+
+echo This is about your session
+echo User Name is `logname`
+echo Current Date is `date +%d-%m-%Y`
+echo The time is `date +%T`
+echo Current working directory is `pwd`
+echo Number of files in directory: `ls | wc -l`
+echo Biggest file in current directory: `du -ah . | sort -n -r | head -1`
+_____________________________________________
+ubuntu@ip-172-31-17-240:~$ ./CarlTangYongHan-scripting-activity1.txt 
+(Outcome:)
+This is about your session
+User Name is ubuntu
+Current Date is 28-07-2022
+The time is 07:46:01
+Current working directory is /home/ubuntu
+Number of files in directory: 47
+Biggest file in current directory: 276K ./logs
+
+
+Activity 2:
+Create a directory with a few test files in it (the files can be empty).
+Now write a script that for every file in that directory you rename it to have an extension of today's date in YYYYMMDD format.
+
+ubuntu@ip-172-31-17-240:~/scriptingExerciseAct2$ ls
+Test1  Test2  Test3
+
+Script CarlTangYongHan-scripting-activity2.txt
+______________________________
+#!/bin/bash
+
+PATH=~/scriptingExerciseAct2
+
+cd $PATH
+
+for  file in *
+do
+newName="$file.`date +%Y%m%d`"
+mv $file $newName
+done
+
+cd ~
+_____________________________
+### NOTE: Debugging unsuccessful, script could not run properly.
+
+
+Activity 3:
+You are in charge of creating a program for the lottery in your area! The options are for numbers between 1 and 50.
+Create a script that picks 5 for each draw plus a bonus ball number between 1 and 10. Output the numbers to a file that has the date in its name.
+Create another script that will allow users to check their lottery numbers and advise them if they match or not and how many matches they got.
+
+
+
