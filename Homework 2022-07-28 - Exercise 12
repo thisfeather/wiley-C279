@@ -1,0 +1,159 @@
+GitHub Homework 2022-07-28 - Exercise 12
+
+Carl Tang Yong Han
+
+Linux - cron:
+
+
+
+Part 1: cron
+
+
+1. Ensure the fixGenerator.sh script is installed in your home directory.
+ubuntu@ip-172-31-17-240:~$ locate ~ fixGenerator.sh
+/home/ubuntu/fixGenerator.sh
+
+2. Set up the script to run Monday-Friday at 6am.
+
+   0 6 * * 1-5 ~/fixGenerator.sh
+
+3. Set up the script to run at 6pm every Friday.
+   0 18 * * Fri ~/fixGenerator.sh
+
+4. Set up the script to run every half hour from 9-4 on Monday, Wednesday and Friday.
+   0,30 9-16 * * 1,3,5 ~/fixGenerator.sh 
+
+5. Set up the script to run every other hour every day.
+   0 */2 * * *~/fixGenerator.sh
+
+6. Set up the script to run on May 4th at midday.
+   0 12 4 5 *~/fixGenerator.sh
+ 
+7. Set up the script to run on the 1st of every month at 6:25am.
+   25 6 1 * *~/fixGenerator.sh
+
+8. Set up the script to run every 20 minutes every Tuesday between 10am and 2pm.
+   */20 10-14 * * Tue~/fixGenerator.sh
+
+9. Set up the script to run the 1st of every other month on the hour.
+   0 * 1 */2 *~/fixGenerator.sh
+
+10. Set up the script to run at 6am and 8am on Saturday and Sunday.
+    0 6,8 * * 6,0~/fixGenerator.sh
+
+11. Copy the contents of your crontab into a file named crontab.yourname.module13 and place the file in the directory specified by your instructor.
+    ubuntu@ip-172-31-17-240:~$ sudo crontab -l -u ubuntu > crontab.CarlTangYongHan.module13
+
+
+Part 2: Review Exercise
+
+
+1. Create a file named seq1.txt and write a sentence of your choice in it.
+ubuntu@ip-172-31-17-240:~$ vi seq1.txt
+
+2. Create a file named seq2.txt and write a sentence of your choice in it.
+ubuntu@ip-172-31-17-240:~$ vi seq2.txt
+
+3. Create a file named seq3.txt and write a sentence of your choice in it.
+ubuntu@ip-172-31-17-240:~$ vi seq3.txt
+
+4. Generate a list of these files and add the list to another file named list.txt.
+ubuntu@ip-172-31-17-240:~$ ls seq?.txt
+seq1.txt  seq2.txt  seq3.txt
+
+5. Use a single command to copy the contents of all files with seq in the name into a file named total.txt.
+ubuntu@ip-172-31-17-240:~$ cat seq?.txt > total.txt
+
+6. Write a single command that shows how many files you have in your current directory.
+ubuntu@ip-172-31-17-240:~$ ls | wc -l
+43 (Output is 43 lines, i.e. 43 files in the directory)
+
+
+Working with Text:
+
+
+ubuntu@ip-172-31-17-240:~$ vi LOTR.txt
+
+1. Do a case-insensitive search of the file for hobbit and output the results to the screen.
+ubuntu@ip-172-31-17-240:~$ grep -i hobbit LOTR.txt 
+Outcome:
+It came to the creature Gollum, who took it deep into the tunnels of the Misty Mountains. And there i
+t consumed him. The ring gave to Gollum unnatural long life. For five hundred years it poisoned his m
+ind, and in the gloom of Gollum’s cave, it waited. Darkness crept back into the forests of the world.
+ Rumor grew of a shadow in the East, whispers of a nameless fear, and the Ring of Power perceived its
+ time had come. It abandoned Gollum, but then something happened that the Ring did not intend. It was
+ picked up by the most unlikely creature imaginable: a hobbit, Bilbo Baggins, of the Shire.
+For the time will soon come when hobbits will shape the fortunes of all.
+
+2. Put the first eight lines and the last three lines into a new file named LOTRtxt.
+ubuntu@ip-172-31-17-240:~$ cp LOTR.txt LOTRtxt
+ubuntu@ip-172-31-17-240:~$ vi LOTRtxt
+Outcome after editing:
+____________________________
+Galadriel: (speaking partly in Elvish)
+
+(I amar prestar aen.)
+
+The world is changed.
+
+(Han matho ne nen.)
+
+I feel it in the water.
+
+It came to the creature Gollum, who took it deep into the tunnels of the Misty Mountains. And there i
+t consumed him. The ring gave to Gollum unnatural long life. For five hundred years it poisoned his m
+ind, and in the gloom of Gollum’s cave, it waited. Darkness crept back into the forests of the world.
+ Rumor grew of a shadow in the East, whispers of a nameless fear, and the Ring of Power perceived its
+ time had come. It abandoned Gollum, but then something happened that the Ring did not intend. It was
+ picked up by the most unlikely creature imaginable: a hobbit, Bilbo Baggins, of the Shire.
+
+For the time will soon come when hobbits will shape the fortunes of all.
+___________________________________________
+
+3. Run a command on the command line to replace all occurrences of Gollum with Thanos and output the results into a new file named LOTRMarvel.txt.
+ubuntu@ip-172-31-17-240:~$ sed 's/Gollum/Thanos/g' LOTRtxt > LOTRMarvel.txt
+Outcome:
+ubuntu@ip-172-31-17-240:~$ cat LOTRMarvel.txt
+______________________________________________
+Galadriel: (speaking partly in Elvish)
+
+(I amar prestar aen.)
+
+The world is changed.
+
+(Han matho ne nen.)
+
+I feel it in the water.
+
+It came to the creature Thanos, who took it deep into the tunnels of the Misty Mountains. And there i
+t consumed him. The ring gave to Thanos unnatural long life. For five hundred years it poisoned his m
+ind, and in the gloom of Thanos’s cave, it waited. Darkness crept back into the forests of the world.
+ Rumor grew of a shadow in the East, whispers of a nameless fear, and the Ring of Power perceived its
+ time had come. It abandoned Thanos, but then something happened that the Ring did not intend. It was
+ picked up by the most unlikely creature imaginable: a hobbit, Bilbo Baggins, of the Shire.
+
+For the time will soon come when hobbits will shape the fortunes of all.
+_______________________________________________________________
+
+4. On the command line, run a command to compare the LOTR.txt with LOTRMarvel.txt.
+ubuntu@ip-172-31-17-240:~$ diff -c LOTR.txt LOTRMarvel.txt
+
+5. Change the permission on LOTR.txt so that it is read and executable for others and group, and fully accessible for the current user.
+ubuntu@ip-172-31-17-240:~$ sudo chmod 755 LOTR.txt
+
+6. Count the number of words in LOTR.txt.
+ubuntu@ip-172-31-17-240:~$ wc -w LOTR.txt 
+473 LOTR.txt (Outcome: 473 words)
+
+7. Rename the LOTR.txt file to LordOfTheRings.txt.
+ubuntu@ip-172-31-17-240:~$ mv LOTR.txt LordOfTheRings.txt
+
+8. Create a compressed tarball named LOTR.tar.gz that includes all the files you have created in this set of exercises.
+Put the relevant files in a new directory:
+ubuntu@ip-172-31-17-240:~/LOTRdir$ ls
+LOTRMarvel.txt  LOTRtxt  LordOfTheRings.txt
+ubuntu@ip-172-31-17-240:~/LOTRdir$ tar -cvzf LOTR.tar.gz .
+
+
+(Answers for Part 2 was collected into a file in home directory:)
+ubuntu@ip-172-31-17-240:~$ vi module13.CarlTangYongHan.answers
