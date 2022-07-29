@@ -914,10 +914,131 @@ _______________________________
 
 Activity 13:
 Write a script that takes two files of unique numbers and displays the difference between the two lists (without using grep).
-Stretch: Create a new script that does the same thing using grep. Which script runs faster?
+#### Stretch: Create a new script that does the same thing using grep. Which script runs faster?
+
+Script Activity13:
+____________________________________
+#!/bin/bash
+
+echo Please provide two files.
+
+echo File 1:
+read file1
+
+echo File 2:
+read file2
+
+# Pulling data from actual files to create arrays.
+while read -r line; do list1+=("$line"); done < $file1
+while read -r line; do list2+=("$line"); done < $file2
+
+# Initialize unique lists
+uniqueList1=("${list1[@]}")
+uniqueList2=("${list2[@]}")
+
+length1=${#list1[@]}
+length2=${#list2[@]}
+
+# Tract movement of checking base list
+checkLoc=0
+target=$length1
+
+iLoc=0
+jLoc=0
+
+while ((iLoc < length1))
+do
+        base=${uniqueList1[$iLoc]}
+
+        jLoc=0
+
+        while ((jLoc < length2))
+        do
+                there=${uniqueList2[$jLoc]}
+
+                if (( base == there ))
+                then
+                        unset uniqueList1[$iLoc]
+                        uniqueList1=(`echo ${uniqueList1[@]}`)
+                        unset uniqueList2[$jLoc]
+                        uniqueList2=(`echo ${uniqueList2[@]}`)
+
+                        length1=${#uniqueList1[@]}
+                        length2=${#uniqueList2[@]}
+
+                        iLoc=$((iLoc - 1))
+                        break
+                fi
+
+                jLoc=$((jLoc + 1))
+        done
+
+        iLoc=$((iLoc + 1))
+done
+
+if [ ${#uniqueList1[@]} == 0 ]
+then
+        echo File 1 does not have elements not found in File 2.
+else
+        echo Only in File 1:
+        echo ${uniqueList1[@]}
+fi
 
 
+if [ ${#uniqueList2[@]} == 0 ]
+then
+        echo File 2 does not have elements not found in File 1.
+else
+        echo Only in File 2:
+        echo ${uniqueList2[@]}
+fi
+____________________________________
+
+Sample test files:
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ vi compareAct13-1
+
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ vi compareAct13-2
+
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ cat compareAct13-1
+1
+2
+13
+4
+6
+25
+79
+64
+
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ cat compareAct13-2
+1
+64
+2
+89
+6
+13
+7
+
+Outcomes of running script:
+_______________________________
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ ./Activity13
+Please provide two files.
+File 1:
+compareAct13-1
+File 2:
+compareAct13-2
+Only in File 1:
+4 25 79
+Only in File 2:
+89 7
+_______________________________
 
 
 
 Activity 14:
+In the materials folder on the server you will find a file called books. Copy this file to your home directory.
+Write a script that will parse the file, producing an output csv file that will list the word and each time it appears in the file.
+Make sure the list is sorted in the file such that the most common word is listed at the top and then descending.
+For example, a couple of lines in the output file should look like this:
+And,200
+Is,195
+
