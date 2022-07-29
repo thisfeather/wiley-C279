@@ -46,26 +46,30 @@ Activity 2:
 Create a directory with a few test files in it (the files can be empty).
 Now write a script that for every file in that directory you rename it to have an extension of today's date in YYYYMMDD format.
 
-ubuntu@ip-172-31-17-240:~/scriptingExerciseAct2$ ls
+ubuntu@ip-172-31-17-240:~/scriptExerciseAct2$ ls
 Test1  Test2  Test3
 
 Script CarlTangYongHan-scripting-activity2.txt
 ______________________________
 #!/bin/bash
 
-PATH=~/scriptingExerciseAct2
+path=~/scriptExerciseAct2
 
-cd $PATH
+dateToday=`date +%Y%m%d`
 
-for  file in *
+cd $path
+
+for  file in * 
 do
-newName="$file.`date +%Y%m%d`"
-mv $file $newName
+newName="$file.$dateToday"
+mv "$file" "$newName"
 done
 
 cd ~
 _____________________________
-### NOTE: Debugging unsuccessful, script could not run properly.
+Outcome:
+ubuntu@ip-172-31-17-240:~$ ls ./scriptExerciseAct2/
+Test1.20220729  Test2.20220729  Test3.20220729
 
 
 Activity 3:
@@ -289,4 +293,155 @@ Create a script that takes two number parameters a and b and then shows True if 
 Create a second version of the script that then tells the user the difference between the two numbers.
 Remember to code defensively – ensure that your script handles things appropriately if someone enters things incorrectly!
 
+Script CarlTangYongHan-scripting-activity6.txt
+___________________________________
+#!/bin/bash
+
+echo Please give two parameters a and b
+echo Parameter a:
+read a
+echo Parameter b:
+read b
+
+if [ -z "$a" ] || [ -a "$b" ]
+then
+        echo Inputs contain null value.
+        exit 1
+fi
+
+regex='^[+-]?[0-9]+([.][0-9]+)?$'
+
+if ! [[ $a =~ $regex ]] || ! [[ $b =~ $regex ]]
+then
+        echo Inputs contain non-number.
+        exit 1
+fi
+
+if (( a > b ))
+then
+        echo True, a is larger than b.
+else
+        echo False, a is not larger than b.
+fi
+_________________________________
+
+Script Activity6B:
+_________________________________
+$ cat Activity6B
+#!/bin/bash
+
+echo Please give two parameters a and b
+echo Parameter a:
+read a
+echo Parameter b:
+read b
+
+if [ -z "$a" ] || [ -a "$b" ]
+then
+        echo Inputs contain null value.
+        exit 1
+fi
+
+regex='^[+-]?[0-9]+([.][0-9]+)?$'
+
+if ! [[ $a =~ $regex ]] || ! [[ $b =~ $regex ]]
+then
+        echo Inputs contain non-number.
+        exit 1
+fi
+
+if (( a > b ))
+then
+        echo True, a is larger than b.
+        echo Difference between two numbers is $(( $a - $b)).
+else
+        echo False, a is not larger than b.
+        echo Difference between two numbers is $(( $b - $a)).
+fi
+____________________________________
+
+
+Activity 7:
+Create a 10-question true or false quiz game in your script. Choose a topic of your liking for the questions!
+
+Script Activity7:
+____________________________________
+#!/bin/bash
+
+echo This is a True or False quiz game.
+echo "Enter only 't' or 'f' for true or false."
+
+# A separate text file is avoided for easier file management.
+
+# Initiate arrays and block out the [0] location
+Questions=("Start here:")
+Answers=("Start here:")
+
+# Record user's answers and right or wrong
+InputAns=("User answers:")
+InputWR=("Right or wrong:")
+Score=0
+
+# Populating questions array and answers array:
+
+Questions+=("1. Linux was created by Linus Pauling.")
+Answers+=("f")
+
+Questions+=("2. Python was created by Linus Torvalds.")
+Answers+=("f")
+
+Questions+=("3. C comes before C++.")
+Answers+=("t")
+
+Questions+=("4. Python supports object-oriented programming.")
+Answers+=("t")
+
+Questions+=("5. Bash means 'Born as Shell'.")
+Answers+=("f")
+
+Questions+=("6. JavaScript evolved from Java.")
+Answers+=("f")
+
+Questions+=("7. AWS is a cloud service from Amazon.")
+Answers+=("t")
+
+Questions+=("8. Bash does not support for loops.")
+Answers+=("f")
+
+Questions+=("9. Linux Bash shares the same commands as DOS.")
+Answers+=("f")
+
+Questions+=("10. A Bash script starts with a shebang.")
+Answers+=("t")
+
+for i in {1..10}
+do
+        echo ${Questions[$i]}
+        read input
+        if [ $input != "t" ] && [ $input != "f" ]
+        then
+                echo Sorry, wrong input syntax, taken as error.
+                InputAns[$i]="Error"
+        else
+                InputAns[$i]=$input
+                if [ $input == ${Answers[$i]} ]
+                then
+                        Score=$((Score + 1))
+                        InputWR[$i]="Right"
+                        echo You are right!
+                else
+                        InputWR[$i]="Wrong"
+                        echo Sorry, wrong answer.
+                fi
+        fi
+done
+
+echo You have scored: $Score out of 10.
+echo Your answers are:
+echo ${InputAns[@]}
+echo ${InputWR[@]}
+______________________________________________
+
+
+Activity 8:
 
