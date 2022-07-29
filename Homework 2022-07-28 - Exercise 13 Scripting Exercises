@@ -731,8 +731,108 @@ ________________________
 
 
 Activity 11:
+Create a file that includes the following numbers.
+5 6 3 7 4 4 9 6 7 9 8 2 3 6 4 5 1 1 3 10 12
+Write a script that uses this file to perform the following tasks:
+- Read in the file
+- Sort the numbers into reverse order and output them to the screen
+- Each number should output exactly once. Duplicate numbers should not appear in the output.
+
+A file of numbers is first created by pasting in the numbers above:
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ vi FileToSort
+
+Script Activity11:
+_____________________________________
+#!/bin/bash
+
+source="FileToSort"
+
+echo Read and display source file:
+
+read -a OriginalSeries < $source
+
+echo ${OriginalSeries[@]}
+
+# Initiate sorted array
+
+# Replicate the OriginalSeries as sandBox
 
 
+sandBox=(${OriginalSeries[@]})
+
+length=${#OriginalSeries[@]}
+
+max=${sandBox[0]}
+
+for i in `seq 1 $((length-1))`
+do
+        iLoc=$((i-1))
+        for j in `seq $((i + 1)) $length`
+        do
+                max=${sandBox[$iLoc]}
+
+                jLoc=$((j-1))
+                test=${sandBox[$jLoc]}
+
+                if (( $max < $test ))
+                then
+                        sandBox[$iLoc]=$test
+                        sandBox[$jLoc]=$max
+                        max=sandBox[$iLoc]
+                fi
+        done
+done
+
+echo This is sorted list with duplicates:
+echo ${sandBox[@]}
+
+
+# For list without replication, replicate sandBox as smallBox
+
+smallBox=(${sandBox[@]})
+
+
+for i in `seq 1 $((length-1))`
+do
+        iLoc=$((i-1))
+        for j in `seq $((i + 1)) $length`
+        do
+                stay=${smallBox[$iLoc]}
+
+                jLoc=$((j-1))
+                test=${smallBox[$jLoc]}
+
+                if [ "$stay" == "$test" ]
+                then
+                        unset smallBox[$jLoc]
+                else
+                        continue
+                fi
+        done
+done
+
+echo This is sorted list with NO duplicates:
+echo ${smallBox[@]}
+
+_____________________________________
+
+Outcomes of Running Script:
+_______________________________
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ ./Activity11
+Read and display source file:
+5 6 3 7 4 4 9 6 7 9 8 2 3 6 4 5 1 1 3 10 12
+This is sorted list with duplicates:
+12 10 9 9 8 7 7 6 6 6 5 5 4 4 4 3 3 3 2 1 1
+This is sorted list with NO duplicates:
+12 10 9 8 7 6 5 4 3 2 1
+_______________________________
+
+
+
+Activity 12:
+Write a script that checks if two files have at least one common element or not.
+Display an appropriate message for both scenarios. The file names should be specified as parameters.
+You will need to create the files to test this.
 
 
 
