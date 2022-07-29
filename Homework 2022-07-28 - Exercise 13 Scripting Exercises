@@ -643,6 +643,96 @@ Write a script that takes a file name as a parameter.
 
 Script Activity9:
 ________________________
+#!/bin/bash
+
+echo Please provide file name to check.
+read fileName
+
+loc="./*"
+
+for file in $loc
+do
+        echo Old file is $file
+        echo new file is $fileName
+
+        if [ "$fileName" == "$file" ]
+        then
+                echo Error: File already exist.
+                exit 1
+        else
+                touch $fileName
+                exit 0
+        fi
+done
+_________________________________
+### NOTE: Unknown bug occured, unable to debug on Git Bash.
+### AWS vi is totally unusable at this point. Need to use Git Bash on local machine.
+
+
+Activity 10:
+Write a script that writes random numbers to a file (one number per line).
+- The first parameter should be the file name.
+- The second parameter is the number of lines to write.
+- If the specified file already exists, display a relevant message and return a code.
+
+Script Activity10:
+____________________________________
+#!/bin/bash
+
+echo Please provide file name and number of lines.
+
+echo File name:
+read fileName
+
+echo Number of Lines:
+read numLine
+
+if [[ -f "$fileName" ]]
+then
+        echo Error: file name already exists.
+        exit 1
+else
+        for i in `seq $numLine`
+        do
+                echo $RANDOM >> $fileName
+        done
+fi
+
+echo Here is your file content:
+cat $fileName
+___________________________________
+Example of running script:
+________________________
+Carl@DESKTOP-T2NNS4H MINGW64 ~
+$ ./Activity10
+Please provide file name and number of lines.
+File name:
+randomTry1
+Number of Lines:
+7
+Here is your file content:
+17885
+24646
+6437
+32402
+25250
+29019
+18215
+
+Carl@DESKTOP-T2NNS4H MINGW64 ~
+$ ./Activity10
+Please provide file name and number of lines.
+File name:
+randomTry1
+Number of Lines:
+4
+Error: file name already exists.
+________________________
+
+
+Activity 11:
+
+
 
 
 
