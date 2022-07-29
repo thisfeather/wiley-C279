@@ -336,7 +336,7 @@ read a
 echo Parameter b:
 read b
 
-if [ -z "$a" ] || [ -a "$b" ]
+if [ -z "$a" ] || [ -z "$b" ]
 then
         echo Inputs contain null value.
         exit 1
@@ -444,4 +444,206 @@ ______________________________________________
 
 
 Activity 8:
+Create a script that completes the following tasks:
+1. It prompts the user for a series of 5-10 integers.
+   - The user must be prompted for a minimum of 5 numbers.
+   - After the user has entered 5 numbers, the program should allow the user to stop entry or enter another number.
+2. When the user chooses to stop or after 10 numbers have been entered, the program stops prompting for values and performs the following calculations:
+   - the product of the integers
+   - the average of the integers
+   - the sum of the integers
+   - the min of the integers
+   - the max of the integers
+3. After performing the calculations, the program should display the following to the user:
+   - the values the user entered
+   - each of the calculations, using a phrase that identifies the value
+   
+Script Activity8:
+_______________________________________________
+#!/bin/bash
+
+
+echo "Please enter 5-10 integers."
+
+inputCount=0
+userInputs=("User Inputs:")
+
+
+# Target calculations to keep track
+product=1
+sum=0
+min=""
+max=""
+
+
+# Checking input as numbers
+regex='^[+-]?[0-9]+$'
+
+while [ $inputCount -lt 10 ]
+do
+        read input
+
+        # Give user choice to quit
+        if [ $input == "n" ]
+        then
+                break
+        else
+                while ! [[ $input =~ $regex ]]
+                do
+                        echo Please enter a valid number
+                        read input
+                done
+        fi
+        userInputs+=($input)
+        inputCount=$((inputCount + 1))
+        echo inputCount is $inputCount
+
+
+        # Give user choice to quit
+        if [ $input == "n" ]
+        then
+                break
+        fi
+
+        # initiate min and max if necessary:
+        if [ -z "$min" ]
+        then
+                min=$input
+        fi
+
+        if [ -z "$max" ]
+        then
+                max=$input
+        fi
+
+
+        # Update the latest min and max:
+
+        if [ ${#userInputs[@]} > 1 ]
+        then
+                if [ $input -lt $min ]
+                then
+                        min=$input
+                fi
+        fi
+
+        if [ ${#userInputs[@]} > 1 ]
+        then
+                if [ $input -gt $max ]
+                then
+                        max=$input
+                fi
+        fi
+
+
+        # Update the latest product and sum:
+        product=$((product * input))
+        sum=$((sum + input))
+
+        # Check for input requirements
+        if [ $inputCount -lt 5 ]
+        then
+                echo Please make at least 5 inputs.
+        elif [ $inputCount == 10 ]
+        then
+                echo You have input 10 integers, that is all.
+        else
+                echo You have input at least 5 integers,
+                echo please feel free to input up to 10 integers.
+                echo "Enter 'n' if you don't want to continue input."
+        fi
+
+done
+
+
+# Part 2 & 3:
+
+if [ $inputCount != 0 ]
+then
+        # Bash cannot do floating point division,
+        # need alternative ways to divide
+        largeQuotion=$((sum * 1000 / inputCount))
+        remainder=$((largeQuotion%1000))
+        average="$((sum / inputCount)).$remainder"
+fi
+
+if [ $inputCount -lt 5 ]
+then
+        echo "Sorry, you don't have at least 5 integers input."
+else
+
+        echo Your inputs are:
+        echo ${userInputs[@]}
+
+        if [ $inputCount != 0 ]
+        then
+                echo The product of the integers is $product
+        fi
+
+        if [ $inputCount != 0 ]
+        then
+                echo The average of the integers is $average
+        fi
+
+        echo The sum of the integers is $sum
+
+        if [ $inputCount != 0 ]
+        then
+                echo The min of the integers is $min
+        fi
+
+        if [ $inputCount != 0 ]
+        then
+                echo The max of the integers is $max
+        fi
+
+fi
+________________________________________________
+Example of running the script:
+______________________________________
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ ./Activity8
+Please enter 5-10 integers.
+2
+inputCount is 1
+Please make at least 5 inputs.
+3
+inputCount is 2
+Please make at least 5 inputs.
+4
+inputCount is 3
+Please make at least 5 inputs.
+5
+inputCount is 4
+Please make at least 5 inputs.
+6
+inputCount is 5
+You have input at least 5 integers,
+please feel free to input up to 10 integers.
+Enter 'n' if you don't want to continue input.
+7
+inputCount is 6
+You have input at least 5 integers,
+please feel free to input up to 10 integers.
+Enter 'n' if you don't want to continue input.
+n
+Your inputs are:
+User Inputs: 2 3 4 5 6 7
+The product of the integers is 5040
+The average of the integers is 4.500
+The sum of the integers is 27
+The min of the integers is 2
+The max of the integers is 7
+________________________________________
+
+
+Activity 9:
+Write a script that takes a file name as a parameter.
+- If the file exists, print an error and return a code.
+- If the file does not exist, create the file.
+
+Script Activity9:
+________________________
+
+
+
 
