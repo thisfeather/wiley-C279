@@ -834,6 +834,90 @@ Write a script that checks if two files have at least one common element or not.
 Display an appropriate message for both scenarios. The file names should be specified as parameters.
 You will need to create the files to test this.
 
+Sample files creation (3 files to compare for positive and negative results):
+
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ echo The quick brown fox jumps over the lazy dog > compareFile1
+
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ echo Dog does not sleep like the cat > compareFile2
+
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ echo Spider-man is not a normal spider nor a normal man > compareFile3
+
+Script Activity12:
+_______________________________________
+#!/bin/bash
+
+echo Please provide two files for comparison.
+
+echo File 1:
+read file1
+
+echo File 2:
+read file2
+
+# Read actual files to create arrays of words
+read -a wordSet1 < $file1
+read -a wordSet2 < $file2
+
+# Initialize flag
+gotCommon=0
+
+length1=${#wordSet1[@]}
+length2=${#wordSet2[@]}
+
+for i in `seq 1 $length1`
+do
+        iLoc=$((i-1))
+        wordHere=${wordSet1[$iLoc]}
+
+        for j in `seq 1 $length2`
+        do
+                jLoc=$((j-1))
+                wordThere=${wordSet2[$jLoc]}
+
+                if [ "$wordHere" == "$wordThere" ]
+                then
+                        gotCommon=$((gotCommon + 1))
+                        echo Common element found: $wordHere
+                        exit 0
+                fi
+        done
+done
+
+
+# In case there is no common element:
+if (( gotCommon < 1 ))
+then
+        echo There is no common element between the files.
+fi
+_______________________________________
+
+Testing the script with two pairs of files:
+_________________________________
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ ./Activity12
+Please provide two files for comparison.
+File 1:
+compareFile1
+File 2:
+compareFile2
+Common element found: the
+
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ ./Activity12
+Please provide two files for comparison.
+File 1:
+compareFile1
+File 2:
+compareFile3
+There is no common element between the files.
+_______________________________
 
 
 
+Activity 13:
+Write a script that takes two files of unique numbers and displays the difference between the two lists (without using grep).
+Stretch: Create a new script that does the same thing using grep. Which script runs faster?
+
+
+
+
+
+Activity 14:
