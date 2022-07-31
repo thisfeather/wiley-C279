@@ -1268,6 +1268,9 @@ fi
 
 # Make convenient location for logging later
 wrapLoc="./wrapperLogDir-Activity15/$wrapperLog"
+wrapLocFromHome="/c/Users/Carl/wrapperLogDir-Activity15/$wrapperLog"
+## Note: the path refers to my Windows system which runs Git Bash for this Activity.
+## No /home/ available.
 
 touch $wrapLoc
 echo "The wrapper log $wrapperLog was initiated at `date`." >> $wrapLoc
@@ -1296,7 +1299,6 @@ else
         echo "The fixGenerator failed, wrapper script exited `date`." >> $wrapLoc
         exit 1
 fi
-
 
 
 # Start checking the directory
@@ -1381,7 +1383,7 @@ else
                 # If archive file does not exist,
                 # Use the oldest log file to start one.
                 tar -cvf logArchive.tar ${logArray[0]}
-                echo Oldest log file ${logArray[0]} used to start archive tar file. >> $wrapLoc
+                echo Oldest log file ${logArray[0]} used to start archive tar file. >> $wrapLocFromHome
                 # Remove the archived log file from array
                 unset logArray[0]
                 logArray=(`echo ${logArray[@]}`)
@@ -1397,7 +1399,7 @@ else
         do
                 # Append each older log file to archive
                 tar -rvf logArchive.tar ${logArray[$i]}
-                echo The file ${logArray[$i]} was archived. >> $wrapLoc
+                echo The file ${logArray[$i]} was archived. >> $wrapLocFromHome
                 # Remove archived file from directory
                 rm ${logArray[$i]}
         done
@@ -1456,6 +1458,38 @@ Carl@DESKTOP-T2NNS4H MINGW64 ~$ tar -tvf FixGen/logs/logArchive.tar
 -rw-r--r-- Carl/197121   50163 2022-07-31 23:58 fixlog20220731235415.log
 -rw-r--r-- Carl/197121    1296 2022-08-01 00:31 fixlog20220801003127.log
 
+## Example of a wrapper log file (one is created every time the wrapper script is run):
+# Script successfully run, some fixlog files were affected, i.e. moved and/or archived.
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ ./Activity15
+fixlog20220801012550.log
+fixlog20220801014303.log
+fixlog20220801015835.log
+fixlog20220801021159.log
+
+# Prove that the wrapper script ran well:
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ echo $?
+0
+
+# Look up the directory keeping the wrapper script's log files:
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ cd wrapperLogDir-Activity15/; ls
+wrapperLog20220801003501.log  wrapperLog20220801015835.log
+wrapperLog20220801014303.log  wrapperLog20220801023133.log
+
+# Checking the contents of the latest wrapper log file:
+Carl@DESKTOP-T2NNS4H MINGW64 ~/wrapperLogDir-Activity15$ cat wrapperLog20220801023133.log
+The wrapper log wrapperLog20220801023133.log was initiated at Mon Aug  1 02:31:33 MPST 2022.
+The fixGenerator script was activated at Mon Aug  1 02:31:33 MPST 2022.
+The fixGenerator runs successfully, completed Mon Aug  1 02:35:44 MPST 2022.
+The previously non-existent /FixGen is created,    ### Mysteriously echoed although the logic says otherwise.
+... followed by /FixGen/logs.                      ### Mysteriously echoed although the logic says otherwise.
+Found 2 log file(s) in home directory.
+Moved 2 log file(s) to ~/FixGen/logs/.
+The file fixlog20220801012550.log was archived.
+The file fixlog20220801014303.log was archived.
+The file fixlog20220801015835.log was archived.
+The file fixlog20220801021159.log was archived.
+
+__________________________________
 
 ## As I am using Git Bash on Windows, I am unable to install packages,
 ## and cron does not come preinstalled.
@@ -1470,7 +1504,49 @@ Carl@DESKTOP-T2NNS4H MINGW64 ~$ pwd
 
 
 
+// Activity 16:
+Write a script that will output a csv that could be loaded into ITRS Geneos for monitoring on your fixGen script.
+ - It needs to parse the log file and produce a count of each message type that has been received or sent.
+ - Ensure you distinguish in the csv file if the message was sent or received.
+ - Also ensure you display the message type in English so it is easy to understand in monitoring.
+   An example might look like:
+             Number of Partial fills,12
 
+
+
+
+
+
+
+
+
+// Activity 17:
+Create a script to convert your fix log file into a useful csv.
+Pull out the following information for each message:
+ - If the fix tag is in the message, leave a blank in the csv so that it will load appropriately in Excel.
+ - Translate the message type value into meaningful words.
+ - Ensure you have a header row in your csv file:
+Client, Message type, stock, quantity, price, side, order id, last quantity, exec id, last price 
+
+
+
+
+
+
+
+
+// Activity 18:
+Run the fixGenerator script to generate a fix log file.
+ - Create a script to parse that log file and for each order create a text description of what happened with that order.
+ - This should go into a log file with a paragraph for each order.
+For example:
+
+New buy order for apple with order id 12335, 100 shares at price 54.2 
+Partial fill for apple with order id 12335, 20 shares at price 54.2
+Cancel message for apple with order id 12335
+Final state of order for apple with order id 12335: traded 40 shares at price 54.2. 
+
+Remember that each time you run the fix generator script, it creates a new log file so this is a good way to test.
 
 
 
