@@ -1254,8 +1254,158 @@ Your script should also output its own log file where we can see the status each
 
 Script Activity15:
 __________________________________
+#!/bin/bash
+
+# Activity 15:
 
 
+# Create a log file for this wrapper script running itself:
+wrapperLog="wrapperLog"`date "+%Y%m%d%H%M%S"`".log"
+if [ ! -d /wrapperLogDir-Activity15 ]
+then
+        mkdir -p "wrapperLogDir-Activity15"
+fi
+
+# Make convenient location for logging later
+wrapLoc="./wrapperLogDir-Activity15/$wrapperLog"
+
+touch $wrapLoc
+echo "The wrapper log $wrapperLog was initiated at `date`." >> $wrapLoc
+
+# The fix generator script:
+fixGenerator=fixGenerator2.sh
+
+# Check for a folder "FixGen/logs",
+# Assuming wrapper script is always in Home directory.
+
+# Compose multiple levels of directory:
+dirLevel1="FixGen"
+dirLevel2="logs"
+wantedDir="$dirLevel1/$dirLevel2"
+
+
+# Run the fixGenerator script in the wanted directory as cron asks the wrapper script to.
+# Capture exit code, with the fixGenerator already amended to offer exit code.
+echo "The fixGenerator script was activated at `date`." >> $wrapLoc
+FGExit=`./$wantedDir/$fixGenerator | echo $?`
+
+if [ $FGExit == 0 ]
+then
+        echo "The fixGenerator runs successfully, completed `date`." >> $wrapLoc
+else
+        echo "The fixGenerator failed, wrapper script exited `date`." >> $wrapLoc
+        exit 1
+fi
+
+
+
+# Start checking the directory
+
+if [ ! -d "/$dirLevel1" ]
+then
+        mkdir -p $dirLevel1
+        mkdir -p $wantedDir
+        echo The previously non-existent /$dirLevel1 is created, >> $wrapLoc
+        echo ... followed by /$wantedDir. >> $wrapLoc
+else
+        cd $dirLevel1/.
+        if ! [ -d "/$dirLevel2" ]
+        then
+                # Create Level 2 directory if not already there
+                mkdir -p $dirLevel2
+                echo The directory /$dirLevel1 exists but ./$dirLevel2 did not, >> $wrapLoc
+                echo ... hence /$wantedDir was created. >> $wrapLoc
+        else
+                cd $dirLevel2/.
+                # if folder already exist, append "fixlog0"
+                # as prefix to any file, to make them old
+                # and ready to archive.
+                for fileName in *
+                do
+                        ### Due to the danger of the following command,
+                        ### I have commented it out. When I know better,
+                        ### I might implement this feature again.
+                        ### for now it's lucky that the directory is empty.
+
+                        ## mv $fileName "fixlog0$fileName"
+                        :
+                done
+                cd ..
+        fi
+        cd ~
+fi
+
+# In case some of the log files are scattered in home directory,
+# move them into the wanted directory above.
+
+outsideLog=(`ls fixlog*`)
+outsideLogCount=${#outsideLog[@]}
+
+if [ $outsideLogCount -gt 0 ]
+then
+        mv fixlog* $wantedDir/.
+        echo "Found $outsideLogCount log file(s) in home directory." >> $wrapLoc
+        echo "Moved $outsideLogCount log file(s) to ~/$wantedDir/." >> $wrapLoc
+fi
+
+
+# In case fixGenerator script is still in home directory,
+# move it into the wanted directory above.
+
+if [ -f "$fixGenerator" ]
+then
+        mv $fixGenerator $wantedDir/.
+        echo "Moved $fixGenerator from home directory to ~/$wantedDir/." >> $wrapLoc
+fi
+
+
+# Compress all log files that are not the latest 3 log files generated:
+cd $wantedDir/.
+
+# Count how many log files are found lying around
+# Make an array of log file names for later use
+
+logArray=(`ls fixlog* | sort`)
+numLogs=${#logArray[@]}
+
+# if there are only 3 log files, do nothing,
+# but with more log files, check if an archive file already exists.
+if [ $numLogs -le 3 ]
+then
+        :
+else
+        # Here we have at least 4 log files,
+        # hence create archive file or add extra files to existing archive
+        if ! [ -f logArchive.tar ]
+        then
+                # If archive file does not exist,
+                # Use the oldest log file to start one.
+                tar -cvf logArchive.tar ${logArray[0]}
+                echo Oldest log file ${logArray[0]} used to start archive tar file. >> $wrapLoc
+                # Remove the archived log file from array
+                unset logArray[0]
+                logArray=(`echo ${logArray[@]}`)
+                numLogs=${#logArray[@]}
+        fi
+
+        # Now start to add log files to existing archive
+        # In order to keep the latest 3, figure out the
+        # array location of last archivable log file:
+        lastLoc=$((numLogs - 4))
+
+        for i in `seq 0 $lastLoc`
+        do
+                # Append each older log file to archive
+                tar -rvf logArchive.tar ${logArray[$i]}
+                echo The file ${logArray[$i]} was archived. >> $wrapLoc
+                # Remove archived file from directory
+                rm ${logArray[$i]}
+        done
+fi
+
+cd ~
+
+exit 0
 __________________________________
 
 Test running script:
@@ -1282,6 +1432,44 @@ Carl@DESKTOP-T2NNS4H MINGW64 ~/FixGen/logs$ tar -tvf logArchive.tar
 -rw-r--r-- Carl/197121   52098 2022-07-31 16:45 fixlog20220731164141.log
 
 ## The above shows that 5 out of 8 log files are archived, leaving the latest 3 log files.
+## The following shows that at later tests, more log files are archived, leaving the latest three.
+Carl@DESKTOP-T2NNS4H MINGW64 ~
+$ ls FixGen/logs
+fixGenerator2.sh*         fixlog20220801003408.log  logArchive.tar
+fixlog20220801003339.log  fixlog20220801003502.log
+
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ tar -tvf FixGen/logs/logArchive.tar
+-rw-r--r-- Carl/197121   51509 2022-07-31 16:14 fixlog20220731161058.log
+-rw-r--r-- Carl/197121   11517 2022-07-31 16:27 fixlog20220731162524.log
+-rw-r--r-- Carl/197121   52439 2022-07-31 16:31 fixlog20220731162751.log
+-rw-r--r-- Carl/197121   49297 2022-07-31 16:37 fixlog20220731163344.log
+-rw-r--r-- Carl/197121   52098 2022-07-31 16:45 fixlog20220731164141.log
+-rw-r--r-- Carl/197121   55963 2022-07-31 17:55 fixlog20220731175109.log
+-rw-r--r-- Carl/197121   50182 2022-07-31 18:13 fixlog20220731181003.log
+-rw-r--r-- Carl/197121   50602 2022-07-31 18:39 fixlog20220731183547.log
+-rw-r--r-- Carl/197121    1950 2022-07-31 20:39 fixlog20220731203917.log
+-rw-r--r-- Carl/197121   50725 2022-07-31 21:04 fixlog20220731210023.log
+-rw-r--r-- Carl/197121     972 2022-07-31 23:26 fixlog20220731232614.log
+-rw-r--r-- Carl/197121     162 2022-07-31 23:27 fixlog20220731232735.log
+-rw-r--r-- Carl/197121    1296 2022-07-31 23:44 fixlog20220731234419.log
+-rw-r--r-- Carl/197121   49492 2022-07-31 23:54 fixlog20220731235029.log
+-rw-r--r-- Carl/197121   50163 2022-07-31 23:58 fixlog20220731235415.log
+-rw-r--r-- Carl/197121    1296 2022-08-01 00:31 fixlog20220801003127.log
+
+
+## As I am using Git Bash on Windows, I am unable to install packages,
+## and cron does not come preinstalled.
+## This is my equivalent of /home/
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ pwd
+/c/Users/Carl
+
+# Suppose I could use the path /home/, and could crontab -e to edit cron jobs,
+# I would have written this:
+
+0 6 * * 1-5 /home/Activity14   (I didn't use .sh for my file name)
+
+
+
 
 
 
