@@ -1149,8 +1149,93 @@ Make sure the list is sorted in the file such that the most common word is liste
 For example, a couple of lines in the output file should look like this:
    And,200
    Is,195
+   
+### NOTE: as I am not aware of any materials folder on a common server that students can access,
+I am using the data of the Top 500 Novels from: https://www.oclc.org/en/worldcat/library100/top500.html
+
+The raw data is kept in a file called "books".
+
+The data looks like this:
+___________________________________
+1       Don Quixote
+2       Alice's Adventures in Wonderland
+3       The Adventures of Huckleberry Finn
+4       The Adventures of Tom Sawyer
+7       Wuthering Heights
+10      The Scarlet Letter
+13      A Christmas Carol
+15      A Tale of Two Cities
+16      Little Women
+17      Great Expectations
+18      The Hobbit, or, There and Back Again
+19      Frankenstein, or, the Modern Prometheus
+20      Oliver Twist
+... (followed by the next 480 novels)
+____________________________________
+
+Script Activity14:
+_______________________________________
+#!/bin/bash
+
+# This Activity uses a self-created book list of 500 top novels,
+# derived from https://www.oclc.org/en/worldcat/library100/top500.html
 
 
+sourceFile="books"
+
+# Clean up punctuations and numbers, including numbers found in book names.
+# All replaced by a space, to be further cleaned up later on. After that,
+# convert all words to the same form of capitalization of first character.
+
+sed -e 's/[[:punct:]]/ /g' $sourceFile | sed -e 's/[0-9]/ /g' | \
+        sed -e 's/[A-Z]/\L&/g' | sed -e 's/\<./\U&/g' > sourceFile2
+
+# Clean up all sorts of spaces, leaving only words separated by new lines,
+
+cat sourceFile2 | tr -s [:space:] '\n' > sourceFile3
+rm sourceFile2
+
+# Sort the words in file,
+# deduplicate the words while printing out number of occurrences.
+# sort by numbers in reverse order
+
+cat sourceFile3 | sort | uniq -c | sort -n -r > cleanBooks
+rm sourceFile3
+
+# Format the outcome into desired csv file.
+# As awk would add extra spaces, we need to remove space again.
+awk '{print $2, ",", $1}' cleanBooks | sed 's/ //g' > books.csv
+rm cleanBooks
+_______________________________________
+Output of running the script, which is "books.csv":
+___________________________________
+Carl@DESKTOP-T2NNS4H MINGW64 ~
+$ cat books.csv | less
+The,307
+Of,108
+And,38
+A,37
+S,28
+In,26
+To,11
+On,11
+House,9
+For,9
+King,8
+Time,7
+Potter,7
+Little,7
+Harry,7
+Girl,6
+With,5
+Tale,5
+Red,5
+Man,5
+Life,5
+Last,5
+Adventures,5
+... (the list goes on)
+____________________________________
 
 
 
