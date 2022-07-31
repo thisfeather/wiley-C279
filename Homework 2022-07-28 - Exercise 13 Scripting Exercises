@@ -1250,5 +1250,42 @@ Once complete, add a cron job that will run Monday through Friday 6 a.m. to esta
 Remember to code defensively and ensure that you use exit codes so we know the job has successfully run.
 Your script should also output its own log file where we can see the status each step of the way of each part of the script.
 
+## The command "exit 0" was added to fixGenerator, and the file is now called "fixGenerator2.sh".
+
+Script Activity15:
+__________________________________
+
+
+__________________________________
+
+Test running script:
+_____________________________
+## Show the file structure already created with running the script once,
+## along with the log files generated and moved into this folder so far:
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ ls FixGen/logs
+fixGenerator2.sh*         fixlog20220731162751.log  fixlog20220731175109.log
+fixlog20220731161058.log  fixlog20220731163344.log  fixlog20220731181003.log
+fixlog20220731162524.log  fixlog20220731164141.log  fixlog20220731183547.log
+
+## Test running the script without generating new log file and without cron scheduling:
+## (to test compression of old log files)
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ ls FixGen/logs
+fixGenerator2.sh*         fixlog20220731181003.log  logArchive.tar
+fixlog20220731175109.log  fixlog20220731183547.log
+
+## Look inside archive file:
+Carl@DESKTOP-T2NNS4H MINGW64 ~/FixGen/logs$ tar -tvf logArchive.tar
+-rw-r--r-- Carl/197121   51509 2022-07-31 16:14 fixlog20220731161058.log
+-rw-r--r-- Carl/197121   11517 2022-07-31 16:27 fixlog20220731162524.log
+-rw-r--r-- Carl/197121   52439 2022-07-31 16:31 fixlog20220731162751.log
+-rw-r--r-- Carl/197121   49297 2022-07-31 16:37 fixlog20220731163344.log
+-rw-r--r-- Carl/197121   52098 2022-07-31 16:45 fixlog20220731164141.log
+
+## The above shows that 5 out of 8 log files are archived, leaving the latest 3 log files.
+
+
+
+
+
 
 
