@@ -359,7 +359,7 @@ ______________________
 Write a script that takes a number as an input and reverses it out to the user.
 For example, if the original number is 74985, the output should be 58947.
 
-Script CarlTangYongHan-scripting-activity5.txt
+Script CarlTangYongHan-scripting-activity05.txt
 _________________________________
 #!/bin/bash
 
@@ -402,7 +402,7 @@ Create a script that takes two number parameters a and b and then shows True if 
 Create a second version of the script that then tells the user the difference between the two numbers.
 Remember to code defensively – ensure that your script handles things appropriately if someone enters things incorrectly!
 
-Script CarlTangYongHan-scripting-activity6.txt
+Script CarlTangYongHan-scripting-activity06A.txt
 ___________________________________
 #!/bin/bash
 
@@ -436,7 +436,6 @@ _________________________________
 
 Script Activity6B:
 _________________________________
-$ cat Activity6B
 #!/bin/bash
 
 echo Please give two parameters a and b
