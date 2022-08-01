@@ -1515,15 +1515,280 @@ Write a script that will output a csv that could be loaded into ITRS Geneos for 
 ## All messages have a send party and receive party. I am assuming the position of the broker,
 ## to determine if I am sending to client or receiving from client.
 
+Script Activity16:
+____________________________________
+#!/bin/bash
+
+
+# Location of log file:
+fileDir="./FixGen/logs/"
+
+# Ask for file name:
+echo Please provide file name:
+read fileName
+
+# Actual log file:
+logFile="$fileDir$fileName"
+
+# Extract Date and Time:
+# dateTime=$(echo $fileName | sed 's/fixlog//g')
 
 
 
 
+### Codes Definition
+
+# Parties
+client="MTHREE"
+broker="MS"
+
+# Send or receive codes
+sendCode="49=$broker"
+receiveCode="56=$broker"
+
+
+
+# Message Type <35>
+
+Message35Items=("Logon Type" "News Type" "Email Type" "New Order Single Type" "New Order List Type" "Order Cancel Request Type" "Order Cancel/Replace Request Type" "Order Status Request Type" "Allocation Type" "List Cancel Request Type" "List Execute Type" "List Status Request Type" "Heartbeat Type" "Test Request Type" "Resend Request Type" "Reject Type" "Sequence Reset Type" "Logout Type" "Indication of Interest Type" "Advertisement Type" "Execution Report Type" "Order Cancel Reject Type")
+
+Message35Codes=("35=A" "35=B" "35=C" "35=D" "35=E" "35=F" "35=G" "35=H" "35=J" "35=K" "35=L" "35=M" "35=0" "35=1" "35=2" "35=3" "35=4" "35=5" "35=6" "35=7" "35=8" "35=9")
+
+
+
+# Order Status Message Types <39>
+
+Message39Items=("New Order" "Partial Fill Order" "Fill Order" "Done for the Day Order" "Cancelled Order" "Replace Order" "Pending Cancel Order" "Stopped Set Order" "Rejected Order" "Suspended Order")
+
+Message39Codes=("39=0" "39=1" "39=2" "39=3" "39=4" "39=5" "39=6" "39=7" "39=8" "39=9")
+
+
+
+# Execution Report Message Types (150)
+
+Message150Items=("New Exec" "Partial Fill Exec" "Fill Exec" "Done for the Day Exec" "Cancelled Order Exec" "Replace Exec" "Pending Cancel Exec" "Stopped Set Exec" "Rejected Exec" "Suspended Order")
+
+Message150Codes=("150=0" "150=1" "150=2" "150=3" "150=4" "150=5" "150=6" "150=7" "150=8" "150=9")
+
+
+
+# Execution Transaction Type <20>
+
+Message20Items=("New Order Ack Transact Type" "Cancel Prev Reported Exec Tr" "Correction to Prev Reported Exec Tr" "Report Status of Orders Exec Tr")
+
+Message20Codes=("20=0" "20=1" "20=2" "20=3")
 
 
 
 
-// Activity 17:
+### Start Processing and Outputing
+
+# Start reading data
+dateTime=$(echo $fileName | sed 's/fixlog//g' | sed 's/.log//g')
+
+
+# Output file for ITRS:
+outputFile="ITRS$dateTime.csv"
+touch $outputFile
+
+# Make headers:
+echo SEND-RECv,ITEM,DATA >> $outputFile
+
+# Date
+echo "N/A,Date and Time,$dateTime" >> $outputFile
+
+
+
+# Loop to List out Messages of Tag <35>
+count35=${#Message35Items[@]}
+endLoc35=$((count35 - 1))
+echo "N/A,Message Type <35>,N/A" >> $outputFile
+for i in `seq 0 $endLoc35`
+do
+        item=${Message35Items[$i]}
+        sendCount=$(cat $logFile | grep "${Message35Codes[$i]}" | grep -c "$sendCode" )
+        receiveCount=$(cat $logFile | grep "${Message35Codes[$i]}" | grep -c "$receiveCode" )
+
+        # Minimize print-out by giving out only the non-zero send or receive side,
+        # if the counter-side is zero. If both sides are zero, print both as zero
+        # because it's ambiguous which side is the position supposedly taken.
+        # Will display N/A if both send and receive are zeros.
+
+        if [ $receiveCount -eq 0 ] && [ $sendCount -eq 0 ]
+        then
+                echo "N/A,$item,0" >> $outputFile
+        elif [ $sendCount -ne 0 ]
+        then
+                echo "Send,$item,$sendCount" >> $outputFile
+        elif [ $receiveCount -ne 0 ]
+        then
+                echo "Receive,$item,$receiveCount" >> $outputFile
+        fi
+done
+
+
+
+# Loop to List out Messages of Tag <39>
+count39=${#Message39Items[@]}
+endLoc39=$((count39 - 1))
+echo "N/A,Order Status Message Type <39>,N/A" >> $outputFile
+for i in `seq 0 $endLoc39`
+do
+        item=${Message39Items[$i]}
+        sendCount=$(cat $logFile | grep "${Message39Codes[$i]}" | grep -c "$sendCode" )
+        receiveCount=$(cat $logFile | grep "${Message39Codes[$i]}" | grep -c "$receiveCode" )
+
+        # Minimize print-out by giving out only the non-zero send or receive side,
+        # if the counter-side is zero. If both sides are zero, print both as zero
+        # because it's ambiguous which side is the position supposedly taken.
+        # Will display N/A if both send and receive are zeros.
+
+        if [ $receiveCount -eq 0 ] && [ $sendCount -eq 0 ]
+        then
+                echo "N/A,$item,0" >> $outputFile
+        elif [ $sendCount -ne 0 ]
+        then
+                echo "Send,$item,$sendCount" >> $outputFile
+        elif [ $receiveCount -ne 0 ]
+        then
+                echo "Receive,$item,$receiveCount" >> $outputFile
+        fi
+done
+
+
+
+# Loop to List out Messages of Tag <150>
+count150=${#Message150Items[@]}
+endLoc150=$((count150 - 1))
+echo "N/A,Execution Report Message Type <150>,N/A" >> $outputFile
+for i in `seq 0 $endLoc150`
+do
+
+        item=${Message150Items[$i]}
+        sendCount=$(cat $logFile | grep "${Message150Codes[$i]}" | grep -c "$sendCode" )
+        receiveCount=$(cat $logFile | grep "${Message150Codes[$i]}" | grep -c "$receiveCode" )
+
+        # Minimize print-out by giving out only the non-zero send or receive side,
+        # if the counter-side is zero. If both sides are zero, print both as zero
+        # because it's ambiguous which side is the position supposedly taken.
+        # Will display N/A if both send and receive are zeros.
+
+        if [ $receiveCount -eq 0 ] && [ $sendCount -eq 0 ]
+        then
+                echo "N/A,$item,0" >> $outputFile
+        elif [ $sendCount -ne 0 ]
+        then
+                echo "Send,$item,$sendCount" >> $outputFile
+        elif [ $receiveCount -ne 0 ]
+        then
+                echo "Receive,$item,$receiveCount" >> $outputFile
+        fi
+done
+
+
+
+# Loop to List out Messages of Tag <20>
+count20=${#Message20Items[@]}
+endLoc20=$((count20 - 1))
+echo "N/A,Execution Transaction Type <20>,N/A" >> $outputFile
+for i in `seq 0 $endLoc20`
+do
+
+        item=${Message20Items[$i]}
+        sendCount=$(cat $logFile | grep "${Message20Codes[$i]}" | grep -c "$sendCode" )
+        receiveCount=$(cat $logFile | grep "${Message20Codes[$i]}" | grep -c "$receiveCode" )
+
+        # Minimize print-out by giving out only the non-zero send or receive side,
+        # if the counter-side is zero. If both sides are zero, print both as zero
+        # because it's ambiguous which side is the position supposedly taken.
+        # Will display N/A if both send and receive are zeros.
+
+        if [ $receiveCount -eq 0 ] && [ $sendCount -eq 0 ]
+        then
+                echo "N/A,$item,0" >> $outputFile
+        elif [ $sendCount -ne 0 ]
+        then
+                echo "Send,$item,$sendCount" >> $outputFile
+        elif [ $receiveCount -ne 0 ]
+        then
+                echo "Receive,$item,$receiveCount" >> $outputFile
+        fi
+done
+
+
+
+mv "$outputFile" "$fileDir$outputFile"
+
+exit 0
+____________________________________
+Output of test running the script:
+______________________________
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ ./Activity16
+Please provide file name:
+fixlog20220801023133.log
+
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ echo $?
+0
+
+Carl@DESKTOP-T2NNS4H MINGW64 ~$ cat FixGen/logs/ITRS20220801023133.csv
+SEND-RECv,ITEM,DATA
+N/A,Date and Time,20220801023133
+N/A,Message Type <35>,N/A
+Send,Logon Type,1
+N/A,News Type,0
+N/A,Email Type,0
+Receive,New Order Single Type,39
+N/A,New Order List Type,0
+Receive,Order Cancel Request Type,21
+N/A,Order Cancel/Replace Request Type,0
+N/A,Order Status Request Type,0
+N/A,Allocation Type,0
+N/A,List Cancel Request Type,0
+N/A,List Execute Type,0
+N/A,List Status Request Type,0
+Send,Heartbeat Type,50
+N/A,Test Request Type,0
+N/A,Resend Request Type,0
+N/A,Reject Type,0
+N/A,Sequence Reset Type,0
+N/A,Logout Type,0
+N/A,Indication of Interest Type,0
+N/A,Advertisement Type,0
+Send,Execution Report Type,125
+N/A,Order Cancel Reject Type,0
+N/A,Order Status Message Type <39>,N/A
+Send,New Order,39
+Send,Partial Fill Order,26
+Send,Fill Order,18
+N/A,Done for the Day Order,0
+Send,Cancelled Order,21
+N/A,Replace Order,0
+Send,Pending Cancel Order,21
+N/A,Stopped Set Order,0
+N/A,Rejected Order,0
+N/A,Suspended Order,0
+N/A,Execution Report Message Type <150>,N/A
+Send,New Exec,39
+Send,Partial Fill Exec,26
+Send,Fill Exec,18
+N/A,Done for the Day Exec,0
+Send,Cancelled Order Exec,21
+N/A,Replace Exec,0
+Send,Pending Cancel Exec,21
+N/A,Stopped Set Exec,0
+N/A,Rejected Exec,0
+N/A,Suspended Order,0
+N/A,Execution Transaction Type <20>,N/A
+N/A,New Order Ack Transact Type,0
+N/A,Cancel Prev Reported Exec Tr,0
+N/A,Correction to Prev Reported Exec Tr,0
+N/A,Report Status of Orders Exec Tr,0
+
+______________________________
+
+
+
+// Activity 17: (Insufficient time to complete)
 Create a script to convert your fix log file into a useful csv.
 Pull out the following information for each message:
  - If the fix tag is in the message, leave a blank in the csv so that it will load appropriately in Excel.
@@ -1534,11 +1799,7 @@ Client, Message type, stock, quantity, price, side, order id, last quantity, exe
 
 
 
-
-
-
-
-// Activity 18:
+// Activity 18: (Insufficient time to complete)
 Run the fixGenerator script to generate a fix log file.
  - Create a script to parse that log file and for each order create a text description of what happened with that order.
  - This should go into a log file with a paragraph for each order.
@@ -1552,6 +1813,7 @@ Final state of order for apple with order id 12335: traded 40 shares at price 54
 Remember that each time you run the fix generator script, it creates a new log file so this is a good way to test.
 
 
+_______________________________
 
 
 
