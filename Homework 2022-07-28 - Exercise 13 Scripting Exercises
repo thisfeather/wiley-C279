@@ -1512,6 +1512,9 @@ Write a script that will output a csv that could be loaded into ITRS Geneos for 
    An example might look like:
              Number of Partial fills,12
 
+## All messages have a send party and receive party. I am assuming the position of the broker,
+## to determine if I am sending to client or receiving from client.
+
 
 
 
