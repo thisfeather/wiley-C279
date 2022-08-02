@@ -1,6 +1,47 @@
-Relational DB & SQL - Summary - ACID
+Relational DB & SQL - Summary 2022-08-02 - Topics 02-05
 
 Carl Tang Yong Han
+
+
+// Topic 2: Introduction to Relational Databases
+
+Database - structured representation of data
+DBMS - software that manages databases.
+    examples: MySQL, Microsoft SQL, Oracle
+    
+Relation - means table
+         - also means connection between tables through the use of primary and foreign keys.
+Row - a.k.a. record or tuple, referring to horizontal cells in a table describing
+      different attributes of one instance of entity.
+Column - a.k.a. field or attribute, referring to vertical cells in table,
+         keeping the same type of data.
+
+Key - identifier for rows of records, usually needs to be unique to allow identification,
+      in which case it can be use as a Primary Key.
+Natural key - is a field that naturally comes with a row of record can be used as unique identifier,
+              this would be a Natural Key that can be used as a Primary Key.
+              In the absence of such naturally existing unique key, we can artificially give
+              a field of key with no real-life meaning (not "natural" to the record) which is unique,
+              such as some artificial ID. Such key that only has meaning within the table is a surrogate key.
+Compound key - if one field cannot uniquely identify a row, but multiple fields combined can,
+               we can then use these multiple fields as key, called compound key.
+
+Isolating entities of different types into different specialized tables can help us
+understand relations better. A bigger table now turns into multiple smaller tables
+that can then be related.
+
+Cardinality: number of rows from one table relating to rows in the other table.
+   - One-to-one: (as in, one house ID to one house owner, which is to one address)
+     though they can in theory be all kept within one same table, isolating into
+     multiple tables can provide data confidentiality.
+   - One-to-Many: (as in, one class to many students)
+   - Many-to-Many: with the use of a bridge table, many students can each be related to
+     many classes.
+     
+     
+ ____________________________________________
+
+// Topic 3: ACID Compliance
 
 
 The ACID standards are meant to ensure reliability and behavioural predictability of database systems.
@@ -56,5 +97,14 @@ by other earlier queries, and if non-durable data is read, there might be consis
 that follow, for instance "dirty read".
 
 
-   
+A transaction log, independent of the database, can be used to record history of executed actions, or even used to
+function as a to-do list to commit transactions in queue. During database failure, the log file can be used as
+part of the backup plan to restore lost data to the database.
+
+
+__________________________________________________
+
+// Relational Design and Normalization
+
+
    
