@@ -1,0 +1,60 @@
+Relational DB & SQL - Summary - ACID
+
+Carl Tang Yong Han
+
+
+The ACID standards are meant to ensure reliability and behavioural predictability of database systems.
+
+A: Atomicity
+For transactions that might consist of multiple steps/parts, e.g. multiple (SQL) statements,
+each transaction has to be either fully completed and committed to persistent memory,
+or the whole transaction will be ignored altogether. The parts that are successfully executed
+will not be committed if some other parts in the same transaction unit fail.
+
+   Example: for a bank transaction of fund transfer, with one (SQL) statement for debit and 
+   another statement for credit, both have to be successfully executed, or else the whole transaction
+   will be ignored and not committed.
+
+
+C: Consistency
+To be understood in 3 contexts:
+1) A statement or a transaction (depending on design) has to work on data consistent throughout the
+execution of the said statement or transaction. Any change to data due to other users/clients accessing the
+same database should not be visible to and affecting the execution of statement/transaction which is still in progress.
+
+   Example: when user A is querying through a million rows of data which takes time, changes made by other users
+   during the user A's query should not affect A' query, and is hence "consistent" throughout that query.
+   However if A runs a similar query again later on, those changes made by other users will be visible.
+   
+2) A database's states (i.e. the data kept on it) can only change from one valid state to a next valid state,
+under the same consistent rule.
+
+   Example: a non-premium bank customer that does not have a credit arrangement with the bank, should not be allowed
+   to transfer out more money than is available in his bank account.
+
+3) When tables are linked with primary and foreign keys, one has to consider if deletion of a row of record in a
+table would leave other linked tables without a source of reference with foreign keys.
+
+   Example: does deletion of a customer from a customer table mean the deletion of all his orders in many other
+   order tables referring to the same customer ID? Will these other tables be left with records that refer to non-existent customer ID?
+
+
+I: Isolation
+Transactions should be taken as isolated between one another. Even when statements from different transactions
+are querying the same database in an intermingled fashion, the success or failure of statements from one transaction
+(and hence the success or failure of one transaction) should not affect the execution of another transaction, even if
+the execution of statements from one transaction is interspersed with statements from another transaction.
+
+On the other hand, successful execution of a collection of concurrent transactions should have the exact same end result as if
+the transactions are executed in isolation and sequentially.
+
+
+D: Durability
+Transactions that meet all validity requirements and the A, C, I requirements above should be committed to persistent ("durable") memory,
+and such data will be accessed by new queries henceforth. Queries do not always get to access durable data as the data might be under use
+by other earlier queries, and if non-durable data is read, there might be consistency and data accuracy / reliabililty issues of all sorts
+that follow, for instance "dirty read".
+
+
+   
+   
