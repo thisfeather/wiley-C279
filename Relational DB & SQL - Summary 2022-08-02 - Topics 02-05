@@ -104,7 +104,67 @@ part of the backup plan to restore lost data to the database.
 
 __________________________________________________
 
-// Relational Design and Normalization
+// Topic 4: Relational Design and Normalization
+
+Normalization
+Purpose: allowing representation of data in simple, two dimensional arrays.
+         reducing complexity of relationships and minimizing data redundancy.
+
+Data redundancy can result in:
+Update anomaly - whereby not all affected rows and cells are updated consistently.
+Insert anomaly - without separate dedicated tables to store information of different types of entities,
+                 we cannot store data on these entities without first having some table that already
+                 has any mentioning of the entity. For instance: if a new student cannot be separately 
+                 recorded in a student table and has to be added only to a class table, then this student
+                 is practically not on record at all until he starts to take a class and be captured by a class table.
+Delete anomaly - again, without separate (and hopefully) independent tables of entities, any entity whose existence
+                 is dependent on a big table that mentions it will be at risk of being totally removed from
+                 the database if this big table is deleted, and the next time this entity is needed, all relevant
+                 data has to be re-established from scratch.
+                 
+Functional dependency: a dependency relationship, as in "column X depends on column Y". For a well-designed relation,
+ALL columns of all rows will depend on one common column (i.e. primary key) or multiple common column (composite key),
+nothing more and nothing less (which incidentally is the basic idea of the 3rd Normal Form and 2nd Normal Form).
+
+First Normal Form (1NF)
+- No dependency on sequencing and ordering of rows
+  (i.e. arranging rows differently would not affect information representation and storage)
+- No dependency on sequencing and ordering of columns
+  (i.e. arranging columns differently would not affect information representation and storage)
+- Every record (usually row) can be uniquely identified
+- Every cell contains only one single indivisible value
+  (for instance, a cell cannot contain a tuple, a table, or any equivalent of "more than one single value")
+
+Second Normal Form (2NF)
+- To qualify as 2NF, the table(s) must first be in 1NF already.
+- Every field (usually column) that is not a candidate for a key (either as primary key or a member of composite key)
+  must be functionally dependent on the common key and the whole of the key.
+- In the case of primary key the condition is naturally met, however for composite key, all the candidate keys
+  must be made use of to determine the values of those non-key fields.
+- If any field's value can be determined with only parts of the few keys, this form is not 2NF.
+  This is considered "partial dependency", which is not in compliance with 2NF.
+- No column should be redundant, and redundancy should be normalized by extracting such data away from the table
+  to form other supplementary table(s).
+  
+Third Normal Form (3NF)
+- To qualify as 3NF, the table(s) must have already satisfied 1NF and 2NF.
+- Every field (usually column) that is not a candidate for a key (either as primary key or a member of composite key)
+  must be functionally dependent on none other than the common primary key (or composite key).
+- In other words, if a field's value can be determined from a non-key field, this form is not 3NF.
+- This includes a column of data that is calculated from another column of data without the need
+  of the key to determine its value. However this "other column" being made use of, is still dependent on the key.
+  Therefore this is a case of "transitive dependency".
+
+Denormalization:
+There are situations whereby a database has to give up the elegance of normalized forms and opt for the opposite,
+i.e. denormalized form, in order to achieve practical efficiency. Though denormalized forms can lead to more memory / storage usage,
+and can introduce much redundancy, in some practical applications the lookup and query speed might actually be faster,
+as there are less computation performed and less joining needed across multiple tables. Many values would have been
+pre-computed, which allows for faster data access.
 
 
-   
+_____________________________________________________________________
+
+// Topic 5: 
+
+
