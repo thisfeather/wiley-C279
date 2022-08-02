@@ -165,6 +165,34 @@ pre-computed, which allows for faster data access.
 
 _____________________________________________________________________
 
-// Topic 5: 
+// Topic 5: Entity Relationship Diagrams
+
+ERD - a visual representation of database structure.
+
+Advantaged:
+- the visual mapping helps avoiding sub-optimal relationship design before actual coding and building of database.
+- helps team see the DB's structure in entirely for quicker and better understanding (more intuitive too).
+- offers one-stop summative represantation of the whole DB's structure, to aid database development and coding.
+
+ERD should have the following components:
+- tables used by a DB, with table names
+  (note: for table names, be consistent on whether to use singular or plural nouns)
+- fields contained by each table
+- each field should preferably come with metadata e.g. data type, allowed data range, nullabililty, etc.
+- explicitly identify the primary and foreign keys in each table
+- relationship between tables, cardinality, etc.
+
+Indication of relationship:
+- usually will reflect the business requirements or rules.
+- Arrow: pointing from one side to the many side of the relationship.
+- Crow foot at the end of connecting line: the side that can be many
+- Vertical line at the beginning of connecting line: the side that must have at least one
+
+For many-to-many relationship, use a bridge table between another two tables.
+
+
+_____________________________________________________________________________
+
+
 
 
