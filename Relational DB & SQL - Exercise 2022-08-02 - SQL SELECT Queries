@@ -1,0 +1,255 @@
+Relational DB & SQL - Exercise 2022-08-02
+
+Carl Tang Yong Han
+
+
+SQL SELECT Queries
+
+
+
+## The WHERE Clause
+## Practice:
+
+Try the other common WHERE conditions. Examine the results.
+Use different states.
+Limit results by Product, Issue, or SubmissionMethod.
+Build a complex expression using AND or OR.
+
+_______________________________________________
+-- My attempts, 1:
+SELECT *
+FROM Complaint
+WHERE State = 'FL'
+AND (Product = 'Credit card' OR Product = 'Student loan');
+
+-- ANSWER: Query returns 7 rows.
+
+-- My attempts, 2:
+SELECT *
+FROM Complaint
+WHERE State = 'MT'
+AND (Issue = 'Other' OR SubmissionMethod = 'Web');
+
+-- ANSWER: Query returns 3 rows.
+_______________________________________________
+
+
+How many records are fetched with the following query?
+_______________________________________________
+-- Given by question
+USE ConsumerComplaints;
+
+SELECT *
+FROM Complaint
+WHERE State = 'LA'
+AND (Product = 'Mortgage' OR Product = 'Debt collection');
+_______________________________________________
+# ANSWER: Query returns 6 rows.
+
+
+We can force boolean operator precedence by using parentheses, just like math.
+How many records are fetched if we remove the parentheses?
+_______________________________________________
+-- Given by question
+USE ConsumerComplaints;
+
+SELECT *
+FROM Complaint
+WHERE State = 'LA'
+AND Product = 'Mortgage' OR Product = 'Debt collection';
+_______________________________________________
+# ANSWER: Query returns 194 rows, most of which are "Debt collection".
+          Only small minority is 'LA AND Mortgage'.
+
+
+
+## Filtering Numbers
+
+Comparison operators can be used to answer questions like the following:
+
+- Does ComplaintId 1200385 exist?
+_________________________________________
+-- My attempt:
+SELECT ComplaintID
+FROM Complaint
+WHERE ComplaintID = 1200385;
+_________________________________________
+# ANSWER: Yes, ComplaintId 1200385 exists.
+
+- How many Complaints are there with a ComplaintId less than 100,000?
+_________________________________________
+-- My attempt:
+SELECT ComplaintID
+FROM Complaint
+WHERE ComplaintId < 100000;
+_________________________________________
+# ANSWER: 36 complaints.
+
+- What is the most common Product between ComplaintId 100,000 and 200,000?
+_________________________________________
+-- My attempt:
+SELECT ComplaintId, Product
+FROM Complaint
+WHERE ComplaintId > 100000 AND ComplaintId < 200000;
+_________________________________________
+# ANSWER: Mortgage. Out of 42 rows returned by the query, by manual calculation there are 29 rows of
+          'Mortgage', which makes it the majority of the Product in the ComplaintId range.
+
+
+Guessing a bit about the column meanings, what does the following query do? How many rows does it return?
+_______________________________________________
+-- Given by question
+USE ConsumerComplaints;
+
+SELECT 
+    Product, 
+    Issue, 
+    Company, 
+    ResponseToConsumer
+FROM Complaint
+WHERE ConsumerDisputed = 1
+AND ConsumerConsent = 1
+AND Product NOT IN ('Mortgage', 'Debt collection');
+_______________________________________________
+# ANSWER: The query tries to pull out Products that are not from 'Mortgage' or 'Debt collection'
+          whereby consumers have disputed and did not give consent, and tries to show what are the
+          issues and companies evolved, and what are the responses to consumers in these cases.
+          There are 23 rows returned.
+
+
+
+## Filtering Dates
+
+Date filters can be used to answer questions like the following:
+
+- Did anyone submit a complaint on New Year's Day, 2014?
+_________________________________________
+-- My attempt:
+SELECT ComplaintId, DateReceived
+FROM Complaint
+WHERE DateReceived = '2014-01-01';
+_________________________________________
+# ANSWER: There is no complaint received on 1st Jan 2014 on this table.
+          (Query returns 0 row.) Hence based on this table, no one submitted
+          any complaint on 2014's New Year's Day.
+
+- Are there complaints in 2018?
+_________________________________________
+-- My attempt:
+SELECT ComplaintId, DateReceived
+FROM Complaint
+WHERE DateReceived >= '2018-01-01' AND DateReceived <= '2018-12-31';
+_________________________________________
+# ANSWER: The query returns 3 rows. Hence there were 3 complaints in 2018.
+
+- How many complaints were reported in July of 2015?
+_________________________________________
+-- My attempt:
+SELECT ComplaintId, DateReceived
+FROM Complaint
+WHERE DateReceived >= '2015-07-01' AND DateReceived <= '2015-07-31';
+_________________________________________
+# ANSWER: The query returns 15 rows. 15 complaints were reported in July of 2015.
+
+- Do any complaints claim to have been sent to the company (DateSentToCompany) before the complaint was received (DateReceived)?
+_________________________________________
+-- My attempt:
+SELECT ComplaintId, DateReceived, DateSentToCompany
+FROM Complaint
+WHERE DateSentToCompany < DateReceived;
+_________________________________________
+# ANSWER: The query returns 6 rows. There were 6 complaints which claim to have been sent to the company
+          before the complaint was received. All 6 of them claimed to have sent one day earlier than receiving date.
+
+
+
+## Pattern Matching Text
+
+We can use wildcards to answer questions like the following:
+
+- Find consumer complaints about companies with names that start with 'V'.
+_________________________________________
+-- My attempt:
+
+_________________________________________
+# ANSWER:
+
+- Find complaints that use the word 'whom' in their ComplaintNarrative.
+_________________________________________
+-- My attempt:
+
+_________________________________________
+# ANSWER:
+
+- What are the SubmissionMethods with exactly three characters?
+_________________________________________
+-- My attempt:
+
+_________________________________________
+# ANSWER:
+
+- Which Complaints mention 'loan' in their Issue?
+_________________________________________
+-- My attempt:
+
+_________________________________________
+# ANSWER:
+
+
+
+## NULL – the "Billion-Dollar Mistake"
+
+To find NULL values, we have to use the special operator IS. Then we can express that a value IS NULL or IS NOT NULL. Our queries can be rewritten:
+
+_________________________________
+-- Given by question:
+
+USE ConsumerComplaints;
+
+SELECT *
+FROM Complaint
+WHERE SubProduct IS NULL;
+-- ANSWER:
+
+SELECT * 
+FROM Complaint 
+WHERE SubProduct IS NOT NULL;
+-- ANSWER:
+
+SELECT *
+FROM Complaint
+WHERE ComplaintId > 15000 OR ComplaintId IS NULL;
+-- ANSWER:
+
+SELECT *
+FROM Complaint
+WHERE SubIssue = 'Account status'
+OR SubIssue IS NULL;
+-- ANSWER:
+
+-- All Complaints with a value for ComplaintNarrative. 
+-- Exclude null values.
+SELECT *
+FROM Complaint
+WHERE ComplaintNarrative IS NOT NULL;
+-- ANSWER:
+______________________________________
+
+
+
+#### Exercise: SELECT Queries
+Complete a series of SELECT queries using the PersonalTrainer schema.
+
+## Activity 1
+_________________________________________
+-- My attempt:
+
+_________________________________________
+# ANSWER:
+
+
+
+
+
+
+
