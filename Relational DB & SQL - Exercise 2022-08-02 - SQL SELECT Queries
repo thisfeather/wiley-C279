@@ -265,6 +265,88 @@ ______________________________________
 Complete a series of SELECT queries using the PersonalTrainer schema.
 
 ## Activity 1
+Select all rows and columns from the Exercise table. (64 rows)
+_________________________________________
+-- My attempt:
+USE PersonalTrainer;
+SELECT * FROM Exercise;
+_________________________________________
+# ANSWER: 64 rows returned, but only shows all 3 columns available in Exercise table,
+          no additional columns derived from other tabled.
+          
+
+## Activity 2
+Select all rows and columns from the Client table. (500 rows)
+_________________________________________
+-- My attempt:
+USE PersonalTrainer;
+SELECT * FROM Client;
+_________________________________________
+# ANSWER: 500 rows and 8 columns returned from query, consistent with sample solution.
+
+
+
+## Activity 3
+Select all columns from Client where the City is Metairie. (29 rows)
+_________________________________________
+-- My attempt:
+USE PersonalTrainer;
+SELECT * FROM `Client`
+WHERE City = 'Metairie';
+_________________________________________
+# ANSWER: 29 rows returned from query, consistent with sample solution.
+
+
+
+## Activity 4
+Is there a Client with the ClientId '818u7faf-7b4b-48a2-bf12-7a26c92de20c'? (0 rows)
+_________________________________________
+-- My attempt:
+SELECT ClientId
+FROM `Client`
+WHERE ClientId = '818u7faf-7b4b-48a2-bf12-7a26c92de20c';
+_________________________________________
+# ANSWER: 0 row returned from query, consistent with sample solution.
+
+
+
+## Activity 5
+How many rows are in the Goal table? (17 rows)
+_________________________________________
+-- My attempt:
+USE PersonalTrainer;
+SELECT GoalId FROM Goal;
+_________________________________________
+# ANSWER: 17 rows returned from query, consistent with sample solution.
+
+
+
+## Activity 6
+Select Name and LevelId from the Workout table. (26 rows)
+_________________________________________
+-- My attempt:
+USE PersonalTrainer;
+SELECT `Name`, LevelId FROM Workout;
+_________________________________________
+# ANSWER: 26 rows returned from query, consistent with sample solution.
+
+
+
+## Activity 7
+Select Name, LevelId, and Notes from Workout where LevelId is 2. (11 rows)
+_________________________________________
+-- My attempt:
+USE PersonalTrainer;
+SELECT `Name`, LevelID, Notes
+FROM Workout
+WHERE LevelID = 2
+_________________________________________
+# ANSWER:
+
+
+
+## Activity 8
+Blabal
 _________________________________________
 -- My attempt:
 
@@ -273,7 +355,120 @@ _________________________________________
 
 
 
+## Activity 9
+Blabal
+_________________________________________
+-- My attempt:
+
+_________________________________________
+# ANSWER:
 
 
 
+## Activity 10
+Blabal
+_________________________________________
+-- My attempt:
 
+_________________________________________
+# ANSWER:
+
+
+
+## Activity 11
+Blabal
+_________________________________________
+-- My attempt:
+
+_________________________________________
+# ANSWER:
+
+
+
+## Activity 12
+Blabal
+_________________________________________
+-- My attempt:
+
+_________________________________________
+# ANSWER:
+
+
+
+## Activity 13
+Blabal
+_________________________________________
+-- My attempt:
+
+_________________________________________
+# ANSWER:
+
+
+
+## Activity 14
+Blabal
+_________________________________________
+-- My attempt:
+
+_________________________________________
+# ANSWER:
+
+
+
+## Activity 15
+Blabal
+_________________________________________
+-- My attempt:
+
+_________________________________________
+# ANSWER:
+
+
+
+## Activity 16
+Blabal
+_________________________________________
+-- My attempt:
+
+_________________________________________
+# ANSWER:
+
+
+
+## Activity 17
+Blabal
+_________________________________________
+-- My attempt:
+
+_________________________________________
+# ANSWER:
+
+
+
+## Activity 18
+Blabal
+_________________________________________
+-- My attempt:
+
+_________________________________________
+# ANSWER:
+
+
+
+## Activity 19
+Blabal
+_________________________________________
+-- My attempt:
+
+_________________________________________
+# ANSWER:
+
+
+
+## Activity 20
+Blabal
+_________________________________________
+-- My attempt:
+
+_________________________________________
+# ANSWER:
