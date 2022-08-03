@@ -76,6 +76,7 @@ WHERE ComplaintID = 1200385;
 _________________________________________
 # ANSWER: Yes, ComplaintId 1200385 exists.
 
+
 - How many Complaints are there with a ComplaintId less than 100,000?
 _________________________________________
 -- My attempt:
@@ -85,15 +86,22 @@ WHERE ComplaintId < 100000;
 _________________________________________
 # ANSWER: 36 complaints.
 
+
 - What is the most common Product between ComplaintId 100,000 and 200,000?
 _________________________________________
--- My attempt:
+-- My attempt (not including boundaries):
 SELECT ComplaintId, Product
 FROM Complaint
 WHERE ComplaintId > 100000 AND ComplaintId < 200000;
+
+-- Alternative method, whereby boundaries are included:
+SELECT ComplaintId, Product
+FROM Complaint
+WHERE ComplaintId BETWEEN 100000 AND 200000;
 _________________________________________
 # ANSWER: Mortgage. Out of 42 rows returned by the query, by manual calculation there are 29 rows of
           'Mortgage', which makes it the majority of the Product in the ComplaintId range.
+          (NOTE: both methods above happen to give the same query outcomes, as the boundaries are not actually touched.)
 
 
 Guessing a bit about the column meanings, what does the following query do? How many rows does it return?
@@ -133,6 +141,7 @@ _________________________________________
           (Query returns 0 row.) Hence based on this table, no one submitted
           any complaint on 2014's New Year's Day.
 
+
 - Are there complaints in 2018?
 _________________________________________
 -- My attempt:
@@ -142,6 +151,7 @@ WHERE DateReceived >= '2018-01-01' AND DateReceived <= '2018-12-31';
 _________________________________________
 # ANSWER: The query returns 3 rows. Hence there were 3 complaints in 2018.
 
+
 - How many complaints were reported in July of 2015?
 _________________________________________
 -- My attempt:
@@ -150,6 +160,7 @@ FROM Complaint
 WHERE DateReceived >= '2015-07-01' AND DateReceived <= '2015-07-31';
 _________________________________________
 # ANSWER: The query returns 15 rows. 15 complaints were reported in July of 2015.
+
 
 - Do any complaints claim to have been sent to the company (DateSentToCompany) before the complaint was received (DateReceived)?
 _________________________________________
@@ -170,30 +181,43 @@ We can use wildcards to answer questions like the following:
 - Find consumer complaints about companies with names that start with 'V'.
 _________________________________________
 -- My attempt:
-
+SELECT ComplaintId, Company
+FROM Complaint
+WHERE Company LIKE 'V%';
 _________________________________________
-# ANSWER:
+# ANSWER: There are 86 of such complaints.
+
 
 - Find complaints that use the word 'whom' in their ComplaintNarrative.
 _________________________________________
 -- My attempt:
-
+SELECT ComplaintId, ComplaintNarrative
+FROM Complaint
+WHERE ComplaintNarrative LIKE '%whom%';
 _________________________________________
-# ANSWER:
+# ANSWER: There are 3 such complaints.
+
 
 - What are the SubmissionMethods with exactly three characters?
 _________________________________________
 -- My attempt:
-
+SELECT ComplaintId, SubmissionMethod
+FROM Complaint
+WHERE SubmissionMethod LIKE '___';
 _________________________________________
-# ANSWER:
+# ANSWER: The above query returns 698 rows, with SubmissionMethod of 'Web' and 'Fax'
+          by manual inspection.
+
 
 - Which Complaints mention 'loan' in their Issue?
 _________________________________________
 -- My attempt:
-
+SELECT ComplaintId, Issue
+FROM Complaint
+WHERE Issue LIKE '%loan%';
 _________________________________________
-# ANSWER:
+# ANSWER: The above query returns 289 rows, for issues such as 'Loan modification,collection,foreclosure',
+          'Loan servicing, payments, escrow account', 'Repaying your loan', etc.
 
 
 
@@ -209,30 +233,30 @@ USE ConsumerComplaints;
 SELECT *
 FROM Complaint
 WHERE SubProduct IS NULL;
--- ANSWER:
+-- ANSWER: 279 rows returned.
 
 SELECT * 
 FROM Complaint 
 WHERE SubProduct IS NOT NULL;
--- ANSWER:
+-- ANSWER: 722 rows returned.
 
 SELECT *
 FROM Complaint
 WHERE ComplaintId > 15000 OR ComplaintId IS NULL;
--- ANSWER:
+-- ANSWER: 991 rows returned.
 
 SELECT *
 FROM Complaint
 WHERE SubIssue = 'Account status'
 OR SubIssue IS NULL;
--- ANSWER:
+-- ANSWER: 657 rows returned.
 
 -- All Complaints with a value for ComplaintNarrative. 
 -- Exclude null values.
 SELECT *
 FROM Complaint
 WHERE ComplaintNarrative IS NOT NULL;
--- ANSWER:
+-- ANSWER: 219 rows returned.
 ______________________________________
 
 
