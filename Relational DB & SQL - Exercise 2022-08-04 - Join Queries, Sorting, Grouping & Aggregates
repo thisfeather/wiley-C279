@@ -130,31 +130,141 @@ WHERE `Client`.FirstName = 'Romeo' AND `Client`.LastName = 'Seaward';
 --         much less his email address.
 
 ________________________________________________________________
+-- Select ExerciseCategory.Name and its parent ExerciseCategory's Name.
+-- This requires a self-join.
+-- 12 rows
 
+SELECT child.`Name` ParentName, parent.`Name` ChildName
+FROM ExerciseCategory child
+INNER JOIN ExerciseCategory parent ON parent.ExerciseCategoryID = child.ExerciseCategoryID
+WHERE child.ParentCategoryId IS NOT NULL;
+-- 12 rows returned.
 
+________________________________________________________________
+-- Rewrite the query above so that every ExerciseCategory.Name is
+-- included, even if it doesn't have a parent.
+-- 16 rows
 
+SELECT child.`Name` ParentName, parent.`Name` ChildName
+FROM ExerciseCategory child
+LEFT OUTER JOIN ExerciseCategory parent ON parent.ExerciseCategoryID = child.ExerciseCategoryID;
+-- 16 rows returned.
 
+________________________________________________________________
+-- Are there Clients who are not signed up for a Workout?
+-- 50 rows
 
+SELECT `Client`.FirstName, `Client`.LastName, `Client`.ClientId, ClientWorkout.WorkoutId
+FROM `Client`
+LEFT OUTER JOIN ClientWorkout ON `Client`.ClientId = ClientWorkout.ClientId
+WHERE ClientWorkout.WorkoutId IS NULL;
+-- 50 rows returned.
+
+________________________________________________________________
+-- Which Beginner-Level Workouts satisfy at least one of Shell Creane's Goals?
+-- Goals are associated to Clients through ClientGoal.
+-- Goals are associated to Workouts through WorkoutGoal.
+-- 6 rows, 4 unique rows
+
+SELECT Workout.`Name`, Goal.`Name` AS 'Goal_of_Workout', Goal.`Name` AS 'Goal_of_Client'
+FROM Workout
+JOIN WorkoutGoal ON Workout.WorkoutId = WorkoutGoal.WorkoutId
+JOIN Goal ON WorkoutGoal.GoalId = Goal.GoalId
+JOIN ClientGoal ON Goal.GoalId = ClientGoal.GoalId
+JOIN `Client` ON ClientGoal.ClientID = `Client`.ClientID
+WHERE (`Client`.FirstName = 'Shell' AND `Client`.LastName = 'Creane') AND
+	  (Workout.LevelId = 1);
+-- Outcome: 6 rows returned. Out of these 6 rows, there are 4 Level 1 workouts
+--          that satisfy at least one of Shell Creane's Goals, which are:
+--          'Get In Shape Beginners Cardio', 'The "I don't have time..." Workout',
+--          '3, 2, 1... Yoga!', and 'Intro to Free Weights'.
+
+________________________________________________________________
+-- Select all Workouts. 
+-- Join to the Goal, 'Core Strength', but make it optional.
+-- You may have to look up the GoalId before writing the main query.
+-- If you filter on Goal.Name in a WHERE clause, Workouts will be excluded.
+-- Why?
+-- 26 Workouts, 3 Goals
+
+SELECT `Name`, GoalId
+FROM Goal
+WHERE `Name` = 'Core Strength'
+LIMIT 1;
+-- The Goal, 'Core Strength' has a GoalId of 10 from the above query.
+
+SELECT *
+FROM Workout
+LEFT OUTER JOIN WorkoutGoal ON Workout.WorkoutId = WorkoutGoal.WorkoutId
+WHERE GoalId = 10
+-- 4 rows returned.
+
+-- Alternative method:
+SELECT *
+FROM Workout
+LEFT OUTER JOIN WorkoutGoal ON Workout.WorkoutId = WorkoutGoal.WorkoutId
+LEFT OUTER JOIN Goal ON WorkoutGoal.GoalId = Goal.GoalId
+WHERE Goal.`Name` = 'Core Strength';
+-- 4 rows returned
+
+-- The above two methods give the same results, none of which gives the result
+-- that the question is asking for.
+
+-- If I were to interpret the question differently, this is what I would do:
+SELECT * FROM Workout;
+-- 26 rows of workouts are returned, as expected.
+
+SELECT * FROM Goal
+JOIN WorkoutGoal ON Goal.GoalId = WorkoutGoal.GoalID
+JOIN Workout ON WorkoutGoal.WorkoutId = Workout.WorkoutId
+WHERE Goal.`Name` = 'Core Strength';
+-- However, in this case the outcome is still the same 4 rows of the same WorkoutId: 1, 10, 24, 26.
+
+________________________________________________________________
+-- The relationship between Workouts and Exercises is... complicated.
+-- Workout links to WorkoutDay (one day in a Workout routine)
+-- which links to WorkoutDayExerciseInstance 
+-- (Exercises can be repeated in a day so a bridge table is required) 
+-- which links to ExerciseInstance 
+-- (Exercises can be done with different weights, repetions,
+-- laps, etc...) 
+-- which finally links to Exercise.
+-- Select Workout.Name and Exercise.Name for related Workouts and Exercises.
+
+SELECT Workout.`Name` AS Workout_Name, Exercise.`Name` AS Exercise_Name
+FROM Workout
+JOIN WorkoutDay ON Workout.WorkoutId = WorkoutDay.WorkoutId
+JOIN WorkoutDayExerciseInstance ON WorkoutDay.WorkoutDayId = WorkoutDayExerciseInstance.WorkoutDayId
+JOIN ExerciseInstance ON WorkoutDayExerciseInstance.ExerciseInstanceId = ExerciseInstance.ExerciseInstanceId
+JOIN Exercise ON ExerciseInstance.ExerciseId = Exercise.ExerciseId;
+-- 744 rows returned.
+
+________________________________________________________________
+-- An ExerciseInstance is configured with ExerciseInstanceUnitValue.
+-- It contains a Value and UnitId that links to Unit.
+-- Example Unit/Value combos include 10 laps, 15 minutes, 200 pounds.
+-- Select Exercise.Name, ExerciseInstanceUnitValue.Value, and Unit.Name
+-- for the 'Plank' exercise. 
+-- How many Planks are configured, which Units apply, and what 
+-- are the configured Values?
+-- 4 rows, 1 Unit, and 4 distinct Values
+
+SELECT Exercise.`Name` AS Exercise_Name,
+       ExerciseInstanceUnitValue.`Value` AS Instance_Unit_Value,
+       Unit.`Name` AS Unit_Name
+FROM Exercise
+JOIN ExerciseInstance
+  ON Exercise.ExerciseId = ExerciseInstance.ExerciseId
+JOIN ExerciseInstanceUnitValue
+  ON ExerciseInstance.ExerciseInstanceId = ExerciseInstanceUnitValue.ExerciseInstanceId
+JOIN Unit
+  ON ExerciseInstanceUnitValue.UnitId = Unit.UnitId
+WHERE Exercise.`Name` = 'Plank';
+-- Outcome: 4 rows returned with Exercise_Name 'Plank',
+-- with 4 different instance values, all sharing the same unit name 'Minutes'.
 
 ________________________________________________________________
 
-
-
-
-
-________________________________________________________________
-
-
-
-
-
-________________________________________________________________
-
-
-
-
-
-________________________________________________________________
 
 
 
