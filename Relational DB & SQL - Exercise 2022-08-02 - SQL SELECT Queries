@@ -460,49 +460,85 @@ _________________________________________
 
 
 ## Activity 16
-Blabal
+Select FirstName, LastName, City from Client whose LastName starts with L,M, or N and who live in LaPlace. (5 rows)
 _________________________________________
 -- My attempt:
-
+USE PersonalTrainer;
+SELECT FirstName, LastName, City
+FROM `Client`
+WHERE City = 'LaPlace' AND 
+	  (LastName LIKE 'L%' OR
+             LastName LIKE 'M%' OR
+             LastName LIKE 'N%');
 _________________________________________
-# OUTCOME:
+# OUTCOME: 5 rows returned from query, consistent with sample solution.
 
 
 
 ## Activity 17
-Blabal
+Select InvoiceId, Description, Price, Quantity, ServiceDate and the line item total, a calculated value,
+from InvoiceLineItem, where the line item total is between 15 and 25 dollars. (667 rows)
 _________________________________________
 -- My attempt:
-
+USE PersonalTrainer;
+SELECT InvoiceId, `Description`, Price, Quantity, ServiceDate,
+		(Price * Quantity) AS 'Line_Item_Total'
+FROM InvoiceLineItem
+WHERE (Price * Quantity) BETWEEN 15 AND 25;
 _________________________________________
-# OUTCOME:
+# OUTCOME: 667 rows returned from query, consistent with sample solution.
 
 
 
 ## Activity 18
-Blabal
+Does the database include an email address for the Client, Estrella Bazely?
+This requires two queries:
+ - Select a Client record for Estrella Bazely. Does it exist?
+ - If it does, select a Login record that matches its ClientId.
 _________________________________________
 -- My attempt:
+USE PersonalTrainer;
+SELECT ClientId, FirstName, LastName
+FROM `Client`
+WHERE FirstName = 'Estrella' AND LastName = 'Bazely';
 
+SELECT ClientId, EmailAddress
+FROM Login
+WHERE ClientId = '87976c42-9226-4bc6-8b32-23a8cd7869a5';
 _________________________________________
-# OUTCOME:
+# OUTCOME: The first part of the query confirms the existence of one row of client
+           with the name of Estrella Bazely, with ClientID '87976c42-9226-4bc6-8b32-23a8cd7869a5'.
+           The second part of the query found out that the database does contain an email address
+           for Estrella Bazely, i.e. 'ebazelybf@123-reg.co.uk'.
 
 
 
 ## Activity 19
-Blabal
+What are the Goals of the Workout with the Name 'This Is Parkour'?
+You need three queries!
+ - Select the WorkoutId from Workout where Name equals 'This Is Parkour'. (1 row)
+ - Select GoalId from WorkoutGoal where the WorkoutId matches the WorkoutId from your first query. (3 rows)
+ - Select the goal name from Goal where the GoalId is one of the GoalIds from your second query. (3 rows)
+Results:
+ - Endurance
+ - Muscle Bulk
+ - Focus: Shoulders
 _________________________________________
 -- My attempt:
+USE PersonalTrainer;
+SELECT WorkoutId FROM Workout
+WHERE `Name` = 'This Is Parkour';
 
+SELECT GoalId FROM WorkoutGoal
+WHERE WorkoutId = 12;
+
+SELECT GoalId, `Name`
+FROM Goal
+WHERE GoalId IN (3, 8, 15);
 _________________________________________
-# OUTCOME:
+# OUTCOME: First Part: Found one WorkoutId, i.e. 12 with that workout name.
+           Second Part: Found 3 rows of GoalId, i.e. 3, 8 and 15.
+           Third Part: Found the three goal names 'Endurance', 'Muscle Bulk', and 'Focus: Shoulders'.
+           Consistent with sample solution,
 
 
-
-## Activity 20
-Blabal
-_________________________________________
--- My attempt:
-
-_________________________________________
-# OUTCOME:
