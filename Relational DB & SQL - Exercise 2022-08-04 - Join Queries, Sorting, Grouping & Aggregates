@@ -435,25 +435,115 @@ FROM Exercise
 JOIN ExerciseInstance ON Exercise.ExerciseId = ExerciseInstance.ExerciseId
 JOIN ExerciseInstanceUnitValue ON ExerciseInstance.ExerciseInstanceId = ExerciseInstanceUnitValue.ExerciseInstanceId
 JOIN Unit ON ExerciseInstanceUnitValue.UnitId = Unit.UnitId
-GROUP BY Exercise.ExerciseId
+GROUP BY Exercise.ExerciseId, Exercise.`Name`, Unit.`Name`
 ORDER BY Exercise.`Name`, Unit.`Name`;
--- Outcome: 64 rows returned (NOTE: not the same as suggested outcome).
+-- Outcome: 82 rows returned (NOTE: not the same as suggested outcome).
 
 ________________________________________________________________
+-- Modify the query above to include ExerciseCategory.Name.
+-- Order by ExerciseCategory.Name, then Exercise.Name, then Unit.Name.
+-- 82 rows
 
-
+SELECT ec.`Name` AS ExerciseCategoryName,
+       e.`Name` AS ExerciseName,
+       u.`Name` AS UnitName,
+       MIN(eiuv.`Value`) AS MinExerciseInstanceUnitValue,
+       MAX(eiuv.`Value`) AS MinExerciseInstanceUnitValue
+FROM ExerciseCategory ec
+JOIN Exercise e ON ec.ExerciseCategoryId = e.ExerciseCategoryId
+JOIN ExerciseInstance ei ON e.ExerciseId = ei.ExerciseId
+JOIN ExerciseInstanceUnitValue eiuv ON ei.ExerciseInstanceId = eiuv.ExerciseInstanceId
+JOIN Unit u ON eiuv.UnitId = u.UnitId
+GROUP BY e.ExerciseId, e.`Name`, u.`Name`
+ORDER BY ec.`Name`, e.`Name`, u.`Name`;
+-- Outcome: 82 rows returned (NOTE: not the same as suggested outcome).
 
 ________________________________________________________________
+-- Select the minimum and maximum age in years for
+-- each Level.
+-- To calculate age in years, use the MySQL function DATEDIFF.
+-- 4 rows
 
-
+SELECT `Level`.LevelId,
+       MIN(DATEDIFF(CURDATE(), `Client`.BirthDate) DIV 365.25) AS MinimumAge,
+       MAX(DATEDIFF(CURDATE(), `Client`.BirthDate) DIV 365.25) AS MaximumAGE
+FROM `Level`
+JOIN Workout ON `Level`.LevelId = Workout.LevelId
+JOIN ClientWorkout ON Workout.WorkoutId = ClientWorkout.WorkoutId
+JOIN `Client` ON ClientWorkout.ClientId = `Client`.ClientId
+GROUP BY `Level`.LevelId;
+-- Outcome: 4 rows returned.
 
 ________________________________________________________________
+-- Stretch Goal!
+-- Count logins by email extension (.com, .net, .org, etc...).
+-- Research SQL functions to isolate a very specific part of a string value.
+-- 27 rows (27 unique email extensions)
 
+SELECT SUBSTRING(EmailAddress, POSITION('.' IN EmailAddress)) AS EmailExtension,
+	   COUNT(SUBSTRING(EmailAddress, POSITION('.' IN EmailAddress))) AS ExtensionCount
+FROM Login
+GROUP BY SUBSTRING(EmailAddress, POSITION('.' IN EmailAddress))
+ORDER BY SUBSTRING(EmailAddress, POSITION('.' IN EmailAddress));
+-- Outcome: 35 rows returned, which include versions of similar extensions,
+--          such as .gov and .gov.cn; .org and .org.au; .co.jp and .co.uk,
+--          hence adding an extra 8 rows to the suggested answer of 27 rows.
 
+# Outcome from query:
 
+.ac.uk	1
+.ca	2
+.cn	1
+.co.jp	5
+.co.uk	6
+.com	178
+.com.au	1
+.com.br	3
+.com.cn	5
+.com.hk	1
+.cz	1
+.de	4
+.edu	16
+.fr	2
+.gd	1
+.gl	1
+.gov	17
+.gov.cn	3
+.info	1
+.int	1
+.io	1
+.jp	8
+.la	2
+.me	2
+.ne.jp	6
+.net	6
+.net.au	1
+.nl	1
+.or.jp	1
+.org	14
+.org.au	1
+.pl	2
+.ru	3
+.tv	1
+.us	1
 
 ________________________________________________________________
+-- Stretch Goal!
+-- Match client goals to workout goals.
+-- Select Client FirstName and LastName and Workout.Name for
+-- all workouts that match at least 2 of a client's goals.
+-- Order by the client's last name, then first name.
+-- 139 rows
 
+SELECT c.FirstName, c.LastName, w.`Name` AS WorkoutName, COUNT(wg.GoalId) as GoalCount
+FROM `Client` c
+JOIN ClientGoal cg ON c.ClientId = cg.ClientId
+JOIN WorkoutGoal wg ON cg.GoalId = wg.GoalId
+JOIN Workout w ON wg.WorkoutId = w.WorkoutId
+GROUP BY wg.WorkoutId, c.ClientId
+HAVING COUNT(cg.GoalId) >= 2
+ORDER BY c.LastName, c.FirstName;
+-- Outcome: 139 rows returned
 
 
 ________________________________________________________________
