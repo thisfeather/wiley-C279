@@ -3,10 +3,7 @@ Relational DB & SQL - Exercise 2022-08-04 - Join Queries, Sorting, Grouping & Ag
 Carl Tang Yong Han
 
 
-Join Queries
-
-
-## 
+### Join Queries
 ________________________________________________________________
 USE PersonalTrainer;
 
@@ -264,8 +261,111 @@ WHERE Exercise.`Name` = 'Plank';
 -- with 4 different instance values, all sharing the same unit name 'Minutes'.
 
 ________________________________________________________________
+________________________________________________________________
+
+
+
+### Exercise: Aggregate Queries
+________________________________________________________________
+use PersonalTrainer;
+
+-- Use an aggregate to count the number of Clients.
+-- 500 rows
+
+SELECT COUNT(*) FROM `Client`;
+-- Outcome: 1 row, with value of COUNT(*) being 500.
+
+________________________________________________________________
+-- Use an aggregate to count Client.BirthDate.
+-- The number is different than total Clients. Why?
+-- 463 rows
+
+SELECT COUNT(BirthDate) FROM `Client`;
+-- Outcome: 1 row, with value of COUNT(BirthDate) being 463.
+-- To find out why the number is different,
+-- we can test and see if any of the lost counts are due to NULL values of BirthDate:
+ SELECT COUNT(ClientId) FROM `Client`
+ WHERE BirthDate IS NULL;
+ -- Outcome: 1 row, with value of COUNT(ClientId) being 37.
+ -- This shows that there are indeed 37 clients whose BirthDate is NULL,
+ -- which explains the missing 37 counts out of the previous 500 counts.
+
+________________________________________________________________
+-- Group Clients by City and count them.
+-- Order by the number of Clients desc.
+-- 20 rows
+
+SELECT City, COUNT(City) AS Clients_From_City
+FROM `Client`
+GROUP BY City
+ORDER BY COUNT(ClientId) DESC;
+-- Outcome: 20 rows returned, starting from New Orleans with 105 clients,
+--          followed by Jefferson with 30 clients.
+
+________________________________________________________________
+-- Calculate a total per invoice using only the InvoiceLineItem table.
+-- Group by InvoiceId.
+-- You'll need an expression for the line item total: Price * Quantity.
+-- Aggregate per group using SUM().
+-- 1000 rows
+
+SELECT InvoiceId, SUM(Price * Quantity) AS Total_Per_Invoice
+FROM InvoiceLineItem
+GROUP BY InvoiceId;
+-- Outcome: 1000 rows returned.
+
+________________________________________________________________
+-- Calculate a total per invoice using only the InvoiceLineItem table.
+-- (See above.)
+-- Only include totals greater than $500.00.
+-- Order from lowest total to highest.
+-- 234 rows
+
+SELECT InvoiceId, SUM(Price * Quantity) AS Total_Per_Invoice
+FROM InvoiceLineItem
+GROUP BY InvoiceId
+HAVING SUM(Price * Quantity) > 500
+ORDER BY SUM(Price * Quantity) ASC;
+-- Outcome: 234 rows returned.
+
+________________________________________________________________
+-- Calculate the average line item total
+-- grouped by InvoiceLineItem.Description.
+-- 3 rows
+
+SELECT `Description`, AVG(Price * Quantity) AS Average_Line_Item_Total
+FROM InvoiceLineItem
+GROUP BY `Description`;
+-- Outcome: 3 rows returned.
+
+________________________________________________________________
+
+
+
+________________________________________________________________
 
 
 
 
+________________________________________________________________
+
+
+
+
+________________________________________________________________
+
+
+
+
+________________________________________________________________
+
+
+
+
+________________________________________________________________
+
+
+
+
+________________________________________________________________
 
