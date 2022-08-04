@@ -339,6 +339,111 @@ GROUP BY `Description`;
 -- Outcome: 3 rows returned.
 
 ________________________________________________________________
+-- Select ClientId, FirstName, and LastName from Client
+-- for clients who have *paid* over $1000 total.
+-- Paid is Invoice.InvoiceStatus = 2.
+-- Order by LastName, then FirstName.
+-- 146 rows
+
+SELECT `Client`.ClientId, `Client`.FirstName, `Client`.LastName
+FROM `Client`
+JOIN Invoice ON `Client`.ClientId = Invoice.ClientId
+JOIN InvoiceLineItem ON Invoice.InvoiceId = InvoiceLineItem.InvoiceID
+WHERE Invoice.InvoiceStatus = 2
+GROUP BY `Client`.ClientId
+HAVING SUM(InvoiceLineItem.Price * InvoiceLineItem.Quantity) > 1000
+ORDER BY `Client`.LastName, `Client`.FirstName;
+-- Outcome: 146 rows returned, starting from client Randal Aberkirdo.
+
+________________________________________________________________
+-- Count exercises by category.
+-- Group by ExerciseCategory.Name.
+-- Order by exercise count descending.
+-- 13 rows
+
+SELECT ExerciseCategory.`Name` AS Exercise_Category_Name,
+       COUNT(Exercise.ExerciseId) AS Exercise_Count
+FROM ExerciseCategory
+JOIN Exercise ON ExerciseCategory.ExerciseCategoryId = Exercise.ExerciseCategoryId
+GROUP BY ExerciseCategory.`Name`
+ORDER BY COUNT(Exercise.ExerciseId) DESC;
+-- Outcome: 13 rows returned
+
+________________________________________________________________
+-- Select Exercise.Name along with the minimum, maximum,
+-- and average ExerciseInstance.Sets.
+-- Order by Exercise.Name.
+-- 64 rows
+
+SELECT Exercise.`Name` AS Exercise_Name,
+       MIN(ExerciseInstance.Sets) AS Min_Exercise_Instance_Sets,
+	   MAX(ExerciseInstance.Sets) AS Max_Exercise_Instance_Sets,
+       AVG(ExerciseInstance.Sets) AS Average_Exercise_Instance_Sets
+FROM Exercise
+LEFT OUTER JOIN ExerciseInstance ON Exercise.ExerciseId = ExerciseInstance.ExerciseId
+GROUP BY Exercise.ExerciseId -- In case certain Exercise IDs share the same names.
+ORDER BY Exercise.`Name`;
+-- Outcome: 64 rows returned. Note that some Exercise Names are repeated.
+--          If Exercise Names that are the same are grouped together,
+--          there would be only 61 rows returned.
+
+________________________________________________________________
+-- Find the minimum and maximum Client.BirthDate
+-- per Workout.
+-- 26 rows
+-- Sample: 
+-- WorkoutName, EarliestBirthDate, LatestBirthDate
+-- '3, 2, 1... Yoga!', '1928-04-28', '1993-02-07'
+
+SELECT Workout.`Name` AS WorkoutName,
+       MIN(`Client`.BirthDate) AS EarliestBirthDate,
+       MAX(`Client`.BirthDate) AS LatestBirthDate
+FROM Workout
+JOIN ClientWorkout ON Workout.WorkoutId = ClientWorkout.WorkoutId
+JOIN `Client` ON ClientWorkout.ClientId = `Client`.ClientId
+GROUP BY Workout.`Name`;
+-- Outcome: 26 rows returned.
+
+________________________________________________________________
+-- Count client goals.
+-- Be careful not to exclude rows for clients without goals.
+-- 500 rows total
+-- 50 rows with no goals
+
+SELECT COUNT(*) FROM `Client`;
+-- There are 500 clients, with or without goal.
+SELECT COUNT(*) FROM ClientGoal;
+-- There are, however, 663 goals from clients altogether.
+-- This means some clients have multiple goals.alter
+SELECT COUNT(*) FROM ClientGoal
+GROUP BY ClientId;
+-- 450 rows returned from the above query, it means only 450 clients
+-- have any goal, which leaves 500 - 450 = 50 clients with no goal.
+
+________________________________________________________________
+-- Select Exercise.Name, Unit.Name, 
+-- and minimum and maximum ExerciseInstanceUnitValue.Value
+-- for all exercises with a configured ExerciseInstanceUnitValue.
+-- Order by Exercise.Name, then Unit.Name.
+-- 82 rows
+
+SELECT Exercise.`Name` AS ExerciseName,
+       Unit.`Name` AS UnitName,
+       MIN(ExerciseInstanceUnitValue.`Value`) AS MinExerciseInstanceUnitValue,
+       MAX(ExerciseInstanceUnitValue.`Value`) AS MinExerciseInstanceUnitValue
+FROM Exercise
+JOIN ExerciseInstance ON Exercise.ExerciseId = ExerciseInstance.ExerciseId
+JOIN ExerciseInstanceUnitValue ON ExerciseInstance.ExerciseInstanceId = ExerciseInstanceUnitValue.ExerciseInstanceId
+JOIN Unit ON ExerciseInstanceUnitValue.UnitId = Unit.UnitId
+GROUP BY Exercise.ExerciseId
+ORDER BY Exercise.`Name`, Unit.`Name`;
+-- Outcome: 64 rows returned (NOTE: not the same as suggested outcome).
+
+________________________________________________________________
+
+
+
+________________________________________________________________
 
 
 
@@ -351,19 +456,7 @@ ________________________________________________________________
 
 
 
-
 ________________________________________________________________
-
-
-
-
-________________________________________________________________
-
-
-
-
-________________________________________________________________
-
 
 
 
