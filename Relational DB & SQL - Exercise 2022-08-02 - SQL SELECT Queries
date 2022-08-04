@@ -271,8 +271,8 @@ _________________________________________
 USE PersonalTrainer;
 SELECT * FROM Exercise;
 _________________________________________
-# ANSWER: 64 rows returned, but only shows all 3 columns available in Exercise table,
-          no additional columns derived from other tabled.
+# OUTCOME: 64 rows returned, but only shows all 3 columns available in Exercise table,
+           no additional columns derived from other tabled.
           
 
 ## Activity 2
@@ -282,7 +282,7 @@ _________________________________________
 USE PersonalTrainer;
 SELECT * FROM Client;
 _________________________________________
-# ANSWER: 500 rows and 8 columns returned from query, consistent with sample solution.
+# OUTCOME: 500 rows and 8 columns returned from query, consistent with sample solution.
 
 
 
@@ -294,7 +294,7 @@ USE PersonalTrainer;
 SELECT * FROM `Client`
 WHERE City = 'Metairie';
 _________________________________________
-# ANSWER: 29 rows returned from query, consistent with sample solution.
+# OUTCOME: 29 rows returned from query, consistent with sample solution.
 
 
 
@@ -306,7 +306,8 @@ SELECT ClientId
 FROM `Client`
 WHERE ClientId = '818u7faf-7b4b-48a2-bf12-7a26c92de20c';
 _________________________________________
-# ANSWER: 0 row returned from query, consistent with sample solution.
+# OUTCOME: 0 row returned from query, consistent with sample solution.
+           No such client with this ClientId.
 
 
 
@@ -317,7 +318,7 @@ _________________________________________
 USE PersonalTrainer;
 SELECT GoalId FROM Goal;
 _________________________________________
-# ANSWER: 17 rows returned from query, consistent with sample solution.
+# OUTCOME: 17 rows returned from query, consistent with sample solution.
 
 
 
@@ -328,7 +329,7 @@ _________________________________________
 USE PersonalTrainer;
 SELECT `Name`, LevelId FROM Workout;
 _________________________________________
-# ANSWER: 26 rows returned from query, consistent with sample solution.
+# OUTCOME: 26 rows returned from query, consistent with sample solution.
 
 
 
@@ -341,87 +342,120 @@ SELECT `Name`, LevelID, Notes
 FROM Workout
 WHERE LevelID = 2
 _________________________________________
-# ANSWER:
+# OUTCOME: 11 rows returned from query, consistent with sample solution.
 
 
 
 ## Activity 8
-Blabal
+Select FirstName, LastName, and City from Client where City is Metairie, Kenner, or Gretna. (77 rows)
 _________________________________________
 -- My attempt:
-
+USE PersonalTrainer;
+SELECT FirstName, LastName, City
+FROM `Client`
+WHERE City IN ('Metairie', 'Kenner', 'Gretna');
 _________________________________________
-# ANSWER:
+# OUTCOME: 77 rows returned from query, consistent with sample solution.
 
 
 
 ## Activity 9
-Blabal
+Select FirstName, LastName, and BirthDate from Client for Clients born in the 1980s. (72 rows)
 _________________________________________
 -- My attempt:
-
+USE PersonalTrainer;
+SELECT FirstName, LastName, BirthDate
+FROM `Client`
+WHERE BirthDate BETWEEN '1980-01-01' AND '1989-12-31';
 _________________________________________
-# ANSWER:
+# OUTCOME: 72 rows returned from query, consistent with sample solution.
 
 
 
 ## Activity 10
-Blabal
+Write the query above in a different way.
+ - If you used BETWEEN, you can't use it again.
+ - If you didn't use BETWEEN, use it!
+The results should be the same as for the previous query, with 72 rows.
 _________________________________________
 -- My attempt:
-
+USE PersonalTrainer;
+SELECT FirstName, LastName, BirthDate
+FROM `Client`
+WHERE BirthDate > '1979-12-31' AND BirthDate < '1990-01-01';
 _________________________________________
-# ANSWER:
+# OUTCOME: 72 rows returned from query, consistent with sample solution.
 
 
 
 ## Activity 11
-Blabal
+How many rows in the Login table have a .gov EmailAddress? (17 rows)
 _________________________________________
 -- My attempt:
-
+USE PersonalTrainer;
+SELECT * FROM Login
+WHERE EmailAddress LIKE '%.gov';
 _________________________________________
-# ANSWER:
+# OUTCOME: 17 rows returned from query, consistent with sample solution.
+           However, if we are not asking for email addresses strictly ending in .gov
+           followed by nothing else, then by using matching pattern of '%.gov%', we actually
+           get 20 rows from the query, which include additional 3 rows with email addresses
+           ending with '.gov.cn'.
 
 
 
 ## Activity 12
-Blabal
+How many Logins do NOT have a .com EmailAddress? (122 rows)
 _________________________________________
 -- My attempt:
-
+USE PersonalTrainer;
+SELECT * FROM Login
+WHERE EmailAddress NOT LIKE '%.com';
 _________________________________________
-# ANSWER:
+# OUTCOME: 122 rows returned from query, consistent with sample solution.
+           However, if we are not trying to exclude email addresses strictly ending in .com
+           followed by nothing else, then by using matching pattern of '%.com%', we actually
+           get 112 rows from the query, which would not include additional 10 rows with email addresses
+           ending with more than just '.com', such as '.com.cn', '.com.hk', '.com.br' and '.com.au'.
+           These extra 10 email addresses would have survived the screening through '%.com'.
 
 
 
 ## Activity 13
-Blabal
+Select first and last name of Clients without a BirthDate. (37 rows)
 _________________________________________
 -- My attempt:
-
+USE PersonalTrainer;
+SELECT FirstName, LastName
+FROM `Client`
+WHERE BirthDate IS NULL;
 _________________________________________
-# ANSWER:
+# OUTCOME: 37 rows returned from query, consistent with sample solution.
 
 
 
 ## Activity 14
-Blabal
+Select the Name of each ExerciseCategory that has a parent (ParentCategoryId value is not null). (12 rows)
 _________________________________________
 -- My attempt:
-
+USE PersonalTrainer;
+SELECT `Name` FROM ExerciseCategory
+WHERE ParentCategoryId IS NOT NULL;
 _________________________________________
-# ANSWER:
+# OUTCOME: 12 rows returned from query, consistent with sample solution.
 
 
 
 ## Activity 15
-Blabal
+Select Name and Notes of each level 3 Workout that contains the word 'you' in its Notes. (4 rows)
 _________________________________________
 -- My attempt:
-
+USE PersonalTrainer;
+SELECT `Name`, Notes
+FROM Workout
+WHERE LevelId = 3 AND Notes LIKE '%you%';
 _________________________________________
-# ANSWER:
+# OUTCOME: 4 rows returned from query, consistent with sample solution.
 
 
 
@@ -431,7 +465,7 @@ _________________________________________
 -- My attempt:
 
 _________________________________________
-# ANSWER:
+# OUTCOME:
 
 
 
@@ -441,7 +475,7 @@ _________________________________________
 -- My attempt:
 
 _________________________________________
-# ANSWER:
+# OUTCOME:
 
 
 
@@ -451,7 +485,7 @@ _________________________________________
 -- My attempt:
 
 _________________________________________
-# ANSWER:
+# OUTCOME:
 
 
 
@@ -461,7 +495,7 @@ _________________________________________
 -- My attempt:
 
 _________________________________________
-# ANSWER:
+# OUTCOME:
 
 
 
@@ -471,4 +505,4 @@ _________________________________________
 -- My attempt:
 
 _________________________________________
-# ANSWER:
+# OUTCOME:
