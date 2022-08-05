@@ -1,0 +1,353 @@
+Relational DB & SQL - Summative Exercise 2022-08-05 - Hotel Schema
+
+Carl Tang Yong Han
+
+
+
+### Summative Exercise: Hotel Schema
+
+
+____________________________________________________________
+
+-- ### Part 1: ERD
+-- ## Document Generated: CarlTangYongHan-HotelERD.jpg
+
+-- An ERD named CarlTangYongHan-HotelERD.jpg has been created.
+
+
+
+____________________________________________________________
+
+-- ### Part 2: Define the Database
+-- ## Document Generated: CarlTangYongHan-HotelDB.sql
+
+DROP DATABASE IF EXISTS Hotel;
+
+CREATE DATABASE Hotel;
+USE Hotel;
+
+CREATE TABLE Room (
+	RoomID SMALLINT PRIMARY KEY,
+    `Type` CHAR(8) NOT NULL,
+    Amenities CHAR(100) NULL,
+    AdaAccessible BOOL NULL,
+    StandardOccupancy TINYINT NULL,
+    MaxOccupancy TINYINT NULL,
+    BasePrice FLOAT(6,2) NOT NULL,
+    ExtraPerson FLOAT(4,2) NULL
+    );
+    
+CREATE TABLE Guest (
+	GuestID INT PRIMARY KEY AUTO_INCREMENT,
+    `Name` VARCHAR(128) NOT NULL,
+    Address VARCHAR(255) NULL,
+    City VARCHAR(32) NULL,
+    State CHAR(5) NULL,
+    Zip CHAR(8) NULL,
+    Phone VARCHAR(32) NOT NULL
+    );
+    
+CREATE TABLE Reservation (
+	ReservationID INT PRIMARY KEY AUTO_INCREMENT,
+    RoomID SMALLINT NOT NULL,
+    `Name` VARCHAR(128) NOT NULL,
+    Adults TINYINT NULL,
+    Children TINYINT NULL,
+    StartDate DATE NOT NULL,
+    EndDate DATE NULL,
+    TotalRoomCost FLOAT(10,2) NULL,
+    FOREIGN KEY fk_RoomID (RoomID)
+		REFERENCES Room(RoomID)
+	);
+
+
+
+-- END of Part 2.
+
+____________________________________________________________
+
+-- ### Part 3: Manage the Data
+-- ## Document Generated: CarlTangYongHan-HotelData.sql
+
+
+-- First, using the data provided in the tables given,
+-- create the required SQL statements to populate the tables with the data above.
+
+-- Populating the table Room:
+INSERT INTO Room (
+	RoomID,
+    `Type`,
+    Amenities,
+    AdaAccessible,
+    StandardOccupancy,
+    MaxOccupancy,
+    BasePrice,
+    ExtraPerson
+    ) VALUES
+(201, "Double", 'Microwave, Jacuzzi', 0, 2, 4, 199.99, 10),
+(202, "Double", 'Refrigerator', 1, 2, 4, 174.99, 10),
+(203, "Double", 'Microwave, Jacuzzi', 0, 2, 4, 199.99, 10),
+(204, "Double", 'Refrigerator', 1, 2, 4, 174.99, 10),
+(205, 'Single', 'Microwave, Refrigerator, Jacuzzi', 0, 2, 2, 174.99, NULL),
+(206, 'Single', 'Microwave, Refrigerator', 1, 2, 2, 149.99, NULL),
+(207, 'Single', 'Microwave, Refrigerator, Jacuzzi', 0, 2, 2, 174.99, NULL),
+(208, 'Single', 'Microwave, Refrigerator', 1, 2, 2, 149.99, NULL),
+(301, "Double", 'Microwave, Jacuzzi', 0, 2, 4, 199.99, 10),
+(302, "Double", 'Refrigerator', 1, 2, 4, 174.99, 10),
+(303, "Double", 'Microwave, Jacuzzi', 0, 2, 4, 199.99, 10),
+(304, "Double", 'Refrigerator', 1, 2, 4, 174.99, 10),
+(305, 'Single', 'Microwave, Refrigerator, Jacuzzi', 0, 2, 2, 174.99, NULL),
+(306, 'Single', 'Microwave, Refrigerator', 1, 2, 2, 149.99, NULL),
+(307, 'Single', 'Microwave, Refrigerator, Jacuzzi', 0, 2, 2, 174.99, NULL),
+(308, 'Single', 'Microwave, Refrigerator', 1, 2, 2, 149.99, NULL),
+(401, 'Suite', 'Microwave, Refrigerator, Oven', 1, 3, 8, 399.99, 20),
+(402, 'Suite', 'Microwave, Refrigerator, Oven', 1, 3, 8, 399.99, 20);
+    
+-- Check outcome of populating table Room:
+SELECT * FROM Room;
+-- Outcome: 18 rows returned.
+
+
+-- Populating the table Guest:
+INSERT INTO Guest (
+    `Name`,
+    Address,
+    City,
+    State,
+    Zip,
+    Phone
+    ) VALUES
+('Your Name', 'Your Address', 'City', 'State', 'Zip', 'Phone'),
+('Mack Simmer', '379 Old Shore Street', 'Council Bluffs', 'IA', '51501', '(291) 553-0508'),
+('Bettyann Seery', '750 Wintergreen Dr.', 'Wasilla', 'AK', '99654', '(478) 277-9632'),
+('Duane Cullison', '9662 Foxrun Lane', 'Harlingen', 'TX', '78552', '(308) 494-0198'),
+('Karie Yang', '9378 W. Augusta Ave.', 'West Deptford', 'NJ', '08096', '(214) 730-0298'),
+('Aurore Lipton', '762 Wild Rose Street', 'Saginaw', 'MI', '48601', '(377) 507-0974'),
+('Zachery Luechtefeld', '7 Poplar Dr.', 'Arvada', 'CO', '80003', '(814) 485-2615'),
+('Jeremiah Pendergrass', '70 Oakwood St.', 'Zion', 'IL', '60099', '(279) 491-0960'),
+('Walter Holaway', '7556 Arrowhead St.', 'Cumberland', 'RI', '02864', '(446) 396-6785'),
+('Wilfred Vise', '77 West Surrey Street', 'Oswego', 'NY', '13126', '(834) 727-1001'),
+('Maritza Tilton', '939 Linda Rd.', 'Burke', 'VA', '22015', '(446) 351-6860'),
+('Joleen Tison', '87 Queen St.', 'Drexel Hill', 'PA', '19026', '(231) 893-2755');
+    
+-- Check outcome of populating table Guest:
+SELECT * FROM Guest;
+-- Outcome: 12 rows returned.
+
+-- Populating the table Reservation:
+INSERT INTO Reservation (
+    RoomID,
+    `Name`,
+    Adults,
+    Children,
+    StartDate,
+    EndDate,
+    TotalRoomCost
+    ) VALUES
+(308, 'Mack Simmer', 1, 0, '2023-02-02', '2023-02-04', 299.98),
+(203, 'Bettyann Seery', 2, 1, '2023-02-05', '2023-02-10', 999.95),
+(305, 'Duane Cullison', 2, 0, '2023-02-22', '2023-02-24', 349.98),
+(201, 'Karie Yang', 2, 2, '2023-03-06',	'2023-03-07', 199.99),
+(307, 'Carl Tang', 1, 1, '2023-03-17', '2023-03-20', 524.97),
+(302, 'Aurore Lipton', 3, 0, '2023-03-18', '2023-03-23', 924.95),
+(202, 'Zachery Luechtefeld', 2, 2, '2023-03-29', '2023-03-31', 349.98),
+(304, 'Jeremiah Pendergrass', 2, 0, '2023-03-31', '2023-04-05', 874.95),
+(301, 'Walter Holaway', 1, 0, '2023-04-09', '2023-04-13', 799.96),
+(207, 'Wilfred Vise', 1, 1, '2023-04-23', '2023-04-24', 174.99),
+(401, 'Maritza Tilton', 2, 4, '2023-05-30', '2023-06-02', 1199.97),
+(206, 'Joleen Tison', 2, 0, '2023-06-10', '2023-06-14', 599.96),
+(208, 'Joleen Tison', 1, 0, '2023-06-10', '2023-06-14', 599.96),
+(304, 'Aurore Lipton', 3, 0, '2023-06-17', '2023-06-18', 184.99),
+(205, 'Carl Tang', 2, 0, '2023-06-28', '2023-07-02', 699.96),
+(204, 'Walter Holaway', 3, 1, '2023-07-13', '2023-07-14', 184.99),
+(401, 'Wilfred Vise', 4, 2, '2023-07-18', '2023-07-21', 1259.97),
+(303, 'Bettyann Seery', 2, 1, '2023-07-28', '2023-07-29', 199.99),
+(305, 'Bettyann Seery', 1, 0, '2023-08-30', '2023-09-01', 349.98),
+(208, 'Mack Simmer', 2, 0, '2023-09-16', '2023-09-17', 149.99),
+(203, 'Karie Yang', 2, 2, '2023-09-13', '2023-09-15', 399.98),
+(401, 'Duane Cullison', 2, 2, '2023-11-22', '2023-11-25', 1199.97),
+(206, 'Mack Simmer', 2, 0, '2023-11-22', '2023-11-25', 449.97),
+(301, 'Mack Simmer', 2, 2, '2023-11-22', '2023-11-25', 599.97),
+(302, 'Maritza Tilton', 2, 0, '2023-12-24', '2023-12-28', 699.96);
+
+
+-- Check outcome of populating table Reservation:
+SELECT * FROM Reservation;
+-- Outcome: 25 rows returned.
+
+
+
+-- Second, after adding all of the data above,
+-- create SQL statements that will delete Jeremiah Pendergrass and his reservations from the database.
+
+-- Find out ReservationID of Jeremiah Pendergrass:
+SELECT ReservationID FROM Reservation
+WHERE `Name` = 'Jeremiah Pendergrass';
+-- Outcome: ReservationID is 8
+
+-- Delete Jeremiah Pendergrass from table Reservation:
+DELETE FROM Reservation
+WHERE ReservationID = 8;
+
+SELECT * FROM Reservation;
+-- Outcome: 24 rows returned.
+--          The row of Jeremiah Pendergrass is no more available.
+
+
+-- Find out GuestID of Jeremiah Pendergrass:
+SELECT GuestID FROM Guest
+WHERE `Name` = 'Jeremiah Pendergrass';
+-- Outcome: GuestID is 8
+
+-- Delete Jeremiah Pendergrass from table Guest:
+DELETE FROM Guest
+WHERE GuestID = 8;
+
+SELECT * FROM Guest;
+-- Outcome: 11 rows returned.
+--          The row of Jeremiah Pendergrass is no more available.
+
+
+-- END of Part 3.
+
+____________________________________________________________
+
+-- ### Part 4: Query the Database
+-- ## Document Generated: CarlTangYongHan-HotelQueries.sql
+
+-- Create a third SQL script that includes queries to retrieve the following data from the database.
+
+
+
+-- 1. Write a query that returns a list of reservations that end in July 2023,
+--    including the name of the guest, the room number(s), and the reservation dates.
+
+SELECT `Name`, RoomID AS 'Room_Number', StartDate, EndDate
+FROM Reservation
+WHERE EndDate BETWEEN '2023-07-01' AND '2023-07-31'
+ORDER BY `Name`, EndDate, RoomID;
+
+-- Results: 3 rows returned, including myself (Name = 'Carl Tang').
+
+
+
+-- 2. Write a query that returns a list of all reservations for rooms with a jacuzzi,
+--    displaying the guest's name, the room number, and the dates of the reservation.
+
+SELECT rs.`Name` GuestName, rs.RoomID RoomNumber, rs.StartDate ReservationDate
+FROM Reservation rs
+JOIN Room r ON rs.RoomID = r.RoomID
+WHERE r.Amenities LIKE '%Jacuzzi%'
+ORDER BY rs.StartDate, rs.`Name`;
+
+-- Results: 11 rows returned.
+
+
+
+-- 3. Write a query that returns all the rooms reserved for a specific guest, including
+--    the guest's name, the room(s) reserved, the starting date of the reservation,
+--    and how many people were included in the reservation. (Choose a guest's name from the existing data.)
+
+SELECT `Name`, RoomID, StartDate, (Adults + Children) GuestCount
+FROM Reservation
+WHERE `Name` = 'Mack Simmer'
+ORDER BY StartDate, RoomID;
+
+-- Results: 4 rows returned, as follows:
+-- Name        | RoomID | StartDate  | GuestCount 
+-- Mack Simmer	 308	  2023-02-02	1
+-- Mack Simmer	 208	  2023-09-16	2
+-- Mack Simmer	 206	  2023-11-22	2
+-- Mack Simmer	 301	  2023-11-22	4
+
+
+
+-- 4. Write a query that returns a list of rooms, reservation ID, and per-room cost for each reservation.
+--    The results should include all rooms, whether or not there is a reservation associated with the room.
+
+-- The query will require confirmation that none of the reservation is made by only children,
+-- which would have made the children's stay not free:
+SELECT ReservationID, Adults, Children
+FROM Reservation
+WHERE (Adults = 0) AND (Children != 0);
+-- The outcome is 0 row, which means we can conclude that all reservation involving children
+-- will be with an adult, which would allow the children in these cases to stay for free.
+
+SELECT rs.RoomID Room,
+       rs.ReservationID,
+       (((DATEDIFF(rs.EndDate, rs.StartDate)) * r.BasePrice) + 
+       ((rs.Adults - r.StandardOccupancy) * IF(ISNULL(r.ExtraPerson), 0, r.ExtraPerson))) PerRoomCost
+FROM Reservation rs
+JOIN Room r ON rs.RoomID = r.RoomID
+ORDER BY rs.RoomID, rs.ReservationID, rs.StartDate; 
+
+-- Results: 24 rows returned
+-- Example of first 4 rows:
+-- Room | ReservationID | PerRoomCost
+-- 201        4             199.99
+-- 202        7             349.98
+-- 203        2             999.95
+-- 203       21             399.98
+
+
+
+-- 5. Write a query that returns all the rooms accommodating at least three guests
+--    and that are reserved on any date in April 2023.
+
+SELECT RoomID, ReservationID, (Adults + Children) GuestCount, StartDate ReservationDate
+FROM Reservation
+WHERE (StartDate BETWEEN '2023-04-01' AND '2023-04-30') AND
+	  ((Adults + Children) >= 3);
+
+-- Results: 0 row returned. No such record meets requirement in Apr 2021.
+
+
+
+-- 6. Write a query that returns a list of all guest names and the number of reservations per guest,
+--    sorted starting with the guest with the most reservations and then by the guest's last name.
+
+SELECT `Name`, COUNT(*) ReservationCount
+FROM Reservation
+GROUP BY `Name`
+ORDER BY COUNT(*) DESC, SUBSTRING_INDEX(`Name`, ' ' , -1);  -- The latter expression extracts last names.
+
+-- Results: 11 rows returned.
+-- Full outcome:
+--    Name              | ReservationCount
+--  Mack Simmer                 4
+--  Bettyann Seery              3
+--  Duane Cullison              2
+--  Walter Holaway              2
+--  Aurore Lipton               2
+--  Carl Tang                   2
+--  Maritza Tilton              2
+--  Joleen Tison                2
+--  Wilfred Vise                2
+--  Karie Yang                  2
+--  Zachery Luechtefeld         1
+
+
+
+-- 7. Write a query that displays the name, address, and phone number of a guest based on their phone number.
+--    (Choose a phone number from the existing data.)
+
+-- Suppose we look up the most frequently reserving guest, Mack Simmer:
+SELECT Phone FROM Guest
+WHERE `Name` = 'Mack Simmer';
+-- We obtain a phone number (291) 553-0508
+
+-- For the sake of avoiding formatting inconsistencies of the search keywords for phone,
+-- we only use the phone number without a prefix, and will only try to resolve phone number conflicts
+-- if in such rare chances that more than one phone numbers actually match the substring:
+SELECT `Name`, Address, Phone PhoneNumber
+FROM Guest
+WHERE Phone LIKE '%553-0508%';
+
+-- Results: Only one row is returned, which belongs to Mack Simmer.
+
+
+
+-- END of Part 4.
+
+____________________________________________________________
+
