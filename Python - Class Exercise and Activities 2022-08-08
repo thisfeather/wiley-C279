@@ -464,6 +464,163 @@ The program should display the following to the user:
  - The binary equivalent of the number, in a phrase like, "The binary equivalent of your number is value"
  - The square root of the number, in a phrase like, "The square root of your number is value," with the value rounded to three decimal places.
 
+## Answer:
+__________________________________
+import math
+
+# prompt user input of a number in the form of integer:
+userInput = int(input("Please enter an integer number: "))
+numBool = bool(userInput)
+numBin = bin(userInput)
+numSquareRoot = math.sqrt(userInput)
+roundedSQRT = round(numSquareRoot, 3)
+
+print(f"You selected {userInput}.")
+print(f"The boolean of your number is {numBool}.")
+print(f"The binary equivalent of your number is {numBin}.")
+print(f"The square root of your number is {roundedSQRT}.")
+
+__________________________________
+## Output of test running:
+Please enter an integer number: 123
+You selected 123.
+The boolean of your number is True.
+The binary equivalent of your number is 0b1111011.
+The square root of your number is 11.091.
+__________________________________
+
+
+
+
+
+### Activity 8
+Create a computer program that completes the following tasks:
+ It prompts the user for a series of 5 integers.
+  - The user must be prompted for 5 numbers.
+ After the fifth entry, the program stops prompting for values and performs the following calculations:
+  - the product of the integers
+  - the average of the integers
+  - the sum of the integers
+ After performing the calculations, the program should display the following to the user:
+  - the values the user entered
+  - each of the calculations, using a phrase that identifies the value
+
+## Answer:
+___________________________________
+print("Please enter 5 intergers as follow:")
+
+int1 = int(input("1st Integer: "))
+int2 = int(input("2nd Integer: "))
+int3 = int(input("3rd Integer: "))
+int4 = int(input("4th Integer: "))
+int5 = int(input("5th Integer: "))
+
+product = int1 * int2 * int3 * int4 * int5
+sumInt = int1 + int2 + int3 + int4 + int5
+average = sumInt / 5
+
+print(f"You have entered: {int1}, {int2}, {int3}, {int4}, and {int5}.")
+print(f"The product of the integers: {product}\n\
+The average of the integers: {average}\n\
+The sum of the integers: {sumInt}")
+___________________________________
+## Output of test running:
+Please enter 5 intergers as follow:
+1st Integer: 33
+2nd Integer: 44
+3rd Integer: 55
+4th Integer: 66
+5th Integer: 77
+You have entered: 33, 44, 55, 66, and 77.
+The product of the integers: 405848520
+The average of the integers: 55.0
+The sum of the integers: 275
+___________________________________
+
+
+
+
+### Activity 9
+Write a program that performs the following steps:
+ - Start with a street address that includes a building/house number, the name of the street,
+   and the type of street (e.g., Street, Avenue, Boulevard, etc.).
+    - You can use any address you wish and abbreviations are acceptable.
+    - An example is 25 Main Street.
+ - Display the full address to the user.
+ - Display the house number only in a phrase like, "The building or house number is 25."
+ - Display the street name in a phrase like, "The street name is Main Street."
+
+## Answer:
+___________________________________
+print("Please enter address with inputs of:\n\
+  building/house number (e.g. 10),\n\
+  the name of the street (e.g. Downing), and\n\
+  the type of street (e.g. Street, Avenue, Boulevard, etc)")
+
+buildingNo = input("Please enter bulding number: ")
+nameOfStreet = input("Please enter name of street: ")
+typeOfStreet = input("Please enter type of steet: ")
+
+print(f"Full address: {buildingNo}, {nameOfStreet} {typeOfStreet}.")
+print(f"The building or house number is {buildingNo}.")
+print(f"The street name is {nameOfStreet} {typeOfStreet}.")
+__________________________________
+## Output of test running:
+Please enter address with inputs of:
+  building/house number (e.g. 10),
+  the name of the street (e.g. Downing), and
+  the type of street (e.g. Street, Avenue, Boulevard, etc)
+Please enter bulding number: 1600
+Please enter name of street: Pennsylvania
+Please enter type of steet: Avenue
+Full address: 1600, Pennsylvania Avenue.
+The building or house number is 1600.
+The street name is Pennsylvania Avenue.
+__________________________________
+
+
+
+
+#### Self-Assessment: Basic Python Data Types
+
+Write a script that performs the following steps:
+
+1. Collect the following individual pieces of data from the user:
+    - First name
+    - Last name
+    - City where they live
+    - Their hourly wage
+    - The number of hours they work each week
+2. Present the collected information based on the data input in a format like:
+
+   Hi, Firstname Lastname! How are you?
+   I hope the weather is nice in City.
+   Based on the information you provided, you earn X dollars per week,
+   approximately Y dollars per month, and Z dollars per year.
+   
+   
+### Requirements:
+- Add your name and the current date in a comment on the first line.
+- The user can enter the text values using any case they wish,
+  but the output must have only the first letter of each name and city capitalized.
+   - For example, if the user enters john, JOHN, or joHn as their first name, the output should be John.
+- Assume that there are four weeks in each month, but the yearly calculation should be based on a full year.
+- Use correct spelling and punctuation in all user prompts and output.
+Write out the code on your own and verify that it produces the expected outcome and runs without error.
+Part of testing the program should include making sure that the user can enter their name and city in
+any case they wish and the output will always use appropriate case.
+
+
+
+
+
+
+
+
+
+
+
+
 
 _______________
 Question:
