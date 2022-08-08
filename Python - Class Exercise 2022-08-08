@@ -4,6 +4,8 @@ Carl Tang Yong Han
 
 
 _______________________
+# Formatted print
+
 planet = "Mars"
 
 residents = "Martians"
@@ -11,10 +13,43 @@ residents = "Martians"
 print(f"Hello {planet}, you are lovely {residents}!")
 
 _______________________
+# Task the user to enter a number over 100 and and then enter a number
+# under 10 and tell them how many times the smaller numbe goes into the
+# larger number in a user-friendly format.
 
 
+print("This game takes two numbers from you.")
+
+firstNum = 1
+secondNum = 100
+
+while (firstNum < 100):
+    firstNum = int(input("Enter a number over 100."))
+    
+    while (secondNum >= 10):
+        secondNum = int(input("Now enter a number under 10."))
+
+times = firstNum / secondNum
+timesInt = firstNum // secondNum
+print(f"Your second number goes into second number {times} times.")
+print(f"Or, in whole numbers, {timesInt} times.")
+      
 _______________________
+# Ask the user to enter 1, 2 or 3. If they enter a 1, display the message “Thank you”,
+# if they enter a 2, display “Well done”, if they enter a 3, display “Correct”.
+# If they enter anything else, display “Error message”.
 
+
+userInput = input("Please enter either 1, 2 or 3. ")
+
+if userInput == "1":
+    print("Thank you.")
+elif userInput == "2":
+    print("Well done.")
+elif userInput == "3":
+    print("Correct.")
+else:
+    print("Error message.")
 
 _______________________
 
