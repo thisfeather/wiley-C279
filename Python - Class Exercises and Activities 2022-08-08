@@ -1,4 +1,4 @@
-Python - Class Exercise and Activities 2022-08-08
+Python - Class Exercises and Activities 2022-08-08
 
 Carl Tang Yong Han
 
@@ -611,6 +611,51 @@ Part of testing the program should include making sure that the user can enter t
 any case they wish and the output will always use appropriate case.
 
 
+## Answer:
+___________________________________________
+print("Please tell me the following information about you and your work:")
+
+# Collect user input:
+firstNameInput = input("Your first name: ")
+lastNameInput = input("Your last name: ")
+cityInput = input("The city where you live: ")
+hourlyWageInput = input("Your hourly wage: ")
+weeklyHoursInput = input("How many hours you work each week: ")
+
+# Format conversion of user input:
+firstName = firstNameInput.title()
+lastName = lastNameInput.title()
+city = cityInput.title()
+hourlyWage = float(hourlyWageInput)
+weeklyHours = float(weeklyHoursInput)
+
+
+# Calculation:
+weeklyWages = round((weeklyHours * hourlyWage), 2)
+weeklyDollars = "{:.2f}".format(weeklyWages) # Formatting to dollars
+# Approximate monthly wages:
+monthlyWages = round((4 * weeklyWages), 2)
+monthlyDollars = "{:.2f}".format(monthlyWages) # Formatting to dollars
+annualWages = round((52 * weeklyWages), 2)
+annualDollars = "{:.2f}".format(annualWages) # Formatting to dollars
+
+# Response to user:
+print(f"Hi, {firstName} {lastName}! How are you?\n\
+I hope the weather is nice in {city}.\n\
+Based on the information you provided, you earn {weeklyDollars} dollars per week, \
+approximately {monthlyDollars} dollars per month, and {annualDollars} dollars per year.")
+___________________________________________
+## Output of test running:
+Please tell me the following information about you and your work:
+Your first name: alfred
+Your last name: pennyWorth
+The city where you live: GOTHAM
+Your hourly wage: 58.80
+How many hours you work each week: 66.5
+Hi, Alfred Pennyworth! How are you?
+I hope the weather is nice in Gotham.
+Based on the information you provided, you earn 3910.20 dollars per week, approximately 15640.80 dollars per month, and 203330.40 dollars per year.
+___________________________________________
 
 
 
@@ -618,37 +663,3 @@ any case they wish and the output will always use appropriate case.
 
 
 
-
-
-
-
-_______________
-Question:
-
-
-Answer:
-
-_______________
-Question:
-
-
-Answer:
-
-_______________
-Question:
-
-
-Answer:
-
-_______________
-
-
-
-
-______________________
-
-
-_______________________
-
-
-_______________________
