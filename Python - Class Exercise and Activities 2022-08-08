@@ -1,0 +1,191 @@
+Python - Class Exercise and Activities 2022-08-08
+
+Carl Tang Yong Han
+
+
+_______________________
+# Formatted print
+
+planet = "Mars"
+
+residents = "Martians"
+
+print(f"Hello {planet}, you are lovely {residents}!")
+
+_______________________
+# Task the user to enter a number over 100 and and then enter a number
+# under 10 and tell them how many times the smaller numbe goes into the
+# larger number in a user-friendly format.
+
+
+print("This game takes two numbers from you.")
+
+firstNum = 1
+secondNum = 100
+
+while (firstNum < 100):
+    firstNum = int(input("Enter a number over 100."))
+    
+    while (secondNum >= 10):
+        secondNum = int(input("Now enter a number under 10."))
+
+times = firstNum / secondNum
+timesInt = firstNum // secondNum
+print(f"Your second number goes into second number {times} times.")
+print(f"Or, in whole numbers, {timesInt} times.")
+      
+_______________________
+# Ask the user to enter 1, 2 or 3. If they enter a 1, display the message “Thank you”,
+# if they enter a 2, display “Well done”, if they enter a 3, display “Correct”.
+# If they enter anything else, display “Error message”.
+
+
+userInput = input("Please enter either 1, 2 or 3. ")
+
+if userInput == "1":
+    print("Thank you.")
+elif userInput == "2":
+    print("Well done.")
+elif userInput == "3":
+    print("Correct.")
+else:
+    print("Error message.")
+
+_______________________
+
+
+
+
+### Activity 1
+Each of the code blocks below includes at least one error that will prevent it from running.
+Fix the errors and test to make sure the code runs as expected.
+Comments at the top of each block will tell you what the code should do.
+
+_______________
+Question:
+# display the text in quotation marks to an output block
+Print("Python is fun!")
+
+Answer:
+print("Python is fun!")
+
+_______________
+Question:
+# Display the text in quotation marks to an output block 
+# without moving any of the existing code to a different line
+print("Python is fun!") print("Python is also easy.")
+
+Answer:
+print("Python is fun!\nPython is also easy.")
+_______________
+Question:
+# Display the text in quotation marks to an output block 
+# without moving any of the existing code to a different line
+print 
+("Python is fun!")
+
+Answer:
+print 
+("Python is fun!")
+## Note: the above code actually works to print text.
+_______________
+Question:
+# Change each variable name to an appropriate name for Python. 
+# Do not use the same variable name more than one time.
+1-name = "Rebecca" # first name
+&_name = "Roberts" # last name
+ 
+# After changing the variable names, update the code below 
+# to print out each name.
+print(1-name)
+print(&_name)
+
+Answer:
+firstName = "Rebecca" # first name
+lastName = "Roberts" # last name
+
+print(firstName)
+print(lastName)
+_______________
+
+
+
+
+### Activity 2:
+Starting with the code blocks provided below, add to the code as needed to follow
+the instructions in the comments. You may add necessary code, but you should not delete
+any of the existing code. Run each block to make sure it works as expected before going to the next block.
+_______________
+Question:
+# Add a new line of code that displays the text in quotation marks 
+# to an output block without repeating the text in quotation marks.
+output = "I love Python!"
+ 
+# your code below this line
+print(f'"{output}"')
+_______________
+Question:
+# Display only the text Python is fun! to an output block 
+# without deleting any of the existing code
+print("Python is fun!")
+print("Python is also easy!")
+
+Answer:
+print("Python is fun!")
+# print("Python is also easy!")
+_______________
+
+
+
+
+### Activity 3: Create a script that prompts the user for the name of the state
+where they were born and the name of the state where they live now.
+Save each value in its own variable and display the input values to the user.
+
+_______________
+# Answer:
+stateBorn = input("Please enter the name of the state where you were born.")
+stateLive = input("Please enter the name of the state where you live now.")
+
+print(f"You were born in {stateBorn}, and you live in {stateLive} now.")
+_______________
+
+
+
+
+
+
+
+
+
+
+_______________
+Question:
+
+
+Answer:
+
+_______________
+Question:
+
+
+Answer:
+
+_______________
+Question:
+
+
+Answer:
+
+_______________
+
+
+
+
+______________________
+
+
+_______________________
+
+
+_______________________
