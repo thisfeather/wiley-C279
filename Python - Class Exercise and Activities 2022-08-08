@@ -56,6 +56,8 @@ _______________________
 
 
 
+#### Activities: Python Syntax
+
 ### Activity 1
 Each of the code blocks below includes at least one error that will prevent it from running.
 Fix the errors and test to make sure the code runs as expected.
@@ -153,6 +155,172 @@ _______________
 
 
 
+### Self-Assessment: Python Syntax
+
+Requirements
+Write a script that meets the following requirements:
+
+Add your name and the current date in comments at the top of the script.
+Prompt the user to enter their first name, their last name, their phone number, and the year they were born.
+Save each of these values to a different variable.
+Display the values they entered.
+Test your script to make sure it works as expected.
+
+### Self-Check
+Use the checklist below to verify that your program meets requirements:
+
+Your name and the current date appear at the top of the block of code.
+The program includes four prompts, each of which is saved to a different variable with an appropriate name:
+ - First name
+ - Last name
+ - Phone number
+ - Year born
+The program displays each of these values to the user.
+There is an acceptable level of variation in setting up and designing the program's flow.
+The key takeaway is that the program meets the requirements listed and runs without error.
+
+
+### Answer:
+______________________________________
+## Carl Tang Yong Han
+## 2022-08-08
+
+# Telling user the expectations of this program, and prompt them for input.
+print("Welcome. We are going to ask you for your personal information.")
+
+firstName = input("Please enter your first name: ")
+lastName = input("Please enter your last name: ")
+phoneNumber = input("Please enter your phone number: ")
+yearBorn = input("Please enter your year born: ")
+
+print(f'Your first name is: {firstName}')
+print(f'Your last name is: {lastName}')
+print(f'Your phone number is: {phoneNumber}')
+print(f'Your year born is: {yearBorn}')
+
+______________________________________
+### Outcome of test running program:
+
+Welcome. We are going to ask you for your personal information.
+Please enter your first name: Bruce
+Please enter your last name: Wayne
+Please enter your phone number: (888)-999 8888
+Please enter your year born: 1969
+Your first name is: Bruce
+Your last name is: Wayne
+Your phone number is: (888)-999 8888
+Your year born is: 1969
+
+
+
+
+#### Activities: Basic Python Data Types
+
+### Activity 1
+Create a computer program that performs the following steps:
+ - Prompt the user for an integer and store the value in a variable.
+ - Display the data type of the variable that holds the entered data.
+ - Convert the value to an integer type and store the converted value in a new variable.
+ - Display the value and type of the new variable in a single sentence. (For example, "The value is 8 with type integer.")
+ - Run the program and enter a float value at the prompt. What is its value in the last step?
+Refactor the program, using a float instead of an integer.
+What happens if you enter an integer rather than a float at the prompt?
+
+
+## Answer:
+__________________________________
+# Part 1:
+userInput = input("Please enter an integer: ")
+inputType = type(userInput)
+print("The data type is of the input is: ", inputType)
+# Converting value to integer and store as new variable
+newVariable = int(userInput)
+newType = type(newVariable)
+print(f"The value is {newVariable} with type {newType}.")
+__________________________________
+## Output of test running 1:
+Please enter an integer: 777
+The data type is of the input is:  <class 'str'>
+The value is 777 with type <class 'int'>.
+
+## Output of test running 2:
+Please enter an integer: 123.45
+The data type is of the input is:  <class 'str'>
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+~\AppData\Local\Temp/ipykernel_10784/1327747348.py in <module>
+      5 print("The data type is of the input is: ", inputType)
+      6 # Converting value to integer and store as new variable
+----> 7 newVariable = int(userInput)
+      8 newType = type(newVariable)
+      9 print(f"The value is {newVariable} with type {newType}.")
+
+ValueError: invalid literal for int() with base 10: '123.45'
+
+## Comment: The value in the last step is not available due to an error
+## to invalidly cast a float value into an integer value.
+
+
+__________________________________
+# Part 2: Refactoring the program
+userInput = input("Please enter a float number: ")
+inputType = type(userInput)
+print("The data type is of the input is: ", inputType)
+# Converting value to float and store as new variable
+newVariable = float(userInput)
+newType = type(newVariable)
+print(f"The value is {newVariable} with type {newType}.")
+
+__________________________________
+## Output of test running 1:
+Please enter a float number: 34.567
+The data type is of the input is:  <class 'str'>
+The value is 34.567 with type <class 'float'>.
+
+## Output of test running 2:
+Please enter a float number: 89
+The data type is of the input is:  <class 'str'>
+The value is 89.0 with type <class 'float'>.
+
+## Comment: There is no error message when user inputs integer in this case.
+## However the value displayed is actually a float number of "89.0" instead of an integer,
+## and the printed data type confirms that it is indeed converted into a float.
+_________________________________
+
+
+
+
+### Activity 2
+Update the code below so that the result is equal to 576.
+Do not change any of the existing values or operators or the order in which they appear.
+
+## Question:
+_________________________________
+# do not change the order in which the numbers and operators appear in the next line
+result = 5 + 3 ** 2 * 9 
+ 
+print(result) # the output should be 576
+
+
+## Answer:
+__________________________________
+result = (5 + 3) ** 2 * 9 
+ 
+print(result) # the output should be 576
+___________________________________
+
+
+
+
+### Activity 3
+Create a computer program that prompts the user for
+a float number and returns the integer portion of the floating number.
+
+
+
+
+
+
 
 
 
@@ -161,7 +329,8 @@ _______________
 
 _______________
 Question:
-
+# display the text in quotation marks to an output block
+Print("Python is fun!")
 
 Answer:
 
