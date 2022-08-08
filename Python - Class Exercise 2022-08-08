@@ -1,0 +1,28 @@
+Python - Class Exercise 2022-08-08
+
+Carl Tang Yong Han
+
+
+_______________________
+planet = "Mars"
+
+residents = "Martians"
+
+print(f"Hello {planet}, you are lovely {residents}!")
+
+_______________________
+
+
+_______________________
+
+
+_______________________
+
+
+_______________________
+
+
+_______________________
+
+
+_______________________
