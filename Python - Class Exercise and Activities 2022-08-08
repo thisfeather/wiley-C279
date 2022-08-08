@@ -301,7 +301,6 @@ result = 5 + 3 ** 2 * 9
  
 print(result) # the output should be 576
 
-
 ## Answer:
 __________________________________
 result = (5 + 3) ** 2 * 9 
@@ -316,21 +315,159 @@ ___________________________________
 Create a computer program that prompts the user for
 a float number and returns the integer portion of the floating number.
 
+## Answer:
+___________________________________
+userInput = input("Please enter a float number: ")
+
+integerPortion = int(float(userInput))
+
+print(f"The interger portion is: {integerPortion}")
+
+___________________________________
+## Output of test running:
+Please enter a float number: 234.567
+The interger portion is: 234
+___________________________________
 
 
 
 
+### Activity 4
+Write a computer program that calculates and displays the current value of a deposit
+for a given initial deposit, interest rate, how many times interest is calculated per year,
+and the number of years since the initial deposit.
+
+The program should prompt the user for each of the values and use the following formula
+to calculate the current value of the deposit:
+
+V = P(1 + r/n)^nt
+where
+V -- value
+P -- initial deposit
+r -- interest rate as a fraction (eg 0.05)
+n -- the number of times per year interest is calculated
+t -- the number of years since the initial deposit
+
+The program should display each of the values entered to the user in a meaningful way
+(so that the user can easily see what each value represents), along with the results of the calculation.
+
+## Answer:
+_________________________________
+print("This program calculates the current value of a deposit.\n" \
+      "Please provide the following four inputs.")
+
+P = float(input("Please enter initial deposit, P: "))
+r = float(input("Please enter interest rate (as a fraction), r: "))
+n = int(input("Please enter how many times interest is calculated per year, n: "))
+t = float(input("Please enter number of years since the initial deposit, t: "))
+
+print(f"Your input:\n \
+Initial deposit, P: {P} \n \
+Interest rate (as a fraction), r: {r} \n \
+Times per year interest is calculated, n: {n} \n \
+Number of years since initial deposit, t: {t} \n")
+
+# Calculate current value of deposit:
+V = P * (1 + (r / n)) ** (n * t)
+
+print(f"Current value of deposit: {V}")
+________________________________
+## Output of test running:
+This program calculates the current value of a deposit.
+Please provide the following four inputs.
+Please enter initial deposit, P: 20000
+Please enter interest rate (as a fraction), r: 0.04
+Please enter how many times interest is calculated per year, n: 12
+Please enter number of years since the initial deposit, t: 7
+Your input:
+ Initial deposit, P: 20000.0 
+ Interest rate (as a fraction), r: 0.04 
+ Times per year interest is calculated, n: 12 
+ Number of years since initial deposit, t: 7.0 
+
+Current value of deposit: 26450.277277712208
+_______________________________
 
 
 
 
+### Activity 5
+Write a computer program that prompts the user for a principal amount,
+the rate of interest, and the number of days for a loan and then calculates
+and returns the simple interest for the life of the loan. Use the formula:
 
+interest = principal * rate * days / 365
+
+## Answer:
+_________________________________
+print("This program calculates simple interest of a loan. \
+Please enter the following three values:")
+
+principal = float(input("Principal amount: "))
+rate = float(input("Rate of Interest: "))
+days = int(input("Number of days: "))
+
+interest = principal * rate * days / 365
+
+print(f"The interest is: {interest}")
+________________________________
+## Output of test running:
+This program calculates simple interest of a loan. Please enter the following three values:
+Principal amount: 40000
+Rate of Interest: 0.07
+Number of days: 60
+The interest is: 460.27397260273983
+________________________________
+
+
+
+
+### Activity 6
+Create a computer program that displays three statements that evaluate to True
+and three statements that evaluate to False.
+
+## Answer:
+_________________________________
+a = 1
+b = 0
+
+# These evaluate to True
+print("a > b =", (a > b))
+print("a != b =", (a != b))
+print("a > b or (a != b) =", (a > b or a != b))
+
+# These evaluate to False
+print("a <= b =", (a <= b))
+print("not(a >= (a + b)) =", (not(a >= (a + b))))
+print("a <= b and (a >= (a + b)) =", (a <= b and a >= (a + b)))
+_________________________________
+## Output of test running:
+a > b = True
+a != b = True
+a > b or (a != b) = True
+a <= b = False
+not(a >= (a + b)) = False
+a <= b and (a >= (a + b)) = False
+_________________________________
+
+
+
+
+### Activity 7
+Create a computer program that prompts the user for a number and calculates the following:
+ - the boolean of the number entered
+ - the binary equivalent of the number entered
+ - the square root of the number entered
+The program should display the following to the user:
+ - The number the user entered, in a phrase like, "You selected value."
+ - The boolean of the number, in a phrase like, "The boolean of your number is value."
+ - The binary equivalent of the number, in a phrase like, "The binary equivalent of your number is value"
+ - The square root of the number, in a phrase like, "The square root of your number is value," with the value rounded to three decimal places.
 
 
 _______________
 Question:
-# display the text in quotation marks to an output block
-Print("Python is fun!")
+
 
 Answer:
 
