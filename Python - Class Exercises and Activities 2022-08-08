@@ -1056,3 +1056,174 @@ _______________________________________
 
 #### Practice Exercises: Getting Started with Python
 
+### Activity 1:
+(NOTE: This question is exactly the same as the homework
+"Activities: Basic Python Data Types - Activity 1" above).
+
+
+
+### Activity 2:
+(NOTE: This question is exactly the same as the homework
+"Activities: Basic Python Data Types - Activity 4" above).
+
+
+
+### Activity 3:
+(NOTE: This question is exactly the same as the homework
+"Activities: Basic Python Data Types - Activity 5" above).
+
+
+
+### Activity 4
+Create a computer program that prompts the user for a purchase total
+and a sales tax rate and then returns the total price of the sale.
+
+## Answer:
+_______________________________________
+purchase = float(input("Please enter purchase total: "))
+taxRate = float(input("Please enter sales tax rate (as a fraction): "))
+totalPrice = round(((1 + taxRate) * purchase), 2)
+totalStr = "{:.2f}".format(totalPrice)
+
+print(f"Total price of the sale is ${totalStr}")
+_______________________________________
+## Output of test running:
+Please enter purchase total: 6543.20
+Please enter sales tax rate (as a fraction): 0.07
+Total price of the sale is $7001.22
+_______________________________________
+
+
+
+### Activity 5:
+(NOTE: This question is exactly the same as the homework
+"Activities: Basic Python Data Types - Activity 6" above).
+
+
+
+### Activity 6
+Write out the following program and run it using 4 as the first value and 10 as the second value.
+
+-----------------
+first = input("Input a number: ")
+second = input("Input another number: ")
+
+if first > second:
+    print(first + " is greater than " + second)
+elif first < second:
+    print(second + " is greater than " + first)
+else:
+    print("They are the same number!")
+-----------------
+
+Does the program produce the expected result?
+Run it a few more times with other values to identify
+the problem and then fix the code so that it works as expected.
+
+## Answer:
+_______________________________________
+## Output of test running 1:
+Input a number: 4
+Input another number: 10
+4 is greater than 10
+
+## Output of test running 2:
+Input a number: 7
+Input another number: 11
+7 is greater than 11
+
+## Output of test running 3:
+Input a number: nine
+Input another number: two
+two is greater than nine
+
+## Comment: The program does not produce the expected result,
+            as the inputs are treated as only strings, and mathematical
+            comparisons and computation do not apply here.
+_______________________________________
+## Code fixed:
+# Assuming "number" means integers, but we could have also used float.
+
+first = int(input("Input a number: "))
+second = int(input("Input another number: "))
+
+if first > second:
+    print(first, "is greater than", second)
+elif first < second:
+    print(second, "is greater than", first)
+else:
+    print("They are the same number!")
+_______________________________________
+## Output of test running 1:
+Input a number: 40
+Input another number: 1000
+1000 is greater than 40
+
+## Output of test running 2:
+Input a number: 19
+Input another number: 19
+They are the same number!
+
+## Output of test running 3:
+Input a number: 7
+Input another number: seven
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+~\AppData\Local\Temp/ipykernel_2064/254766927.py in <module>
+      2 
+      3 first = int(input("Input a number: "))
+----> 4 second = int(input("Input another number: "))
+      5 
+      6 if first > second:
+
+ValueError: invalid literal for int() with base 10: 'seven'
+
+## Comment: program would give error if non-numeric string is entered, as expected.
+_______________________________________
+
+
+
+### Activity 7
+(NOTE: This question is exactly the same as the homework
+"Activities: Basic Python Data Types - Activity 8" above).
+
+
+
+### Activity 8
+(NOTE: This question is exactly the same as the homework
+"Activities: Basic Python Data Types - Activity 7" above).
+
+
+
+### Activity 9
+(NOTE: This question is almost exactly the same as the homework
+"Activities: Conditional Statements - Activity 3" above, except that the
+previous question went one step further to ask for rate of correct answers.)
+
+
+
+### Activity 10
+(NOTE: This question is exactly the same as the homework
+"Activities: Basic Python Data Types - Activity 9" above).
+
+
+
+### Activity 11
+Write a program that performs the following steps:
+1. Start with a Contact entry that includes the following pieces of information:
+    - A person's first and last name, e.g., Robert Taylor
+    - A complete street address, e.g., 25 Main Street
+    - A city, state, and zip, e.g., Paterson NJ 07501
+    - A 10-digit phone number, e.g., 201-857-5309
+2. Display the complete Contact data to the user.
+3. Prompt the user to select one item in the Contact data that they want to change.
+4. Prompt the user for the new value for that item.
+5. Change the Contact data appropriately and display the updated Contact data to the user.
+
+## Answer:
+_______________________________________
+
+_______________________________________
+## Output of test running:
+
+_______________________________________
