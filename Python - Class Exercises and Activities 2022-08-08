@@ -660,6 +660,242 @@ ___________________________________________
 
 
 
+#### Activities: Conditional Statements
+
+### Activity 1
+Write a program that asks the user how much money they have in their wallet.
+The program should output "You're rich!" if the user inputs $20 or more and
+"You're broke!" if the input is less than $20.
+
+## Answer:
+__________________________________
+print("This can be a bit personal and private. I wanna ask...")
+
+money = float(input("How much money do you have in your wallet? (In numbers) "))
+
+if money >= 20:
+    print("You're rich!")
+else:
+    print("You're broke!")
+__________________________________
+## Output of test running:
+This can be a bit personal and private. I wanna ask...
+How much money do you have in your wallet? (In numbers) 19.90
+You're broke!
+__________________________________
 
 
 
+
+### Activity 2
+Write a program that performs the following steps:
+
+Ask the user if they own any cats. (Yes/No answer)
+Ask the user if they own any dogs. (Yes/No answer)
+If the user responses indicate that they have both cats and dogs, output "You must really love pets!"
+Otherwise, the output should be "Maybe you need more pets."
+The last step will apply if the user has cats but not dogs, dogs but not cats, or neither cats nor dogs.
+
+Write two different versions of this program,
+one that uses only if statements and another that uses if-else statements.
+
+## Answer for Version 1: Using only if statements:
+_____________________________________
+print("Let's have a pet talk.\n\
+You may answer in Y/N or Yes/No,\n\
+in any capitalization format.")
+
+# Get use input and format to uniform format.
+answerCat = input("Do you own any cats? ").lower()
+answerDog = input("Do you own any dogs? ").lower()
+
+# Handle varieties of the same answer, and make booleans out of them.
+if answerCat == "yes" or answerCat == "y":
+    ownCat = True
+elif answerCat == "no" or answerCat == "n":
+    ownCat = False
+    
+if answerDog == "yes" or answerDog == "y":
+    ownDog = True
+elif answerDog == "no" or answerDog == "n":
+    ownDog = False
+    
+# Responding to user, Version 1, using only if statements:
+
+if ownCat and ownDog:
+    print("You must really love pets!")
+
+if ownCat and (not ownDog):
+    print("Maybe you need more pets.")
+    
+if (not ownCat) and ownDog:
+    print("Maybe you need more pets.")
+    
+if not (ownCat or ownDog):
+    print("Maybe you need more pets.")
+_____________________________________
+## Output of test running Version 1:
+Let's have a pet talk.
+You may answer in Y/N or Yes/No,
+in any capitalization format.
+Do you own any cats? n
+Do you own any dogs? Y
+Maybe you need more pets.
+_____________________________________
+
+## Answer for Version 2: Using if-else statements:
+_____________________________________
+print("Let's have a pet talk.\n\
+You may answer in Y/N or Yes/No,\n\
+in any capitalization format.")
+
+# Get use input and format to uniform format.
+answerCat = input("Do you own any cats? ").lower()
+answerDog = input("Do you own any dogs? ").lower()
+
+# Handle varieties of the same answer, and make booleans out of them.
+if answerCat == "yes" or answerCat == "y":
+    ownCat = True
+elif answerCat == "no" or answerCat == "n":
+    ownCat = False
+    
+if answerDog == "yes" or answerDog == "y":
+    ownDog = True
+elif answerDog == "no" or answerDog == "n":
+    ownDog = False
+    
+# Responding to user, Version 2, using if-else statements:
+
+if ownCat and ownDog:
+    print("You must really love pets!")
+else:
+    print("Maybe you need more pets.")
+_____________________________________
+## Output of test running Version 2:
+Let's have a pet talk.
+You may answer in Y/N or Yes/No,
+in any capitalization format.
+Do you own any cats? NO
+Do you own any dogs? Yes
+Maybe you need more pets.
+_____________________________________
+
+
+
+
+### Activity 3
+Create a computer program that asks the user a few questions to which the user will respond either True or False.
+Display all the questions with the correct answer and the user's answers at the end of the program,
+along with the user's the correct response rate (number of questions answered correctly/number of questions).
+
+## Answer:
+_____________________________________
+# Prepare a few questions and answers, Q's and A's:
+
+Q1 = "1. Linux has a larger desktop OS market share than Windows."
+A1 = "F"
+
+Q2 = "2. Windows has a larger desktop OS market share than Mac."
+A2 = "T"
+
+Q3 = "3. Android has a larger mobile OS market share than iOS"
+A3 = "T"
+
+Q4 = "4. Apple introduced the smart phone back in Y2K."
+A4 = "F"
+
+Q5 = "5. Linux-based OS's are the most widely used OS's in the World."
+A5 = "T"
+
+
+print("This is a quiz of True or False!\n\
+Enter T or F for True or False, in any capitalization.")
+
+# Score keeping:
+questions = 5
+score = 0  # Initialize for later use
+
+
+# Ask and collect user replies, R's:
+
+R1 = input(f"{Q1} ").upper()
+if R1 == A1:
+    score += 1
+
+R2 = input(f"{Q2} ").upper()
+if R2 == A2:
+    score += 1
+
+R3 = input(f"{Q3} ").upper()
+if R3 == A3:
+    score += 1
+
+R4 = input(f"{Q4} ").upper()
+if R4 == A4:
+    score += 1
+    
+R5 = input(f"{Q5} ").upper()
+if R5 == A5:
+    score += 1
+    
+# Calculate the correct response rate
+# convert to 100% for easier interpretation
+rate = round((100 * score / questions), 2)
+rateStr = "{:.2f}".format(rate)
+
+# Revealing answers and outcomes
+print("\nTa-da! Here are the answers and your score:\n")
+
+print(f"{Q1}\n     Actual answer: {A1}, You gave: {R1}\n")
+print(f"{Q2}\n     Actual answer: {A2}, You gave: {R2}\n")
+print(f"{Q3}\n     Actual answer: {A3}, You gave: {R3}\n")
+print(f"{Q4}\n     Actual answer: {A4}, You gave: {R4}\n")
+print(f"{Q5}\n     Actual answer: {A5}, You gave: {R5}\n")
+
+print(f"You scored {score} right out of {questions} questions.\n\
+Your correct response rate is {rateStr}%.")
+_____________________________________
+## Output of test running:
+This is a quiz of True or False!
+Enter T or F for True or False, in any capitalization.
+1. Linux has a larger desktop OS market share than Windows. T
+2. Windows has a larger desktop OS market share than Mac. t
+3. Android has a larger mobile OS market share than iOS F
+4. Apple introduced the smart phone back in Y2K. f
+5. Linux-based OS's are the most widely used OS's in the World. T
+
+Ta-da! Here are the answers and your score:
+
+1. Linux has a larger desktop OS market share than Windows.
+     Actual answer: F, You gave: T
+
+2. Windows has a larger desktop OS market share than Mac.
+     Actual answer: T, You gave: T
+
+3. Android has a larger mobile OS market share than iOS
+     Actual answer: T, You gave: F
+
+4. Apple introduced the smart phone back in Y2K.
+     Actual answer: F, You gave: F
+
+5. Linux-based OS's are the most widely used OS's in the World.
+     Actual answer: T, You gave: T
+
+You scored 3 right out of 5 questions.
+Your correct response rate is 60.00%.
+_____________________________________
+
+
+
+
+### Activity 4
+Write a program that uses elif to produce five different possible outcomes based on a single user input.
+ 1. Ask the user what season it is (fall, winter, spring, or summer).
+ 2. If the user enters fall, output "I bet the leaves are pretty there!"
+ 3. If the user enters winter, output "I hope you're ready for snow!"
+ 4. If the user enters spring, output "I can smell the flowers!"
+ 5. If the user enters summer, output "Make sure your AC is working!"
+ 6. If the user enters a value that does not correspond to a season, output "I don't recognize that season."
+The user should be able to enter the name of the season in any case and the program will still work.
+
+Challenge: After you have the program working as describe above, modify the program so that the user can enter either "fall" or "autumn" and get the same result.
