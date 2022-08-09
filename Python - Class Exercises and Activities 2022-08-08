@@ -1363,7 +1363,10 @@ zipCode = input("Zip: ").upper()
 phone = input("10-Digit Phone Number,\ne.g. 123-456-7890: ")
 email = input("Email: ")
 
-name = firstName + " " + middleName + " " + lastName
+if middleName != "":
+    name = firstName + " " + middleName + " " + lastName
+else:
+    name = firstName + " " + lastName
 address = buildingNum + " " + street
 area = city + " " + state + " " + zipCode 
 
@@ -1419,9 +1422,147 @@ Combine the previous two activities into a single program that performs the foll
  
 ## Answer:
 _______________________________________
+print("This is for creating a new Contact entry.\nPlease provide the following:\n")
+
+# Collecting data from user
+firstName = input("First Name: ").upper()
+middleName = input("Middle Name: ").upper()
+lastName = input("Last Name: ").upper()
+buildingName = input("Building Name for Address, if any: ").upper()
+buildingNum = input("Building Number for Address: ").upper()
+street = input("Street Name for Address: ").upper()
+city = input("City: ").upper()
+state = input("State: ").upper()
+zipCode = input("Zip: ").upper()
+phone = input("10-Digit Phone Number,\ne.g. 123-456-7890: ")
+email = input("Email: ")
 
 
+def displayContact():
+    if middleName != "":
+        name = firstName + " " + middleName + " " + lastName
+    else:
+        name = firstName + " " + lastName
+    address = buildingNum + " " + street
+    area = city + " " + state + " " + zipCode 
+
+    # Display complete Contact data
+    print("\nHere are your entered Contact details.\n")
+    print(f"\tName:\t\t{name}")
+    # Display the optional building name
+    if buildingName != "":
+        print(f"\tAddress:\t{buildingName}")
+        print(f"\t        \t{address}")
+        print(f"\t        \t{area}")
+    else:
+        print(f"\tAddress:\t{address}\n\t{area}")
+    print(f"\tPhone:\t\t{phone}")
+    print(f"\tEmail:\t\t{email}")
+    
+displayContact()
+
+# Prompt user to select one item in Contact to change
+print("Choose one of the numbers below to change a field of data:")
+print("\n\
+      1  - First Name\n\
+      2  - Middle Name\n\
+      3  - Last Name\n\
+      4  - Building Name\n\
+      5  - Building Number\n\
+      6  - Street Name\n\
+      7  - City\n\
+      8  - State\n\
+      9  - Zip\n\
+      10 - Phone\n\
+      11 - Email\n\
+      0  - Quit Changing Data\n")
+choice = int(input("Your choice? "))
+
+# Prompt user to enter new value for the field
+change = input("Please enter new data: ")
+
+# Change the Contact and display updated data to user
+if choice == 0:
+    print("Thank you!")
+elif choice == 1:
+    firstName = change.upper()
+elif choice == 2:
+    middleName = change.upper()
+elif choice == 3:
+    lastName = change.upper()
+elif choice == 4:
+    buildingName = change.upper()
+elif choice == 5:
+    buildingNum = change.upper()
+elif choice == 6:
+    street = change.upper()
+elif choice == 7:
+    city = change.upper()
+elif choice == 8:
+    state = change.upper()
+elif choice == 9:
+    zipCode = change.upper()
+elif choice == 10:
+    phone = change
+elif choice == 11:
+    email = change
+    
+if choice != 0:
+    displayContact()
 _______________________________________
 ## Output of test running:
+This is for creating a new Contact entry.
+Please provide the following:
 
+First Name: Natalia
+Middle Name: Alianovna
+Last Name: Romanova
+Building Name for Address, if any: Avengers Mansion
+Building Number for Address: 721
+Street Name for Address: Fifth Avenue
+City: New York City
+State: NY
+Zip: 10128
+10-Digit Phone Number,
+e.g. 123-456-7890: 999-234-5678
+Email: natasha.romanoff@kgb.gov.ru
+
+Here are your entered Contact details.
+
+	Name:		NATALIA ALIANOVNA ROMANOVA
+	Address:	AVENGERS MANSION
+	        	721 FIFTH AVENUE
+	        	NEW YORK CITY NY 10128
+	Phone:		999-234-5678
+	Email:		natasha.romanoff@kgb.gov.ru
+Choose one of the numbers below to change a field of data:
+
+      1  - First Name
+      2  - Middle Name
+      3  - Last Name
+      4  - Building Name
+      5  - Building Number
+      6  - Street Name
+      7  - City
+      8  - State
+      9  - Zip
+      10 - Phone
+      11 - Email
+      0  - Quit Changing Data
+
+Your choice? 11
+Please enter new data: black.widow@avengers.org
+
+Here are your entered Contact details.
+
+	Name:		NATALIA ALIANOVNA ROMANOVA
+	Address:	AVENGERS MANSION
+	        	721 FIFTH AVENUE
+	        	NEW YORK CITY NY 10128
+	Phone:		999-234-5678
+	Email:		black.widow@avengers.org
 _______________________________________
+
+
+
+
