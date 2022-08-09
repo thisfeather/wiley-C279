@@ -898,4 +898,161 @@ Write a program that uses elif to produce five different possible outcomes based
  6. If the user enters a value that does not correspond to a season, output "I don't recognize that season."
 The user should be able to enter the name of the season in any case and the program will still work.
 
-Challenge: After you have the program working as describe above, modify the program so that the user can enter either "fall" or "autumn" and get the same result.
+Challenge: After you have the program working as describe above, 
+modify the program so that the user can enter either "fall" or "autumn" and get the same result.
+
+## Answers:
+_______________________________________
+# Version 1:
+
+print("Hi there!")
+reply = input("What season is it? \n\
+(fall, winter, spring or summer) in any case: ").lower()
+
+if reply == "fall":
+    print("I bet the leaves are pretty there!")
+elif reply == "winter":
+    print("I hope you're ready for snow!")
+elif reply == "spring":
+    print("I can smell the flowers!")
+elif reply == "summer":
+    print("Make sure your AC is working!")
+else:
+    print("I don't recognize that season.")
+_______________________________________
+## Output of test running 1:
+Hi there!
+What season is it? 
+(fall, winter, spring or summer) in any case: SUMMER
+Make sure your AC is working!
+
+## Output of test running 2:
+Hi there!
+What season is it? 
+(fall, winter, spring or summer) in any case: winTer
+I hope you're ready for snow!
+
+## Output of test running 3:
+Hi there!
+What season is it? 
+(fall, winter, spring or summer) in any case: tropical
+I don't recognize that season.
+_______________________________________
+# Version 2: Modified to recognize "Autumn".
+
+print("Hi there!")
+reply = input("What season is it? \n\
+(fall, winter, spring or summer) in any case: ").lower()
+
+if (reply == "fall") or (reply == "autumn"):
+    print("I bet the leaves are pretty there!")
+elif reply == "winter":
+    print("I hope you're ready for snow!")
+elif reply == "spring":
+    print("I can smell the flowers!")
+elif reply == "summer":
+    print("Make sure your AC is working!")
+else:
+    print("I don't recognize that season.")
+_______________________________________
+## Output of test running 1:
+Hi there!
+What season is it? 
+(fall, winter, spring or summer) in any case: faLL
+I bet the leaves are pretty there!
+
+## Output of test running 2:
+Hi there!
+What season is it? 
+(fall, winter, spring or summer) in any case: Autumn
+I bet the leaves are pretty there!
+_______________________________________
+
+
+
+
+#### Self-Assessment: Conditional Statements
+
+Your company has organized a morale event! They're hosting a picnic and field day in the park,
+and of course, they want to play games! Team games! Team building games!
+To do that they want to assign the attendees to certain teams based on their last name.
+They've already chosen the team names, but they want you to write a program that will sort each person into the correct team.
+Here are the specs:
+ - If a person's name starts with A, B, C, or D, then they are on the team "Red Dragons"
+ - If the name starts with E, F, G, or H, they are on the team "Dark Wizards."
+ - If the name starts with I, J, K, or L, they are on the team "Moving Castles."
+ - If the name starts with M, N, O, or P, they are on the team "Golden Snitches"
+ - If the name starts with Q, R, S, or T, they are on the team "Night Guards."
+ - If the name stars with U, V, W, X, Y, or Z, they are on the team "Black Holes."
+Here's an example of the output:
+
+What's your last name? Weasley
+Aha! You're on the team "Black Holes"!
+Good luck in the games!
+
+The example uses the person's last name, but you can choose to use first name if you prefer.
+You may also use a different output message as long as it clearly states what team the person is on.
+
+## Answer:
+_______________________________________
+# Carl Tang Yong Han 2022-08-09
+
+# If a person's name starts with A, B, C, or D, then they are on the team "Red Dragons"
+# If the name starts with E, F, G, or H, they are on the team "Dark Wizards."
+# If the name starts with I, J, K, or L, they are on the team "Moving Castles."
+# If the name starts with M, N, O, or P, they are on the team "Golden Snitches"
+# If the name starts with Q, R, S, or T, they are on the team "Night Guards."
+# If the name stars with U, V, W, X, Y, or Z, they are on the team "Black Holes."
+
+print("Welcome to our games!")
+
+lastName = input("What's your last name? ").capitalize()
+initial = lastName[0]
+
+# Start sorting into the right team:
+if initial in ("A", "B", "C", "D"):
+    team = "Red Dragons"
+elif initial in ("E", "F", "G", "H"):
+    team = "Dark Wizards."
+elif initial in ("I", "J", "K", "L"):
+    team = "Moving Castles"
+elif initial in ("M", "N", "O", "P"):
+    team = "Golden Snitches"
+elif initial in ("Q", "R", "S", "T"):
+    team = "Night Guards"
+else:   # Including also non-native-English alphabets
+    team = "Black Holes"
+
+print(f"Aha! You're on the team {team}!")
+print(f"Good luck in the games, {lastName}!")
+_______________________________________
+## Output of test running 1:
+Welcome to our games!
+What's your last name? Potter
+Aha! You're on the team Golden Snitches!
+Good luck in the games, Potter!
+
+## Output of test running 2:
+Welcome to our games!
+What's your last name? GRANGER
+Aha! You're on the team Dark Wizards.!
+Good luck in the games, Granger!
+
+## Output of test running 3:
+Welcome to our games!
+What's your last name? dumbledore
+Aha! You're on the team Red Dragons!
+Good luck in the games, Dumbledore!
+
+## Output of test running 4:
+Welcome to our games!
+What's your last name? VOLDEMORT
+Aha! You're on the team Black Holes!
+Good luck in the games, Voldemort!
+_______________________________________
+
+
+
+
+#### Practice Exercises: Getting Started with Python
+
