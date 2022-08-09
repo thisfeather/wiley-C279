@@ -1222,6 +1222,204 @@ Write a program that performs the following steps:
 
 ## Answer:
 _______________________________________
+print("This is for Contact entry. Please provide the following:\n")
+
+# Collecting data from user
+firstName = input("First Name: ").upper()
+lastName = input("Last Name: ").upper()
+buildingNum = input("Building Number for Address: ").upper()
+street = input("Street Name for Address: ").upper()
+city = input("City: ").upper()
+state = input("State: ").upper()
+zipCode = input("Zip: ").upper()
+phone = input("10-Digit Phone Number,\ne.g. 123-456-7890: ")
+
+name = firstName + " " + lastName
+address = buildingNum + " " + street
+area = city + " " + state + " " + zipCode 
+
+# Display complete Contact data
+print("\nHere are your contact details.\n")
+print(f"   Name: {name}\n\
+   Address: {address}\n\
+   Area: {area}\n\
+   Phone: {phone}\n")
+
+# Prompt user to select one item in Contact to change
+print("Choose one of the numbers below to change a field of data:")
+print("\n\
+      1 - First Name\n\
+      2 - Last Name\n\
+      3 - Building Number\n\
+      4 - Street Name\n\
+      5 - City\n\
+      6 - State\n\
+      7 - Zip\n\
+      8 - Phone\n\
+      0 - Quit Changing Data")
+choice = int(input("\nYour choice? "))
+
+# Prompt user to enter new value for the field
+change = input("Please enter new data: ")
+
+# Change the Contact and display updated data to user
+if choice == 0:
+    print("Thank you!")
+elif choice == 1:
+    firstName = change.upper()
+elif choice == 2:
+    lastName = change.upper()
+elif choice == 3:
+    buildingNum = change.upper()
+elif choice == 4:
+    street = change.upper()
+elif choice == 5:
+    city = change.upper()
+elif choice == 6:
+    state = change.upper()
+elif choice == 7:
+    zipCode = change.upper()
+elif choice == 8:
+    phone = change.upper()
+    
+name = firstName + " " + lastName
+address = buildingNum + " " + street
+area = city + " " + state + " " + zipCode    
+
+print("\nHere are your updated contact details.\n")
+print(f"   Name: {name}\n\
+   Address: {address}\n\
+   Area: {area}\n\
+   Phone: {phone}\n\
+   \nThank you!")
+
+_______________________________________
+## Output of test running:
+This is for Contact entry. Please provide the following:
+
+First Name: Anthony
+Last Name: Stark
+Building Number for Address: 890
+Street Name for Address: Fifth Avenue
+City: New York City
+State: NY
+Zip: 10128
+10-Digit Phone Number,
+e.g. 123-456-7890: 999-123-4567
+
+Here are your contact details.
+
+   Name: ANTHONY STARK
+   Address: 890 FIFTH AVENUE
+   Area: NEW YORK CITY NY 10128
+   Phone: 999-123-4567
+
+Choose one of the numbers below to change a field of data:
+
+      1 - First Name
+      2 - Last Name
+      3 - Building Number
+      4 - Street Name
+      5 - City
+      6 - State
+      7 - Zip
+      8 - Phone
+      0 - Quit Changing Data
+
+Your choice? 4
+Please enter new data: 5th avenue
+
+Here are your updated contact details.
+
+   Name: ANTHONY STARK
+   Address: 890 5TH AVENUE
+   Area: NEW YORK CITY NY 10128
+   Phone: 999-123-4567
+   
+Thank you!
+_______________________________________
+
+
+
+### Activity 12
+Write a program that allows a user to create a new Contact,
+including a first and last name, complete street address, city, state, zip, phone number, and email address.
+Display the contact to the user after accepting all entries.
+
+## Answer: 
+_______________________________________
+print("This is for creating a new Contact entry.\nPlease provide the following:\n")
+
+# Collecting data from user
+firstName = input("First Name: ").upper()
+middleName = input("Middle Name: ").upper()
+lastName = input("Last Name: ").upper()
+buildingName = input("Building Name for Address, if any: ").upper()
+buildingNum = input("Building Number for Address: ").upper()
+street = input("Street Name for Address: ").upper()
+city = input("City: ").upper()
+state = input("State: ").upper()
+zipCode = input("Zip: ").upper()
+phone = input("10-Digit Phone Number,\ne.g. 123-456-7890: ")
+email = input("Email: ")
+
+name = firstName + " " + middleName + " " + lastName
+address = buildingNum + " " + street
+area = city + " " + state + " " + zipCode 
+
+# Display complete Contact data
+print("\nHere are your entered Contact details.\n")
+print(f"   Name:\t{name}")
+# Display the optional building name
+if buildingName != "":
+    print(f"   Address:\t{buildingName}\n\
+       \t\t{address}\n\
+       \t\t{area}")
+else:
+    print(f"   Address:\t{address}\n\
+       \t\t{area}")
+print(f"   Phone:\t{phone}")
+print(f"   Email:\t{email}")
+_______________________________________
+## Output of test running:
+This is for creating a new Contact entry.
+Please provide the following:
+
+First Name: Anthony
+Middle Name: Edward
+Last Name: Stark
+Building Name for Address, if any: Avengers Mansion
+Building Number for Address: 890
+Street Name for Address: Fifth Avenue
+City: New York City
+State: NY
+Zip: 10128
+10-Digit Phone Number,
+e.g. 123-456-7890: 999-888-7777
+Email: iron.man@avengers.org
+
+Here are your entered Contact details.
+
+   Name:	ANTHONY EDWARD STARK
+   Address:	AVENGERS MANSION
+       		890 FIFTH AVENUE
+       		NEW YORK CITY NY 10128
+   Phone:	999-888-7777
+   Email:	iron.man@avengers.org
+_______________________________________
+
+
+
+### Activity 13
+Combine the previous two activities into a single program that performs the following steps:
+ 1. Prompt the user for complete Contact details for a new contact.
+ 2. Displays the Contact details entered by the user.
+ 3. Prompts the user to select a value to change.
+ 4. Updates the selected value with a new input value.
+ 
+## Answer:
+_______________________________________
+
 
 _______________________________________
 ## Output of test running:
