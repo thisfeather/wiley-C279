@@ -1566,3 +1566,166 @@ _______________________________________
 
 
 
+#### Self-Assessment: Coffee Shop
+
+Write a program that will calculate the cost of a custom cup of coffee at a gourmet coffee shop,
+based on the size of the cup, the type of coffee selected, and flavors that can be added to the coffee.
+It should complete the following steps:
+ 1. Ask the user what size cup they want, choosing between small, medium, and large.
+ 2. Ask the user what kind of coffee they want, choosing between brewed, espresso, and cold brew.
+ 3. Ask the user what flavoring they want, if any. Choices include hazelnut, vanilla, and caramel.
+ 4. Calculate the price of the cup using the following values:
+      Size:
+        - small: $2
+        - medium: $3
+        - large: $4
+      Type:
+        - brewed: no additional cost
+        - espresso: 50 cents
+        - cold brew: $1
+      Flavoring:
+        - None: no additional cost
+        - All other options: 50 cents
+ 5. Display a statement that summarizes what the user ordered.
+ 6. Display the total cost of the cup of coffee as well as the cost with a 15% tip,
+ in phrases that explain the values to the user. Round the cost with tip to two decimal places.
+      For example, if the user asks for a medium-sized espresso with hazelnut flavoring,
+      the total should be $4; the total with a tip should be $4.60.
+
+
+## Answer:
+________________________________________
+
+# Carl Tang Yong Han 2022-08-09
+
+# Self-Assessment: Coffee Shop
+
+print("Welcome to our Coffee Shop!\n\
+Please let us know what you'd like to enjoy today.")
+
+# Initialize cost counters:
+sizeCost = 0.00
+typeCost = 0.00
+flavorCost = 0.00
+tipRate = 0.15  # 15% tip
+
+# Texts for summary:
+sizeText = ""
+typeText = ""
+withFlavor = ""
+flavorText = ""
+
+
+# Get customer orders:
+size = input("\nWould you like to have small (S), medium (M) or large (L) coffee?\n\
+You may enter S, M or L to indicate your choice: ").upper()
+
+coffeeType = input("\nWe have brewed (B), espresso (E) and cold brew (C),\n\
+which one would you like? You may enter B, E or C: ").upper()
+
+flavorYesNo = input("\nWould you like some flavours too? Yes (Y) or No (N): ").upper()
+
+if flavorYesNo == "Y":
+    flavor = input("\nWe have these flavors: hazelnut (H), vanilla (V) and caramel (C).\n\
+Feel free to pick H, V or C: ").upper()
+
+
+# Confirmation statement and cost building:
+# Switch between sizes
+if size == "S":
+    sizeCost += 2.00
+    sizeText = "small"
+elif size == "M":
+    sizeCost += 3.00
+    sizeText = "medium"
+elif size == "L":
+    sizeCost += 4.00
+    sizeText = "large"
+        
+# Switch between coffee types:
+if coffeeType == "B":
+    typeCost += 0.00
+    typeText = "brewed"
+elif coffeeType == "E":
+    typeCost += 0.50
+    typeText = "espresso"
+elif coffeeType == "C":
+    typeCost += 1.00
+    typeText = "cold brew"
+
+# Options of flavors:
+if flavorYesNo == "Y":
+    if flavor == "H":
+        flavorCost += 0.50
+        flavorText = "hazelnut"
+    elif flavor == "V":
+        flavorCost += 0.50
+        flavorText = "vanilla"
+    elif flavor == "C":
+        flavorCost += 0.50
+        flavorText = "caramel"
+    withFlavor = "with" + " " + flavorText + " " + "flavor"
+elif flavorYesNo == "N":
+    withFlavor = "without flavor"
+        
+confirmation = "\nYou have ordered a " + sizeText + " cup of " + \
+               typeText + " coffee " + withFlavor + "."
+    
+
+# Calculate cost
+coffeeCost = sizeCost + typeCost + flavorCost
+coffeeCostDollar = "{:.2f}".format(coffeeCost)  # dollar format
+tip = round((coffeeCost * tipRate), 2)
+priceWithTip = coffeeCost + tip
+priceWithTipDollar = "{:.2f}".format(priceWithTip) # dollar format
+
+# Messages to customer
+print(confirmation)
+print(f"\nYour cup of coffee costs ${coffeeCostDollar}.")
+print(f"The price with a tip is ${priceWithTipDollar}.")
+print("\nThank you!")
+
+_______________________________________
+## Output of test running 1:
+
+Welcome to our Coffee Shop!
+Please let us know what you'd like to enjoy today.
+
+Would you like to have small (S), medium (M) or large (L) coffee?
+You may enter S, M or L to indicate your choice: s
+
+We have brewed (B), espresso (E) and cold brew (C),
+which one would you like? You may enter B, E or C: b
+
+Would you like some flavours too? Yes (Y) or No (N): n
+
+You have ordered a small cup of brewed coffee without flavor.
+
+Your cup of coffee costs $2.00.
+The price with a tip is $2.30.
+
+Thank you!
+_______________________________________
+## Output of test running 2:
+
+Welcome to our Coffee Shop!
+Please let us know what you'd like to enjoy today.
+
+Would you like to have small (S), medium (M) or large (L) coffee?
+You may enter S, M or L to indicate your choice: L
+
+We have brewed (B), espresso (E) and cold brew (C),
+which one would you like? You may enter B, E or C: c
+
+Would you like some flavours too? Yes (Y) or No (N): y
+
+We have these flavors: hazelnut (H), vanilla (V) and caramel (C).
+Feel free to pick H, V or C: h
+
+You have ordered a large cup of cold brew coffee with hazelnut flavor.
+
+Your cup of coffee costs $5.50.
+The price with a tip is $6.32.
+
+Thank you!
+_______________________________________
