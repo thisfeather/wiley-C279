@@ -1,0 +1,207 @@
+Python - Class Exercises and Activities 2022-08-10
+
+Carl Tang Yong Han
+
+
+_______________________
+
+#### Activities: Basic Data Structures
+
+
+### Activity 1
+Prompt the user to answer a series of 3-5 questions about themselves
+(such as their name, their age, their birthday, or where they live)
+and save the answers in a list. Display the results to the user.
+
+## Answer:
+____________________________________________
+print("Please answer some questions about yourself.")
+
+answers = []
+
+answers.append(input("What is your name? "))
+answers.append(input("How old are you? "))
+answers.append(input("When is your birthday? "))
+answers.append(input("Where do you live? "))
+answers.append(input("What do you do for a living? "))
+
+print("Here are your answers:")
+print(answers)
+____________________________________________
+## Outcome of test running:
+Please answer some questions about yourself.
+What is your name? Alan Woods
+How old are you? 23
+When is your birthday? 4 May
+Where do you live? Singapore
+What do you do for a living? Software Developer
+Here are your answers:
+['Alan Woods', '23', '4 May', 'Singapore', 'Software Developer']
+____________________________________________
+
+
+
+### Activity 2
+Present the user with an existing list of items (such as the list created in the previous activity)
+and prompt the user for 2-4 more items to add to the list.
+Update the list with the new items and display the updated list.
+
+## Answer:
+____________________________________________
+print("Here is an existing list of answers. Please answer more.")
+
+print(answers, "\n")
+
+answers.append(input("Where did you graduate from? "))
+answers.append(input("What is your highest qualification? "))
+answers.append(input("How do you get to work? "))
+
+print("\nHere's the updated list:")
+print(answers)
+____________________________________________
+## Outcome of test running:
+Here is an existing list of answers. Please answer more.
+['Alan Woods', '23', '4 May', 'Singapore', 'Software Developer'] 
+
+Where did you graduate from? MIT
+What is your highest qualification? Bachelor Degree
+How do you get to work? By bus
+
+Here's the updated list:
+['Alan Woods', '23', '4 May', 'Singapore', 'Software Developer', 'MIT', 'Bachelor Degree', 'By bus']
+____________________________________________
+
+
+
+### Activity 3
+Present the user with a list of 7-9 items (such as the list created in the previous activities)
+and prompt them to enter one item to delete from the list.
+Delete the named item from the list and display the updated list.
+
+## Answer:
+____________________________________________
+print("Here is an existing list of answers. You may select one of them to delete.\n\
+First answer is 1, second answer is 2, and so on.")
+
+print(answers, "\n")
+
+reply = input("So, which one do you want to delete? ")
+index = int(reply) - 1
+
+del answers[index]
+
+print("List was updated as per your deletion request:")
+print(answers)
+____________________________________________
+## Outcome of test running:
+Here is an existing list of answers. You may select one of them to delete.
+First answer is 1, second answer is 2, and so on.
+['Alan Woods', '23', '4 May', 'Singapore', 'Software Developer', 'MIT', 'Bachelor Degree', 'By bus'] 
+
+So, which one do you want to delete? 2
+List was updated as per your deletion request:
+['Alan Woods', '4 May', 'Singapore', 'Software Developer', 'MIT', 'Bachelor Degree', 'By bus']
+____________________________________________
+
+
+
+### Activity 4
+Present the user with a list of 7-9 items (such as the list created in the previous activities)
+and prompt them to select one item from the list to update, along with the new value for that item.
+Change the item's value and display the new list to the user.
+Tip: Use Google Search or another search engine to find out how to identify the index value of a specific item in a list.
+
+## Answer:
+____________________________________________
+print("Here is an existing list of answers. You may select one of them to update.\n\
+Type the item exactly as spelled in the shown list.")
+
+print(answers, "\n")
+
+reply = input("So, which one do you want to update? ")
+index = answers.index(reply)
+
+updateValue = input("Please enter updated value: ")
+
+answers[index] = updateValue
+
+print("List was updated as per your request:")
+print(answers)
+____________________________________________
+## Outcome of test running:
+Here is an existing list of answers. You may select one of them to update.
+Type the item exactly as spelled in the shown list.
+['Alan Woods', '4 May', 'Singapore', 'Software Developer', 'MIT', 'Bachelor Degree', 'By bus'] 
+
+So, which one do you want to update? Software Developer
+Please enter updated value: Database Administrator
+List was updated as per your request:
+['Alan Woods', '4 May', 'Singapore', 'Database Administrator', 'MIT', 'Bachelor Degree', 'By bus']
+____________________________________________
+
+
+
+### Activity 5
+Create four tuples:
+ - One tuple with a person's first name and last name
+ - A second tuple with the person's current profession
+ - A third tuple with the person's current address
+ - A fourth tuple with the person's previous address
+Combine all tuples into a new, single tuple that contains all items from the original tuples.
+
+## Answer:
+____________________________________________
+tup1 = ('Albert', 'Einstein')
+tup2 = ('Theoretical Physicist',)
+tup3 = ('18 Princeton Lane',)
+tup4 = ('314 Genius Drive',)
+
+newTup = tup1 + tup2 + tup3 + tup4
+
+print(newTup)
+____________________________________________
+## Outcome of test running:
+('Albert', 'Einstein', 'Theoretical Physicist', '18 Princeton Lane', '314 Genius Drive')
+____________________________________________
+
+
+
+### Activity N
+xxx
+
+## Answer:
+____________________________________________
+
+
+____________________________________________
+## Outcome of test running:
+
+____________________________________________
+
+
+
+### Activity N
+xxx
+
+## Answer:
+____________________________________________
+
+
+____________________________________________
+## Outcome of test running:
+
+____________________________________________
+
+
+
+### Activity N
+xxx
+
+## Answer:
+____________________________________________
+
+
+____________________________________________
+## Outcome of test running:
+
+____________________________________________
