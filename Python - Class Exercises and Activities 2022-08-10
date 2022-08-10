@@ -218,11 +218,25 @@ ____________________________________________
 
 
 
+#### Self-Assessment: Manipulating Collections
+
+### Instructions:
+Write a program that performs the following steps:
+ - Define a tuple that contains 12 individual numbers.
+ - Split the items in the tuple into three new lists, so each list includes four items from the original tuple.
+ - Reverse the values in each list and display the results.
+For example, if you start with the tuple (4,1,2,3,5,7,9,0,-1), you should end up with the lists [2,1,4], [7,5,3], and [-1,0,9].
 
 
+## Answer:
+____________________________________________
 
 
+____________________________________________
+## Outcome of test running:
 
+
+____________________________________________
 
 
 
