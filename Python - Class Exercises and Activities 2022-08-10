@@ -230,19 +230,536 @@ For example, if you start with the tuple (4,1,2,3,5,7,9,0,-1), you should end up
 
 ## Answer:
 ____________________________________________
+# Carl Tang Yong Han 2022-08-10
+
+originalTuple = (3, 14, 15, 92, 65, 35, 89, 79, 2, 71, 82, 8)
+
+print("Original tuple of 12 numbers is:\n", originalTuple)
+
+# Splitting original tuple into 3 tuples and convert them to lists:
+tup1 = originalTuple[:4]
+list1 = list(tup1)
+
+tup2 = originalTuple[4:8]
+list2 = list(tup2)
+
+tup3 = originalTuple[8:]
+list3 = list(tup3)
+
+print("\nThe three split lists are:\n", list1, list2, list3)
+
+# Reversing the lists:
+revList1 = list1[::-1]
+revList2 = list2[::-1]
+revList3 = list3[::-1]
+
+# Display the results:
+print("\nThe three reversed split lists are:\n", revList1, revList2, revList3)
+____________________________________________
+## Outcome of test running:
+Original tuple of 12 numbers is:
+ (3, 14, 15, 92, 65, 35, 89, 79, 2, 71, 82, 8)
+
+The three split lists are:
+ [3, 14, 15, 92] [65, 35, 89, 79] [2, 71, 82, 8]
+
+The three reversed split lists are:
+ [92, 15, 14, 3] [79, 89, 35, 65] [8, 82, 71, 2]
+____________________________________________
+
+
+
+
+#### Activities: Loops
+
+
+### Activity 1
+Given the list fruit_list, write a script that iterates through the list and prints each item on a separate line.
+
+fruit_list = ["apple", "banana", "cherry", "gooseberry",
+"kumquat", "orange", "pineapple"]
+ 
+# your code here
+
+## Answer:
+____________________________________________
+fruit_list = ["apple", "banana", "cherry", "gooseberry",
+"kumquat", "orange", "pineapple"]
+ 
+# your code here
+for i in range(len(fruit_list)):
+    print(fruit_list[i])
+____________________________________________
+## Outcome of test running:
+apple
+banana
+cherry
+gooseberry
+kumquat
+orange
+pineapple
+____________________________________________
+
+
+
+### Activity 2
+Write a Python script that asks the user for a string and displays the characters
+of the string to the user, with each character on a new line.
+For example, if the input is Hello, the output should be:
+
+H
+e
+l
+l
+o
+
+## Answer:
+____________________________________________
+userStr = input("Please enter a string: ")
+
+for i in range(len(userStr)):
+    print(userStr[i])
+____________________________________________
+## Outcome of test running:
+Please enter a string: This is String
+T
+h
+i
+s
+ 
+i
+s
+ 
+S
+t
+r
+i
+n
+g
+____________________________________________
+
+
+
+### Activity 3
+Write a Python script that computes the length of a string without using the len() function.
+
+## Answer:
+____________________________________________
 
 
 ____________________________________________
 ## Outcome of test running:
 
-
 ____________________________________________
 
 
 
+### Activity 4
+Create a program that starts with a list of strings, identifies all the strings with
+more than two characters, stores the results in another list, and displays the new list.
+
+For example:
+
+a = ["a", "bc", "rye", "hello", "c", ""]
+Output:
+
+["rye", "hello"]
+
+## Answer:
+____________________________________________
+# Given list of strings:
+startStr = ["As", "a", "matter", "of", "fact", ", " "this", "is", "how", "it", "works", "."]
+
+print(f"Here is the starting list of strings:\n{startStr}")
+
+# Build a new list
+newList = []
+
+for i in range(len(startStr)):
+    oneStr = startStr[i]
+    if len(oneStr) > 2:
+        newList.append(oneStr)
+
+print(f"\nNow this is the selected new list:\n{newList}")
+____________________________________________
+## Outcome of test running:
+Here is the starting list of strings:
+['As', 'a', 'matter', 'of', 'fact', ', this', 'is', 'how', 'it', 'works', '.']
+
+Now this is the selected new list:
+['matter', 'fact', ', this', 'how', 'works']
+____________________________________________
 
 
 
+### Activity 5
+Write two scripts, each of which displays all numbers divisible by 50 between 100 and 1000 (inclusive).
+ - Use the range function with for in one script.
+ - Use while without range in the other script.
+Both scripts should have identical outputs.
+
+# script 1: range
+# your code here
+# script 2: while
+# your code here
+
+## Answer 1:
+____________________________________________
+# script 1: range
+# your code here
+for i in range(100, 1000+1):
+    if i%50 == 0:
+        print(i, end=" ")
+____________________________________________
+## Outcome of test running:
+100 150 200 250 300 350 400 450 500 550 600 650 700 750 800 850 900 950 1000 
+____________________________________________
+## Answer 2:
+____________________________________________
+# script 2: while
+# your code here
+num = 100
+
+while num <= 1000:
+    if num%50 == 0:
+        print(num, end=" ")
+    num += 1
+____________________________________________
+## Outcome of test running:
+100 150 200 250 300 350 400 450 500 550 600 650 700 750 800 850 900 950 1000 
+____________________________________________
+
+
+
+### Activity 6
+Create a script that computes the sum of all numbers between 0 and 100.
+
+## Answer:
+____________________________________________
+# Create a script that computes the sum of all numbers between 0 and 100.
+# Assuming the boundaries are included.
+
+sum = 0
+for i in range(0, 100+1):
+    sum += i
+
+print("The sum of all numbers between 0 and 100 (inclusive) is:", sum)
+____________________________________________
+## Outcome of test running:
+The sum of all numbers between 0 and 100 (inclusive) is: 5050
+____________________________________________
+
+
+
+### Activity 7
+Create a script that computes the factorial of any given number.
+
+## Answer:
+____________________________________________
+# Take a given number from user:
+given = int(input("Please enter a nonzero number (integer): "))
+
+product = 1
+
+for i in range(1, given + 1):
+    product *= i
+
+print(f"The factorial of your number, {given}!, is {product}.")
+____________________________________________
+## Outcome of test running:
+Please enter a nonzero number (integer): 21
+The factorial of your number, 21!, is 51090942171709440000.
+____________________________________________
+
+
+
+### Activity 8
+Starting with the defined fruit_list in the code block below, update the script to perform the following tasks.
+ 1. Prompt the user to enter the name of a fruit.
+ 2. If the fruit is in fruit_list, display an appropriate message to the user and tell the user its index value in the list.
+ 3. If the fruit is not in fruit_list, display an appropriate message to the user and prompt them to try again.
+ 4. The script should repeat itself until the user enters a stop word at the prompt.
+Tip: It's always a good idea to tell the user how to end a loop!
+
+## Answer:
+____________________________________________
+fruit_list = ["apple", "banana", "cherry", "gooseberry",
+"kumquat", "orange", "pineapple"]
+
+# your code here
+userInput = input("Let's start the game.\n\
+Enter a fruit name.\n\
+Enter S if you want to stop the game. >>>>> ").lower()
+
+if userInput == "s":
+    print("Bye!")
+
+while userInput != "s":
+    if userInput not in fruit_list:
+        userInput = input("\nSorry, your fruit is not in our list.\n\
+Please try again by entering another fruit name.\n\
+Enter S if you want to stop the game. >>>>> ").lower()
+    else:
+        index = fruit_list.index(userInput)
+        print(f"\nYay, your fruit is in our list! It's at index value {index}\n")
+        userInput = input("Why not try another fruit?\n\
+Enter S if you want to stop the game. >>>>> ").lower()
+        
+print("\nThank you!")
+____________________________________________
+## Outcome of test running:
+Let's start the game.
+Enter a fruit name.
+Enter S if you want to stop the game. >>>>> kiwi
+
+Sorry, your fruit is not in our list.
+Please try again by entering another fruit name.
+Enter S if you want to stop the game. >>>>> kumquat
+
+Yay, your fruit is in our list! It's at index value 4
+
+Why not try another fruit?
+Enter S if you want to stop the game. >>>>> guava
+
+Sorry, your fruit is not in our list.
+Please try again by entering another fruit name.
+Enter S if you want to stop the game. >>>>> cheRRY
+
+Yay, your fruit is in our list! It's at index value 2
+
+Why not try another fruit?
+Enter S if you want to stop the game. >>>>> green apple
+
+Sorry, your fruit is not in our list.
+Please try again by entering another fruit name.
+Enter S if you want to stop the game. >>>>> ORange
+
+Yay, your fruit is in our list! It's at index value 5
+
+Why not try another fruit?
+Enter S if you want to stop the game. >>>>> s
+
+Thank you!
+____________________________________________
+
+
+
+### Activity 9
+Create a script that asks the user for a variable number of values and displays
+the sum of those values to the user. The program should prompt the user for values
+until the user enters the word "quit" (uppercase or lowercase), display the values
+used in the calculation, and then display the total of those values.
+
+## Answer:
+____________________________________________
+print("Please provide a list of numerical values for us to sum up.\n\
+We will provide the sum in floating point number.")
+
+values = []
+sumValues = 0
+
+userInput = input("\nEnter your values one by one.\n\
+Enter 'quit' (any case) if you wish to stop. >>>>> ").lower()
+
+while userInput != 'quit':
+    value = float(userInput)
+    values.append(value)
+    sumValues += value
+    userInput = input("\nContinue to enter your values one by one.\n\
+Enter 'quit' (any case) if you wish to stop. >>>>> ").lower()
+
+length = len(values)
+if length == 0:
+    print("\nYou did not enter any value.")
+else:
+    print("\nYou entered these values:")
+    for i in range(length):
+        print(values[i], end="  ")
+    print("\nThe sum of your input values is:", sumValues)
+    
+print("\nThank you!")
+____________________________________________
+## Outcome of test running 1:
+Please provide a list of numerical values for us to sum up.
+We will provide the sum in floating point number.
+
+Enter your values one by one.
+Enter 'quit' (any case) if you wish to stop. >>>>> 1
+
+Continue to enter your values one by one.
+Enter 'quit' (any case) if you wish to stop. >>>>> 2
+
+Continue to enter your values one by one.
+Enter 'quit' (any case) if you wish to stop. >>>>> 3
+
+Continue to enter your values one by one.
+Enter 'quit' (any case) if you wish to stop. >>>>> 4
+
+Continue to enter your values one by one.
+Enter 'quit' (any case) if you wish to stop. >>>>> Quit
+
+You entered these values:
+1.0  2.0  3.0  4.0  
+The sum of your input values is: 10.0
+
+Thank you!
+____________________________________________
+## Outcome of test running 2:
+Please provide a list of numerical values for us to sum up.
+We will provide the sum in floating point number.
+
+Enter your values one by one.
+Enter 'quit' (any case) if you wish to stop. >>>>> 5.000
+
+Continue to enter your values one by one.
+Enter 'quit' (any case) if you wish to stop. >>>>> -5
+
+Continue to enter your values one by one.
+Enter 'quit' (any case) if you wish to stop. >>>>> 5.00000
+
+Continue to enter your values one by one.
+Enter 'quit' (any case) if you wish to stop. >>>>> QUIT
+
+You entered these values:
+5.0  -5.0  5.0  
+The sum of your input values is: 5.0
+
+Thank you!
+____________________________________________
+## Outcome of test running 3:
+Please provide a list of numerical values for us to sum up.
+We will provide the sum in floating point number.
+
+Enter your values one by one.
+Enter 'quit' (any case) if you wish to stop. >>>>> 1.23
+
+Continue to enter your values one by one.
+Enter 'quit' (any case) if you wish to stop. >>>>> -3.456
+
+Continue to enter your values one by one.
+Enter 'quit' (any case) if you wish to stop. >>>>> 78.9012
+
+Continue to enter your values one by one.
+Enter 'quit' (any case) if you wish to stop. >>>>> -34.56
+
+Continue to enter your values one by one.
+Enter 'quit' (any case) if you wish to stop. >>>>> quit
+
+You entered these values:
+1.23  -3.456  78.9012  -34.56  
+The sum of your input values is: 42.1152
+
+Thank you!
+____________________________________________
+
+
+
+### Activity 10
+Write a script that asks the user for an integer value and then displays
+the multiplication table of that input number from 1 through the integer squared.
+
+## Answer:
+____________________________________________
+print("Let's make a multiplication table of your specified number.")
+
+inputInt = int(input("Please give us an integer: "))
+
+print("\nHere's the multiplication table:\n")
+
+for i in range(int(inputInt ** 2)):
+    num = i + 1
+    multiplied = num * inputInt
+    print(f"\t{inputInt}\tX\t{num}\t=\t{multiplied}")
+____________________________________________
+## Outcome of test running:
+Let's make a multiplication table of your specified number.
+Please give us an integer: 4
+
+Here's the multiplication table:
+
+	4	X	1	=	4
+	4	X	2	=	8
+	4	X	3	=	12
+	4	X	4	=	16
+	4	X	5	=	20
+	4	X	6	=	24
+	4	X	7	=	28
+	4	X	8	=	32
+	4	X	9	=	36
+	4	X	10	=	40
+	4	X	11	=	44
+	4	X	12	=	48
+	4	X	13	=	52
+	4	X	14	=	56
+	4	X	15	=	60
+	4	X	16	=	64
+____________________________________________
+
+
+
+### Activity 11
+Create a script that identifies all prime numbers between 0 and 100.
+
+## Answer:
+____________________________________________
+# Making a generic solution that identifies prime numbers
+# between "begin" to "final" integers
+# Assuming final >= begin, and begin >= 2.
+begin = 0     # Can be amended for other use case
+final = 100   # Can be amended for other use case
+
+# Existing prime numbers within range
+primes = []
+
+if final < 2:
+    print("No prime number in this range.")
+else:
+    primes.append(2) # Start a seed collection of prime number list
+    # loop through each number in range to check
+    for i in range(begin, final + 1):
+        if i < 2:
+            continue
+        else:
+            # set flag
+            isPrime = True
+            for j in primes: # Only check with existing smaller prime numbers
+                if i%j == 0:
+                    isPrime = False
+                    break
+            # add any found prime number to list
+            if isPrime:
+                primes.append(i)
+
+# Report findings:
+primeCount = len(primes)
+print(f"\nThere are {primeCount} prime number(s) found between {begin} and {final}.\n")
+
+if primeCount != 0:
+    print("The prime number(s) within this range are:")
+    
+    for i in range(primeCount):
+        print(primes[i], end="  ")
+____________________________________________
+## Outcome of test running:
+There are 25 prime number(s) found between 0 and 100.
+
+The prime number(s) within this range are:
+2  3  5  7  11  13  17  19  23  29  31  37  41  43  47  53  59  61  67  71  73  79  83  89  97  
+____________________________________________
+
+
+
+### Activity N
+xxx
+
+## Answer:
+____________________________________________
+
+
+____________________________________________
+## Outcome of test running:
+
+____________________________________________
 
 
 
@@ -272,3 +789,103 @@ ____________________________________________
 ## Outcome of test running:
 
 ____________________________________________
+
+
+
+### Activity N
+xxx
+
+## Answer:
+____________________________________________
+
+
+____________________________________________
+## Outcome of test running:
+
+____________________________________________
+
+
+
+### Activity N
+xxx
+
+## Answer:
+____________________________________________
+
+
+____________________________________________
+## Outcome of test running:
+
+____________________________________________
+
+
+
+### Activity N
+xxx
+
+## Answer:
+____________________________________________
+
+
+____________________________________________
+## Outcome of test running:
+
+____________________________________________
+
+
+
+### Activity N
+xxx
+
+## Answer:
+____________________________________________
+
+
+____________________________________________
+## Outcome of test running:
+
+____________________________________________
+
+
+
+### Activity N
+xxx
+
+## Answer:
+____________________________________________
+
+
+____________________________________________
+## Outcome of test running:
+
+____________________________________________
+
+
+
+### Activity N
+xxx
+
+## Answer:
+____________________________________________
+
+
+____________________________________________
+## Outcome of test running:
+
+____________________________________________
+
+
+
+### Activity N
+xxx
+
+## Answer:
+____________________________________________
+
+
+____________________________________________
+## Outcome of test running:
+
+____________________________________________
+
+
