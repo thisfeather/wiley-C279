@@ -166,17 +166,70 @@ ____________________________________________
 
 
 
-### Activity N
-xxx
+### Activity 6
+Using the final tuple from the previous activity, write a program that performs the following steps:
+ - Display the tuple to the user.
+ - Prompt the user to enter a value that should be changed.
+ - Prompt the user to enter the updated value for that item.
+ - Update the value and display the updated tuple to the user.
 
 ## Answer:
 ____________________________________________
+print(newTup)
+print("The above was the existing tuple. You may choose a value to change.\n")
 
+choice = input("Please choose your item, type in exactly as seen in tuple above. ")
+index = newTup.index(choice)
 
+updatedValue = input("Now, please enter your updated value. ")
+
+# Tuples cannot be updated directly, we have to create new tuple instead:
+# Partial tuple to the left of index, if any:
+if index == 0:
+    leftTup = ()
+else:
+    leftTup = newTup[0:(index)]
+
+onIndex = (updatedValue,)
+
+# Partial tuple to the right of index, if any:
+if index == len(newTup) - 1:
+    rightTup = ()
+else:
+    rightTup = newTup[(index+1):]
+
+# Combine pieces of tuples:
+updatedTup = leftTup + onIndex + rightTup
+
+print("\nHere is the updated tuple:")
+print(updatedTup)
 ____________________________________________
 ## Outcome of test running:
+('Albert', 'Einstein', 'Theoretical Physicist', '18 Princeton Lane', '314 Genius Drive')
+The above was the existing tuple. You may choose a value to change.
 
+Please choose your item, type in exactly as seen in tuple above. 18 Princeton Lane
+Now, please enter your updated value. 7 Princeton VIP Garden
+
+Here is the updated tuple:
+('Albert', 'Einstein', 'Theoretical Physicist', '7 Princeton VIP Garden', '314 Genius Drive')
 ____________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
