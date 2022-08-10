@@ -982,22 +982,26 @@ print(primePool)
 
 canForm = False
 
+lenPool = len(primePool)
 
-for i in primePool:
-    lenPool = len(primePool)
-    # Keep track if this prime number is useless:
-    useless = True
+while lenPool > 0:
+    num1 = primePool[0]
     for j in range(lenPool - 1, -1, -1):
-        num1 = i
         num2 = primePool[j]
         combine = num1 + num2
         if combine == inputInt:
             canForm = True
             print(f"\nThe number {inputInt} can be expressed as the sum of two prime numbers:")
             print(f"{inputInt} = {num1} + {num2}")
-            useless = False
-    if useless:
-        primePool.remove(i) # remove useless prime number from pool to reduce search space
+            # remove checked prime number from pool to reduce search space
+            del primePool[j]
+            lenPool = len(primePool)
+            break
+            
+    # remove checked prime number from pool to reduce search space
+    if lenPool > 0:
+        del primePool[0]
+        lenPool = len(primePool)
 
 if canForm == False:
     print(f"\nThe number {inputInt} cannot be expressed as the sum of two prime numbers.")
@@ -1012,10 +1016,10 @@ We have to check if our number can be formed by combining prime numbers from thi
 [2, 3, 5, 7]
 
 The number 10 can be expressed as the sum of two prime numbers:
-10 = 5 + 5
+10 = 3 + 7
 
 The number 10 can be expressed as the sum of two prime numbers:
-10 = 7 + 3
+10 = 5 + 5
 ____________________________________________
 ## Outcome of test running 2:
 Any number smaller than the sum of the smallest prime numbers, i.e. 2 + 2 = 4,
@@ -1029,8 +1033,32 @@ We have to check if our number can be formed by combining prime numbers from thi
 The number 11 cannot be expressed as the sum of two prime numbers.
 ____________________________________________
 ## Outcome of test running 3:
+Any number smaller than the sum of the smallest prime numbers, i.e. 2 + 2 = 4,
+obviously won't work, therefore please only use positive integers not smaller than 4.
 
+Please input your number for testing: >>>> 34
+
+We have to check if our number can be formed by combining prime numbers from this list:
+[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
+
+The number 34 can be expressed as the sum of two prime numbers:
+34 = 3 + 31
+
+The number 34 can be expressed as the sum of two prime numbers:
+34 = 5 + 29
+
+The number 34 can be expressed as the sum of two prime numbers:
+34 = 11 + 23
+
+The number 34 can be expressed as the sum of two prime numbers:
+34 = 17 + 17
 ____________________________________________
+
+
+
+
+
+
 
 
 ### Activity N
