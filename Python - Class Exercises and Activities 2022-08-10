@@ -867,32 +867,170 @@ ____________________________________________
 
 
 
-### Activity N
-xxx
+### Activity 14
+Write a script that calculates the lowest common multiple of two given integers.
+For example, given the values 4 and 6, the lowest common multiple is 12.
 
 ## Answer:
 ____________________________________________
+# Get input of two integers:
 
+num1 = int(input("Please enter a nonzero integer: "))
+num2 = int(input("Please enter a second nonzero integer: "))
 
+# Temporary initiation:
+LCM = None
+
+# To find the lowest common multiple, test with numbers greater than the bigger integer,
+# and do remainder test with numbers bigger and bigger away from the bigger integer
+
+if num1 == num2:
+    LCM = num1
+    print("The lowest common multiple is", LCM)
+else:
+    # First determine the bigger number
+    if num1 > num2:
+        big = num1
+        small = num2
+    else:
+        big = num2
+        small = num1
+    # Test numbers on both big and small numbers for remainder
+    testNum = big
+    # Test from the bigger number upwards
+    while True:
+        if (testNum % big != 0) or (testNum % small != 0):
+            testNum += 1
+        else:
+            LCM = testNum
+            break
+            
+# Summarize:
+print(f"\nThe lowest common multiple between {num1} and {num2} is {LCM}.")
 ____________________________________________
-## Outcome of test running:
+## Outcome of test running 1:
 
+Please enter a nonzero integer: 16
+Please enter a second nonzero integer: 40
+
+The lowest common multiple between 16 and 40 is 80.
+____________________________________________
+## Outcome of test running 2:
+Please enter a nonzero integer: 66
+Please enter a second nonzero integer: 33
+
+The lowest common multiple between 66 and 33 is 66.
+____________________________________________
+## Outcome of test running 2:
+Please enter a nonzero integer: 17
+Please enter a second nonzero integer: 23
+
+The lowest common multiple between 17 and 23 is 391.
 ____________________________________________
 
 
 
-### Activity N
-xxx
+### Activity 15
+Write a Python script that determines if an input number can be expressed as the sum of two prime numbers.
+For example, the number 10 can be expressed as the sum of two prime numbers:
+  10 = 3 + 7 : both prime numbers
+  10 = 5 + 5 : both prime numbers
+However, the number 11 cannot be:
+  11 = 1 + 10 : neither 1 nor 10 are prime numbers
+  11 = 2 + 9 : 9 is not a prime number
+  11 = 3 + 8 : 8 is not a prime number
+  11 = 4 + 7 : 4 is not a prime number
+  11 = 5 + 6 : 6 is not a prime number
 
 ## Answer:
 ____________________________________________
+# First, create a function that can generate prime numbers that are not more than a given interger:
 
+def primes(num):
+    primeList = []
+    if num < 2:
+        return primeList
+    else:
+        primeList.append(2)
+        if num == 2:
+            return primeList
+        else:
+            # loop through the nontrivial numbers to detect primes
+            for i in range(3, num+1):
+                isPrime = True
+                for j in primeList:
+                    if i%j == 0:
+                        isPrime = False
+                        break
+                if isPrime:
+                    primeList.append(i)
+            return primeList
+        
+
+# Get user input of a given number:
+print("Any number smaller than the sum of the smallest prime numbers, i.e. 2 + 2 = 4,\n\
+obviously won't work, therefore please only use positive integers not smaller than 4.\n")
+inputInt = int(input("Please input your number for testing: >>>> "))
+
+# Combination list (prime numbers pool) to test. Note that the boundary is inputInt - 2,
+# as the larger number has to match with at least 2 to form inputInt.
+
+primePool = primes(inputInt - 2)
+
+print("\nWe have to check if our number can be formed by combining prime numbers from this list:")
+print(primePool)
+
+canForm = False
+
+
+for i in primePool:
+    lenPool = len(primePool)
+    # Keep track if this prime number is useless:
+    useless = True
+    for j in range(lenPool - 1, -1, -1):
+        num1 = i
+        num2 = primePool[j]
+        combine = num1 + num2
+        if combine == inputInt:
+            canForm = True
+            print(f"\nThe number {inputInt} can be expressed as the sum of two prime numbers:")
+            print(f"{inputInt} = {num1} + {num2}")
+            useless = False
+    if useless:
+        primePool.remove(i) # remove useless prime number from pool to reduce search space
+
+if canForm == False:
+    print(f"\nThe number {inputInt} cannot be expressed as the sum of two prime numbers.")
+____________________________________________
+## Outcome of test running 1:
+Any number smaller than the sum of the smallest prime numbers, i.e. 2 + 2 = 4,
+obviously won't work, therefore please only use positive integers not smaller than 4.
+
+Please input your number for testing: >>>> 10
+
+We have to check if our number can be formed by combining prime numbers from this list:
+[2, 3, 5, 7]
+
+The number 10 can be expressed as the sum of two prime numbers:
+10 = 5 + 5
+
+The number 10 can be expressed as the sum of two prime numbers:
+10 = 7 + 3
+____________________________________________
+## Outcome of test running 2:
+Any number smaller than the sum of the smallest prime numbers, i.e. 2 + 2 = 4,
+obviously won't work, therefore please only use positive integers not smaller than 4.
+
+Please input your number for testing: >>>> 11
+
+We have to check if our number can be formed by combining prime numbers from this list:
+[2, 3, 5, 7]
+
+The number 11 cannot be expressed as the sum of two prime numbers.
+____________________________________________
+## Outcome of test running 3:
 
 ____________________________________________
-## Outcome of test running:
-
-____________________________________________
-
 
 
 ### Activity N
