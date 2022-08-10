@@ -1057,6 +1057,361 @@ ____________________________________________
 
 
 
+#### Self-Assessment: Fizz Buzz
+
+Instructions
+Write a program that performs the following steps:
+ 1. Ask the user for a number.
+ 2. Output a count starting with 0.
+     - Display the count number if it is not divisible by 3 or 5.
+     - Replace every multiple of 3 with the word "fizz."
+     - Replace every multiple of 5 with the word "buzz."
+     - Replace multiples of both 3 and 5 with "fizz buzz."
+ 3. Continue counting until the number of integers replaced with "fizz," "buzz,"
+ or "fizz buzz" reaches the input number.
+ 4. The last output line should read "TRADITION!!"
+For example:
+
+How many fizzing and buzzing units do you need in your life? 7
+0
+1
+2
+fizz
+4
+buzz
+fizz
+7
+8
+fizz
+buzz
+11
+fizz
+13
+14
+fizz buzz
+TRADITION!!
+
+## Answer:
+____________________________________________
+# Carl Tang Yong Han 2022-08-10
+
+print("This is a Fizz Buzz game!")
+userInput = int(input("Please enter an integer,\n\
+we will make as many Fizzes, Buzzes or FizzBuzzes! >>>> "))
+
+count = 0          # Running numbers
+FizzBuzzCount = 0
+
+while FizzBuzzCount < userInput:
+    divisibleBy3 = (count%3 == 0) and (count != 0)
+    divisibleBy5 = (count%5 == 0) and (count != 0)
+    
+    if not (divisibleBy3 or divisibleBy5):
+        print(count)
+    elif divisibleBy3 and not divisibleBy5:
+        print("fizz")
+        FizzBuzzCount += 1
+    elif divisibleBy5 and not divisibleBy3:
+        print("buzz")
+        FizzBuzzCount += 1
+    elif divisibleBy3 and divisibleBy5:
+        print("fizz buzz")
+        FizzBuzzCount += 1
+        
+    count += 1
+    if FizzBuzzCount == userInput:
+        print("TRADITION!!")
+        break
+____________________________________________
+## Outcome of test running:
+This is a Fizz Buzz game!
+Please enter an integer,
+we will make as many Fizzes, Buzzes or FizzBuzzes! >>>> 8
+0
+1
+2
+fizz
+4
+buzz
+fizz
+7
+8
+fizz
+buzz
+11
+fizz
+13
+14
+fizz buzz
+16
+17
+fizz
+TRADITION!!
+____________________________________________
+
+
+
+
+#### Activities: Dictionaries and Sets
+
+### Activity 1
+Create a program that sums all the values in a dictionary and displays them.
+For example:
+dictionary = {"hello":4,"world":4,"I":1,"am":2,"Martha":3}
+output: 14 (the result of 4 + 4 + 1 + 2 + 3)
+
+## Answer:
+____________________________________________
+dictionary = {"Python":6, "is":2, "an": 2, "awesome": 7, "programming": 11, "language": 8}
+
+sumValues = 0
+for key in dictionary:
+    sumValues = sumValues + dictionary[key]
+
+print("The dictionary values sum up to:", sumValues)
+____________________________________________
+## Outcome of test running:
+The dictionary values sum up to: 36
+____________________________________________
+
+
+
+### Activity 2
+Write a program that displays the maximum and minimum values in a dictionary.
+You may use the same dictionary you used in the previous activity or create a new one.
+
+## Answer:
+____________________________________________
+dictionary = {"Python":6, "is":2, "an": 2, "awesome": 7, "programming": 11, "language": 8}
+print("This is the dictionary:\n", dictionary)
+
+# Make a list out of it
+dictList = list(dictionary.values())
+dictMax = max(dictList)
+dictMin = min(dictList)
+
+print("Minimum value of the dictionary:", dictMin)
+print("Minimum value of the dictionary:", dictMin)
+____________________________________________
+## Outcome of test running:
+This is the dictionary:
+ {'Python': 6, 'is': 2, 'an': 2, 'awesome': 7, 'programming': 11, 'language': 8}
+Minimum value of the dictionary: 2
+Minimum value of the dictionary: 2
+____________________________________________
+
+
+
+### Activity 3
+Write a program that returns the sum of the integer elements in a set.
+
+## Answer:
+____________________________________________
+intSet = {1, 2, 3, 4, 5}
+setSum = 0
+for i in intSet:
+    setSum += i
+    
+print("Sum of the elements is:", setSum)
+____________________________________________
+## Outcome of test running:
+Sum of the elements is: 15
+____________________________________________
+
+
+
+### Activity 4
+Write a program that computes and displays the maximum and the minimum values in a set.
+
+## Answer:
+____________________________________________
+intSet = {31, 41, 59, 26, 53, 58, 97}
+maxSet = max(intSet)
+minSet = min(intSet)
+print("Maximum value in the set:", maxSet)
+print("Minimum value in the set:", minSet)
+____________________________________________
+## Outcome of test running:
+Maximum value in the set: 97
+Minimum value in the set: 26
+____________________________________________
+
+
+
+### Activity 5
+Given the following dictionary storage, complete the following tasks:
+ - Add a key named "freezer".
+ - Set the value of "freezer" to be a list containing the items
+   "ice cubes", "ice cream", and "pepperoni pizza".
+ - Sort the items in the cupboard using sort.
+ - Add "cream" to the fridge.
+ - Remove "sugar" from the cupboard.
+ - Subtract $25 from the emergency jar.
+------------------------------------------------- 
+storage = {
+    "cupboard" : ["spices", "flour", "sugar"],
+    "drawer" : ["fork", "knife", "spoon"],
+    "fridge" : ["butter", "milk", "cheese"],
+    "emergency jar" : 150
+}
+ 
+# your code here
+-------------------------------------------------
+
+## Answer:
+____________________________________________
+storage = {
+    "cupboard" : ["spices", "flour", "sugar"],
+    "drawer" : ["fork", "knife", "spoon"],
+    "fridge" : ["butter", "milk", "cheese"],
+    "emergency jar" : 150
+}
+ 
+# your code here
+
+# add key-value pair
+storage["freezer"] = ["ice cubes", "ice cream", "pepperoni pizza"]
+
+# sort cupboard
+storage["cupboard"].sort()
+
+# add cream
+storage["fridge"].append("cream")
+
+# remove sugar
+storage["cupboard"].remove("sugar")
+
+# subtract $25
+storage["emergency jar"] -= 25 
+
+print("Final outcome of storage:")
+storage
+____________________________________________
+## Outcome of test running:
+Final outcome of storage:
+{'cupboard': ['flour', 'spices'],
+ 'drawer': ['fork', 'knife', 'spoon'],
+ 'fridge': ['butter', 'milk', 'cheese', 'cream'],
+ 'emergency jar': 125,
+ 'freezer': ['ice cubes', 'ice cream', 'pepperoni pizza']}
+____________________________________________
+
+
+
+### Activity 6
+Create a new dictionary named shopping_list and add the following items to the dictionary:
+ "milk" : 4,
+ "butter" : 2,
+ "crackers" : 1.5,
+ "rice" : 2.25,
+ "spaghetti" : 1.75,
+ "dish soap": 3.25
+Loop through each item in the list and print out each key with its price. Print the answer in this format:
+ milk
+ price: 4
+Next, calculate how much it will cost if you purchase all the items on the list.
+ - Use a variable named total_cost to store the calculated value.
+ - Loop through the dictionary and add the price of each item to the total cost.
+ - After looping through the dictionary, print out the total cost in a message that is meaningful to the user.
+
+## Answer:
+____________________________________________
+shopping_list = {
+"milk" : 4,
+"butter" : 2,
+"crackers" : 1.5,
+"rice" : 2.25,
+"spaghetti" : 1.75,
+"dish soap": 3.25
+}
+
+for key in shopping_list:
+    print(key)
+    print("price:", shopping_list[key])
+
+total_cost = 0
+
+for i in shopping_list:
+    total_cost += shopping_list[i]
+    
+print("Total cost to purchase all items in the shopping list:", total_cost)
+____________________________________________
+## Outcome of test running:
+milk
+price: 4
+butter
+price: 2
+crackers
+price: 1.5
+rice
+price: 2.25
+spaghetti
+price: 1.75
+dish soap
+price: 3.25
+Total cost to purchase all items in the shopping list: 14.75
+____________________________________________
+
+
+
+### Activity 7
+Create two dictionaries: price and quantity.
+The price dictionary should be the same as the shopping_list dictionary in the previous activity:
+ "milk" : 4,
+ "butter" : 2,
+ "crackers" : 1.5,
+ "rice" : 2.25,
+ "spaghetti" : 1.75,
+ "dish soap": 3.25
+The quantity dictionary should have the same keys, but with values that represent the number
+of items to purchase rather than the price:
+ "milk" : 1,
+ "butter" : 1,
+ "crackers" : 3,
+ "rice" : 2,
+ "spaghetti" : 5,
+ "dish soap": 1
+Write a script that loops through both dictionaries to calculate the total cost
+if we purchase the indicated quantity of each item in the dictionaries.
+
+## Answer:
+____________________________________________
+price = {
+"milk" : 4,
+"butter" : 2,
+"crackers" : 1.5,
+"rice" : 2.25,
+"spaghetti" : 1.75,
+"dish soap": 3.25
+}
+
+quantity = {
+"milk" : 1,
+"butter" : 1,
+"crackers" : 3,
+"rice" : 2,
+"spaghetti" : 5,
+"dish soap": 1
+}
+
+total_cost = 0
+
+for i in quantity:
+    item_cost = quantity[i] * price[i]
+    total_cost += item_cost
+
+print(f"The total cost if we purchase the indicated quantity of each item: ${total_cost}")
+____________________________________________
+## Outcome of test running:
+The total cost if we purchase the indicated quantity of each item: $27.0
+____________________________________________
+
+
+
+
+
+
+
 
 
 
@@ -1143,4 +1498,31 @@ ____________________________________________
 
 ____________________________________________
 
+
+
+### Activity N
+xxx
+
+## Answer:
+____________________________________________
+
+
+____________________________________________
+## Outcome of test running:
+
+____________________________________________
+
+
+
+### Activity N
+xxx
+
+## Answer:
+____________________________________________
+
+
+____________________________________________
+## Outcome of test running:
+
+____________________________________________
 
