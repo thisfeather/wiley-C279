@@ -1608,17 +1608,192 @@ Do not use the built-in sum, min, or max functions.
 
 ## Answer:
 ____________________________________________
+print("Please enter at least 5 integers, but no more than 10 integers.")
+
+promptCount = 0
+inputList = []
+
+# Create relevant functions for later use.
+def product(intList):
+    length = len(intList)
+    product = 1
+    for i in range(length):
+        product *= intList[i]
+    return product
+
+def sumList(intList):
+    length = len(intList)
+    summation = 0
+    for i in range(length):
+        summation += intList[i]
+    return summation
+
+def average(intList):
+    avgValue = (sumList(intList)) / len(intList)
+    return avgValue
+
+def minimum(intList):
+    length = len(intList)
+    minInt = intList[0]
+    for i in range(1, length):
+        test = intList[i]
+        if test < minInt:
+            minInt = test
+    return minInt
+
+def maximum(intList):
+    length = len(intList)
+    maxInt = intList[0]
+    for i in range(1, length):
+        test = intList[i]
+        if test > maxInt:
+            maxInt = test
+    return maxInt
+
+def summarize(intList):
+    print(f"\nYou have entered {promptCount} numbers. Here are your input values:\n  ")
+    for i in range(len(intList)):
+        print(intList[i], end = "  ")   
+    print("\n")  
+    print("The product of the integers is:", product(intList))
+    print("The average of the integers is:", average(intList))
+    print("The sum of the integers is:", sumList(intList))
+    print("The min of the integers is:", minimum(intList))
+    print("The max of the integers is:", maximum(intList))
 
 
+# Get user inputs
+
+while promptCount <= 10:
+    inputNum = input("Please enter an integer, or S to stop: >>>> ").upper()
+    if inputNum == "S":
+        if promptCount < 5:
+            print("\nSorry, you entered less than 5 integers. Bye!")
+        if promptCount >= 5:
+            summarize(inputList)
+            break
+    else:
+        inputList.append(int(inputNum))
+        promptCount += 1
+        
+    if promptCount == 10:
+        print("\nGreat, you have entered 10 numbers! Check out the summary!")
+        summarize(inputList)
+        break  
+    
+    if promptCount >= 5:
+        print("\nYou have entered at least 5 numbers. You may continue if you wish.")
 ____________________________________________
-## Outcome of test running:
+## Outcome of test running 1:
+Please enter at least 5 integers, but no more than 10 integers.
+Please enter an integer, or S to stop: >>>> 1
+Please enter an integer, or S to stop: >>>> 2
+Please enter an integer, or S to stop: >>>> 3
+Please enter an integer, or S to stop: >>>> 4
+Please enter an integer, or S to stop: >>>> 5
 
+You have entered at least 5 numbers. You may continue if you wish.
+Please enter an integer, or S to stop: >>>> s
+
+You have entered 5 numbers. Here are your input values:
+  
+1  2  3  4  5  
+
+The product of the integers is: 120
+The average of the integers is: 3.0
+The sum of the integers is: 15
+The min of the integers is: 1
+The max of the integers is: 5
+____________________________________________
+## Outcome of test running 2:
+Please enter at least 5 integers, but no more than 10 integers.
+Please enter an integer, or S to stop: >>>> 2
+Please enter an integer, or S to stop: >>>> -3
+Please enter an integer, or S to stop: >>>> 4
+Please enter an integer, or S to stop: >>>> -5
+Please enter an integer, or S to stop: >>>> 6
+
+You have entered at least 5 numbers. You may continue if you wish.
+Please enter an integer, or S to stop: >>>> -7
+
+You have entered at least 5 numbers. You may continue if you wish.
+Please enter an integer, or S to stop: >>>> 8
+
+You have entered at least 5 numbers. You may continue if you wish.
+Please enter an integer, or S to stop: >>>> 9
+
+You have entered at least 5 numbers. You may continue if you wish.
+Please enter an integer, or S to stop: >>>> S
+
+You have entered 8 numbers. Here are your input values:
+  
+2  -3  4  -5  6  -7  8  9  
+
+The product of the integers is: -362880
+The average of the integers is: 1.75
+The sum of the integers is: 14
+The min of the integers is: -7
+The max of the integers is: 9
+____________________________________________
+## Outcome of test running 3:
+Please enter at least 5 integers, but no more than 10 integers.
+Please enter an integer, or S to stop: >>>> 2
+Please enter an integer, or S to stop: >>>> 4
+Please enter an integer, or S to stop: >>>> 6
+Please enter an integer, or S to stop: >>>> 8
+Please enter an integer, or S to stop: >>>> 10
+
+You have entered at least 5 numbers. You may continue if you wish.
+Please enter an integer, or S to stop: >>>> 9
+
+You have entered at least 5 numbers. You may continue if you wish.
+Please enter an integer, or S to stop: >>>> 7
+
+You have entered at least 5 numbers. You may continue if you wish.
+Please enter an integer, or S to stop: >>>> 5
+
+You have entered at least 5 numbers. You may continue if you wish.
+Please enter an integer, or S to stop: >>>> 3
+
+You have entered at least 5 numbers. You may continue if you wish.
+Please enter an integer, or S to stop: >>>> 1
+
+Great, you have entered 10 numbers! Check out the summary!
+
+You have entered 10 numbers. Here are your input values:
+  
+2  4  6  8  10  9  7  5  3  1  
+
+The product of the integers is: 3628800
+The average of the integers is: 5.5
+The sum of the integers is: 55
+The min of the integers is: 1
+The max of the integers is: 10
 ____________________________________________
 
 
 
-### Activity N
-xxx
+### Activity 7
+Create a computer program that identifies all the strings with more than two characters in an input list of strings and stores the results in another list.
+For example:
+a = ["a", "bc", "rye", "hello", "c", ""]
+Output:
+["bc", "rye", "hello"]
+
+## Note: This is the same question as "Activities: Loops - Activity 4" above.
+
+
+
+### Activity 8
+Write a computer program using the steps below:
+ 1. Create a dictionary with at least three key/value pairs.
+ 2. Ask the user for a value.
+ 3. Display all key/value pairs in the dictionary that include the user-specified value.
+ 4. If the value does not exist in the dictionary, display a user-friendly error message.
+For example:
+ - dictionary: freq_count = {"hello":4,"world":4,"I":1,"am": 2,"Martha:"3"}
+ - user input: 4
+ - output: {"hello":4,"world":4}
 
 ## Answer:
 ____________________________________________
