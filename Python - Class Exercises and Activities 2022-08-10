@@ -1797,31 +1797,258 @@ For example:
 
 ## Answer:
 ____________________________________________
+dictionary = {"Python":6, "is":2, "an": 2, "awesome": 7, \
+              "programming": 11, "language": 8, "with": 4, "cool": 4, "syntax": 6}
+print("This is the dictionary:\n", dictionary)
 
+userValue = int(input("Please enter a value: >>>> "))
 
+# select keys into a list based on user's input value
+selectKeys = [k for k,v in dictionary.items() if v == userValue]
+
+if len(selectKeys) == 0:
+    print("The value you gave is not found in the dictionary")
+else:
+    # Make a dictionary for display:
+    display = {}
+    print("Here are the key/value pair(s) in the dictionary matching your specified value:\n")
+    for key in selectKeys:
+        display[key] = dictionary[key]
+    print(display)
 ____________________________________________
-## Outcome of test running:
+## Outcome of test running 1:
+This is the dictionary:
+ {'Python': 6, 'is': 2, 'an': 2, 'awesome': 7, 'programming': 11, 'language': 8, 'with': 4, 'cool': 4, 'syntax': 6}
+Please enter a value: >>>> 7
+Here are the key/value pair(s) in the dictionary matching your specified value:
 
+{'awesome': 7}
+____________________________________________
+## Outcome of test running 2:
+This is the dictionary:
+ {'Python': 6, 'is': 2, 'an': 2, 'awesome': 7, 'programming': 11, 'language': 8, 'with': 4, 'cool': 4, 'syntax': 6}
+Please enter a value: >>>> 6
+Here are the key/value pair(s) in the dictionary matching your specified value:
+
+{'Python': 6, 'syntax': 6}
+____________________________________________
+## Outcome of test running 3:
+This is the dictionary:
+ {'Python': 6, 'is': 2, 'an': 2, 'awesome': 7, 'programming': 11, 'language': 8, 'with': 4, 'cool': 4, 'syntax': 6}
+Please enter a value: >>>> 5
+The value you gave is not found in the dictionary
 ____________________________________________
 
 
 
-### Activity N
-xxx
+
+### Activity 9
+Create a program that does the following:
+  1. Define a set with at least 5 elements.
+  2. Ask the user for a value.
+  3. Ask the user for an operation ("add" or "remove").
+  4. If the operation is "remove":
+    - If the value exists in the set, remove the value from the set and display the updated set to the user.
+    - If the value does not exist in the set, display a user-friendly error message.
+  5. If the operation is "add":
+    - If the value exists in the set, display a user-friendly error message.
+    - If the value does not exist in the set, add the value to the set and display the updated set to the user.
+  6. Repeat until the user enters "quit."
+  
+## Note: This is almost the same question as "Self-Assessment: Dictionaries and Sets" above,
+   except with less requirement.
+
+
+
+
+#### Self-Assessment: Text Count Analysis
+
+### Step 1: Normalize the Letter Casing
+Because all content in Python is case-sensitive, start by normalizing the case
+so that all characters are in the same case.
+Here, we start with a string of text taken from E. Abbott's 1884 novel, Flatland (link to book).
+Convert the existing text to lowercase characters, stored in a variable named s_lower.
 
 ## Answer:
 ____________________________________________
+s = """Imagine a vast sheet of paper on which straight Lines, Triangles, Squares, Pentagons, Hexagons,
+and other figures, instead of remaining fixed in their places, move freely about, on or in the surface,
+but without the power of rising above or sinking below it, very much like shadows - only hard and with
+luminous edges - and you will then have a pretty correct notion of my country and countrymen. Alas, a few
+years ago, I should have said "my universe": but now my mind has been opened to higher views of things."""
+ 
+#do not change any code above this line
+#your code here
 
-
+s_lower = s.lower()
+print(s_lower)
 ____________________________________________
 ## Outcome of test running:
-
+imagine a vast sheet of paper on which straight lines, triangles, squares, pentagons, hexagons,
+and other figures, instead of remaining fixed in their places, move freely about, on or in the surface,
+but without the power of rising above or sinking below it, very much like shadows - only hard and with
+luminous edges - and you will then have a pretty correct notion of my country and countrymen. alas, a few
+years ago, i should have said "my universe": but now my mind has been opened to higher views of things.
 ____________________________________________
 
 
 
-### Activity N
-xxx
+### Step 2: Split the String into Words
+Using the str.split() method, divide the s_lower string into separate words.
+The output should be a list of strings.
+Store the results in a list called words.
+
+## Answer:
+____________________________________________
+words = list() #do not delete. this list must contain the list of words. 
+ 
+# your code goes here
+words = s_lower.split()
+ 
+print(words) #do not delete 
+#do not write any code past here
+____________________________________________
+## Outcome of test running:
+['imagine', 'a', 'vast', 'sheet', 'of', 'paper', 'on', 'which', 'straight', 'lines,', 'triangles,',
+'squares,', 'pentagons,', 'hexagons,', 'and', 'other', 'figures,', 'instead', 'of', 'remaining',
+'fixed', 'in', 'their', 'places,', 'move', 'freely', 'about,', 'on', 'or', 'in', 'the', 'surface,',
+'but', 'without', 'the', 'power', 'of', 'rising', 'above', 'or', 'sinking', 'below', 'it,', 'very',
+'much', 'like', 'shadows', '-', 'only', 'hard', 'and', 'with', 'luminous', 'edges', '-', 'and',
+'you', 'will', 'then', 'have', 'a', 'pretty', 'correct', 'notion', 'of', 'my', 'country', 'and',
+'countrymen.', 'alas,', 'a', 'few', 'years', 'ago,', 'i', 'should', 'have', 'said', '"my', 'universe":',
+'but', 'now', 'my', 'mind', 'has', 'been', 'opened', 'to', 'higher', 'views', 'of', 'things.']
+____________________________________________
+
+
+
+### Step 3: Count the Words
+Use the len method to return the number of words in the string.
+At this point, for the initial string, the count should be 92; this includes duplicate instances of words.
+
+## Answer:
+____________________________________________
+length = len(words)
+print(f"There are {length} words in the words list.")
+____________________________________________
+## Outcome of test running:
+There are 92 words in the words list.
+____________________________________________
+
+
+
+### Step 4: Count the Distinct Words
+Use a set to compute the number of distinct words in the string, meaning that only one instance of
+each word is counted and duplicates are ignored.
+At this point, for the initial string, the count of distinct words should be 75.
+
+## Answer:
+____________________________________________
+wordSet = set(words)
+setLength = len(wordSet)
+print(f"There are {setLength} words in the words list.")
+____________________________________________
+## Outcome of test running:
+There are 75 words in the words list.
+____________________________________________
+
+
+
+### Step 5: Compute the Word Frequencies
+The next step is to compute the frequency of the distinct words in our string.
+In this step, we look at the list of words (including duplicates) and count each instance of each word.
+The result will be a dictionary where the keys are the distinct words in the list and the values are the number of times each word appears in the list.
+For practice, start with the list saved as w in the example code below. Some of the words in this list appear more than once,
+and we need a way to identify distinct words and count their frequency.
+To this end, the script should perform the following steps:
+ 1. Create an empty dictionary.
+      - We use a dictionary here so that we can create key-value pairs where the key is the word and
+        the value represents the number of times that word appears in the original list.
+ 2. Create a loop that does the following:
+      - Look at each word in the original list and compare that word to existing keys in the dictionary.
+      - If the word does not match a key in the dictionary, add it to the dictionary as a new key with the value 1.
+      - If the word already exists as a key in the dictionary, the value for that key increments by 1 to count the number of occurrences of the word.
+The output for the original starting list should look like this:
+
+{'haythem': 2, 'is': 1, 'eating': 1, 'tacos.': 1, 'loves': 1, 'tacos': 1, '': 1, ':': 1}
+In the results, you will notice that "tacos." is distinct from "tacos" because of the period.
+Also, both the colon item and the empty item appear in the results. We will ignore punctuation for now and fix those problems in the next step.
+
+Once you get the example above working, use the pattern to compute the frequency count
+for each word in the original string s_lower.
+
+## Answer Part 1:
+____________________________________________
+# we define w as a list of words 
+w = ["haythem", "is", "eating", "tacos.", "haythem", "loves", "tacos", "", ":"]
+
+# we define an empty dictionary that will hold the token/frequency key-value pair
+# key:word, value:int that corresponds to the frequency of occurrence
+freq_occur = dict()
+
+#your code goes here
+setW = set(w)
+for word in setW:
+    count = 0
+    for i in w:
+        if i == word:
+            count += 1
+    freq_occur[word] = count
+
+print(freq_occur)
+____________________________________________
+## Outcome of test running Part 1:
+{'': 1, 'eating': 1, ':': 1, 'tacos': 1, 'loves': 1, 'haythem': 2, 'tacos.': 1, 'is': 1}
+____________________________________________
+## Answer Part 2:
+____________________________________________
+word_freq = dict()
+
+#your code goes here
+for word in wordSet:
+    count = 0
+    for i in words:
+        if i == word:
+            count += 1
+    word_freq[word] = count
+
+print(word_freq)
+____________________________________________
+## Outcome of test running:
+{'ago,': 1, 'other': 1, 'figures,': 1, 'power': 1, 'surface,': 1, 'my': 2, 'countrymen.': 1,
+'edges': 1, 'will': 1, 'hexagons,': 1, 'to': 1, 'sinking': 1, 'mind': 1, 'have': 2, 'views': 1,
+'pretty': 1, 'like': 1, 'with': 1, 'years': 1, 'said': 1, 'the': 2, 'remaining': 1, 'but': 2,
+'"my': 1, 'sheet': 1, 'been': 1, 'now': 1, 'alas,': 1, 'luminous': 1, 'opened': 1, 'freely': 1,
+'of': 5, 'without': 1, 'rising': 1, 'a': 3, 'then': 1, 'which': 1, 'hard': 1, 'i': 1, 'vast': 1,
+'correct': 1, 'squares,': 1, '-': 2, 'straight': 1, 'above': 1, 'about,': 1, 'you': 1, 'very': 1,
+'imagine': 1, 'on': 2, 'places,': 1, 'below': 1, 'triangles,': 1, 'lines,': 1, 'or': 2, 'paper': 1,
+'it,': 1, 'universe":': 1, 'higher': 1, 'country': 1, 'and': 4, 'their': 1, 'instead': 1, 'in': 2,
+'move': 1, 'pentagons,': 1, 'fixed': 1, 'things.': 1, 'much': 1, 'few': 1, 'should': 1, 'shadows': 1,
+'has': 1, 'notion': 1, 'only': 1}
+____________________________________________
+
+
+
+### Step 6: Remove Punctuation Marks
+To fix the problems caused by punctuation, we need to remove the punctuation marks from the items in the list.
+
+Again, as a practice activity, we will start with the same list w from the previous exercise.
+The existing code performs the following steps:
+ 1. Import the Python string module, which includes all punctuation characters.
+ 2. Generate a list of punctuation characters from string.punctuation and print the list to verify that it includes the characters we want to exclude from our results.
+ 3. Define the list we want to start with.
+ 4. Create a new, empty w_clean list that will hold the words after we have removed punctuation from each item in w.
+Complete this script so that it looks at each item in w and performs the following tasks:
+ - If the item is empty, ignore it.
+ - If the item includes only a punctuation mark, ignore it.
+ - If the item includes a punctuation mark as the first character or as the last character, remove that character from the word and add the cleaned word to w_clean.
+ - If the item does not include punctuation, add it to the list w_clean as a separate token.
+The final version of w_clean should include seven items:
+
+['haythem', 'is', 'eating', 'tacos', 'haythem', 'loves', 'tacos']
+
+Use the same pattern to remove the punctuation from the initial s string and count the number of times each word appears in that string.
+The output should include each distinct word, regardless of case or punctuation,
+along with the number of times each word appears. Also display the number of distinct words in the string.
 
 ## Answer:
 ____________________________________________
