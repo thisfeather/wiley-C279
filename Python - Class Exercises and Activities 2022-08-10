@@ -345,7 +345,7 @@ Write a Python script that computes the length of a string without using the len
 
 ## Answer:
 ____________________________________________
-
+##### NOT SURE HOW TO DO. #####
 
 ____________________________________________
 ## Outcome of test running:
@@ -1409,15 +1409,202 @@ ____________________________________________
 
 
 
+#### Self-Assessment: Dictionaries and Sets
+
+Create a program that does the following:
+  - Define a set with at least five elements.
+  - Ask the user for a value.
+  - Ask the user for an operation ("add" or "remove").
+  - If the operation is "remove":
+    - If the value exists in the set, remove the value from the set and display the updated set to the user.
+    - If the value does not exist in the set, display a user-friendly error message.
+  - If the operation is "add":
+    - If the value exists in the set, display a user-friendly error message.
+    - If the value does not exist in the set, add the value to the set and display the updated set to the user.
+  - Repeat until the user enters "quit."
+  - When the user enters "quit," display the original set, the final version of the updated set,
+    and the difference between the two sets.
+
+## Answer:
+____________________________________________
+# Carl Tang Yong Han 2022-08-11
+
+# Define original set:
+original = {"C", "C++", "C#", "Java", "JavaScript", "PHP", "Python"}
+
+# Prepare a duplicate set for updating:
+updated = original.copy()
+
+print("Here is a set, you may add or remove items from it:\n")
+print(original)
+
+
+while True:
+    userInput = input("\nPlease enter a value.\nYou may enter 'quit' to quit: >>>> ")
+    if userInput.lower() == "quit":
+        print("\nYou have chosen to quit. See you again!")
+        break
+    else:
+        userAction = input("Do you want to add or remove the value you input?\n\
+        Type 'add' or 'remove': >>>> ").lower()
+        if userAction == "remove":
+            if userInput in updated:
+                updated.remove(userInput)
+            else:
+                print("\nSorry, the value does not exist in the set.\n")
+        elif userAction == "add":
+            if userInput in updated:
+                print("\nSorry, the value already exists in the set.\n")
+            else:
+                updated.add(userInput)
+        else:
+            print("\nSorry, I don't quite understand your instruction.\n")
+            
+print("\nThis is the original set:")
+print(original)
+
+print("\nThis is the final updated set:")
+print(updated)
+
+print("\nThese are in the original but not in the updated set:")
+print(original - updated)
+
+print("\nThese are in the updated but not in the original set:")
+print(updated - original)
+____________________________________________
+## Outcome of test running:
+Here is a set, you may add or remove items from it:
+
+{'C#', 'PHP', 'C', 'JavaScript', 'Python', 'C++', 'Java'}
+
+Please enter a value.
+You may enter 'quit' to quit: >>>> JavaScript
+Do you want to add or remove the value you input?
+        Type 'add' or 'remove': >>>> remove
+
+Please enter a value.
+You may enter 'quit' to quit: >>>> Golang
+Do you want to add or remove the value you input?
+        Type 'add' or 'remove': >>>> add
+
+Please enter a value.
+You may enter 'quit' to quit: >>>> Python
+Do you want to add or remove the value you input?
+        Type 'add' or 'remove': >>>> add
+
+Sorry, the value already exists in the set.
+
+
+Please enter a value.
+You may enter 'quit' to quit: >>>> SQL
+Do you want to add or remove the value you input?
+        Type 'add' or 'remove': >>>> remove
+
+Sorry, the value does not exist in the set.
+
+
+Please enter a value.
+You may enter 'quit' to quit: >>>> C#
+Do you want to add or remove the value you input?
+        Type 'add' or 'remove': >>>> remove
+
+Please enter a value.
+You may enter 'quit' to quit: >>>> Perl
+Do you want to add or remove the value you input?
+        Type 'add' or 'remove': >>>> add
+
+Please enter a value.
+You may enter 'quit' to quit: >>>> Quit
+
+You have chosen to quit. See you again!
+
+This is the original set:
+{'C#', 'PHP', 'C', 'JavaScript', 'Python', 'C++', 'Java'}
+
+This is the final updated set:
+{'PHP', 'C', 'Golang', 'Perl', 'C++', 'Java', 'Python'}
+
+These are in the original but not in the updated set:
+{'C#', 'JavaScript'}
+
+These are in the updated but not in the original set:
+{'Perl', 'Golang'}
+____________________________________________
 
 
 
 
+#### Practice Exercises: Using Loops and Data Structures
+
+A Jupyter Notebook worksheet is available for these exercises.
+    Module 2 Practice Activities Worksheet
+
+
+### Activity 1
+Prompt the user to answer a series of 3-5 questions about themselves
+(such as their name, their age, their birthdate, or where they live) and save the answers in a list.
+Display the results to the user.
+
+## Note: This is the same question as "Activities: Basic Data Structures - Activity 1" above.
 
 
 
-### Activity N
-xxx
+### Activity 2
+Present the user with an existing list of items (such as the list created in the previous activity)
+and prompt the user for 2-4 more items to add to the list.
+Update the list with the new items and display the updated list.
+
+## Note: This is the same question as "Activities: Basic Data Structures - Activity 2" above.
+
+
+
+### Activity 3
+Present the user with a list of 7-9 items (such as the list created in the previous activities)
+and prompt them to enter one item to delete from the list.
+Delete the named item from the list and display the updated list.
+
+## Note: This is the same question as "Activities: Basic Data Structures - Activity 3" above.
+
+
+
+### Activity 4
+Present the user with a list of 7-9 items (such as the list created in the previous activities)
+and prompt them to select one item from the list to update, along with the new value for that item.
+Change the item's value and display the new list to the user.
+
+## Note: This is the same question as "Activities: Basic Data Structures - Activity 4" above.
+
+
+
+### Activity 5
+Create four separate tuples of data.
+ - One tuple with a person's first name and last name
+ - A second tuple with the person's current profession
+ - A third tuple with the person's current address
+ - A fourth tuple with the person's previous address
+Combine all tuples into a new, single tuple that contains all items from the original tuples.
+
+## Note: This is the same question as "Activities: Basic Data Structures - Activity 5" above.
+
+
+
+### Activity 6
+Create a computer program that completes the following tasks:
+ 1. It prompts the user for a series of 5-10 integers.
+     - The user must be prompted for a minimum of 5 numbers.
+     - After the user has entered 5 numbers, the program should allow the user to stop entry
+       or enter another number.
+ 2. When the user chooses to stop or after 10 numbers have been entered,
+    the program stops prompting for values and performs the following calculations:
+     - the product of the integers
+     - the average of the integers
+     - the sum of the integers
+     - the min of the integers
+     - the max of the integers
+ 3. After performing the calculations, the program should display the following to the user:
+     - the values the user entered
+     - each of the calculations, using a phrase that identifies the value
+Do not use the built-in sum, min, or max functions.
 
 ## Answer:
 ____________________________________________
@@ -1526,3 +1713,58 @@ ____________________________________________
 
 ____________________________________________
 
+
+
+### Activity N
+xxx
+
+## Answer:
+____________________________________________
+
+
+____________________________________________
+## Outcome of test running:
+
+____________________________________________
+
+
+
+### Activity N
+xxx
+
+## Answer:
+____________________________________________
+
+
+____________________________________________
+## Outcome of test running:
+
+____________________________________________
+
+
+
+### Activity N
+xxx
+
+## Answer:
+____________________________________________
+
+
+____________________________________________
+## Outcome of test running:
+
+____________________________________________
+
+
+
+### Activity N
+xxx
+
+## Answer:
+____________________________________________
+
+
+____________________________________________
+## Outcome of test running:
+
+____________________________________________
