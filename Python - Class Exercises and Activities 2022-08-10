@@ -2258,3 +2258,197 @@ The dictionary with word counts:
 Number of distinct words in the original string: 73
 ____________________________________________
 
+
+
+
+#### Stretch Activity: Text Count Analysis
+
+Once you have completed the script for this module's assignment and the script works as expected to count distinct words in a string,
+try the following stretch activities:
+ - Set up the script to allow the user to enter their own text at runtime and perform the operations on the user input.
+ - Prompt the user for a word and return that word's frequency in a selected string.
+ - Sort the items in the dictionary alphabetically.
+ - Sort the items in the dictionary from the highest frequency to the lowest frequency (or vice versa).
+You may need to search for examples on how to perform these activities in Python.
+
+## Answer:
+____________________________________________
+#### Stretch Activity: Text Count Analysis
+
+import string #import the string module 
+#use the string.punctuation built-in python to create a list of all punctuations
+punctuation_list =  list(string.punctuation)
+
+# Set up the script to allow the user to enter their own text at runtime
+# and perform the operations on the user input.
+print("This is text count analysis. Please get ready to input your text in one (long) string.\n")
+
+s = input("Please input your text. Do not press Enter until the whole string is completed:\n  >>>> ")
+
+print("Here is the original text, 's':\n")
+print(s)
+
+# Convert the string to lowercase characters.
+s_lower = s.lower()
+# print("\nHere is the original text converted into lowercase:\n")
+# print(s_lower)
+
+# Split the lowercase string into individual words.
+words = list()
+words = s_lower.split()
+# print("\nHere is the lowercase text split into list of words:\n")
+# print(words)
+
+# Remove the punctuation from the lowercase words.
+w_clean = list()
+
+for text in words:
+    textLength = len(text)
+    cleanText = ""
+    for i in range(textLength):
+        testChar = text[i]
+        if testChar not in punctuation_list:
+            cleanText += testChar
+    if cleanText != "":
+        w_clean.append(cleanText)
+
+# print("\nHere is the list of cleaned-up words:\n")
+# print(w_clean)
+
+# Perform a count analysis on the words without punctuation characters.
+wordCountClean = len(w_clean)
+# print("\nWord count in this list:", wordCountClean)
+
+# Display the dictionary with the word counts and the number of distinct words in the original string.
+wordDict = {}
+
+cleanSet = set(w_clean)
+distinctCount = len(cleanSet)
+
+for setWord in cleanSet:
+    wCount = 0
+    for cleanWord in w_clean:
+        if cleanWord == setWord:
+            wCount += 1
+    wordDict[setWord] = wCount
+
+print("\nThe dictionary with word counts:")
+print(wordDict)
+
+print("\nNumber of distinct words in the original string:", distinctCount)
+
+
+# Prompt the user for a word and return that word's frequency in a selected string.
+print("\nYou may now query the frequencies of words in the text you input just now.")
+
+while True:
+    frequency = 0
+    query = input("Enter a word to check. Enter XXX to quit. >>>> ").lower()
+    if query == "xxx":
+        print("\nYou have chosen to quit querying.")
+        break
+    else:
+        for key in wordDict:
+            if query == key:
+                frequency = wordDict[key]
+                break
+        print("The frequency of your chosen word:", frequency)
+
+
+# Sort the items in the dictionary alphabetically.    
+keyList = list(wordDict.keys())
+keyList.sort()
+
+# Emulate a dictionary (unordered) with a list.
+alphabetDictList = []
+
+for key in keyList:
+    keyValueTuple = (key, wordDict[key])
+    alphabetDictList.append(keyValueTuple)
+    
+print("\nThis is the sorted dictionary in a list of tuples:\n")
+print(alphabetDictList)
+
+# Sort the items in the dictionary from the highest frequency to the lowest frequency (or vice versa).
+
+# Make a set of possible values of frequencies, sort it in reverse and change back to list:
+valueList = list(wordDict.values())
+valueSet = set(valueList)
+sortedValueList = sorted(valueSet, reverse = True)
+
+# sorted frequency list (most frequent to least) of keys, with key names also sorted alphabetically.
+sortedFreqList = []
+
+# Go through all possible values, and extract those relevant keys to make into a list for sorting
+for value in sortedValueList:
+    keysBag = []
+    for key in wordDict:
+        if wordDict[key] == value:
+            keysBag.append(key)
+    keysBag.sort()
+    sortedFreqList.extend(keysBag)
+    
+# Print out the sorted dictionary (emulated with a list)
+sortedFreqDict = []
+
+for key in sortedFreqList:
+    keyValueTuple = (key, wordDict[key])
+    sortedFreqDict.append(keyValueTuple)
+    
+print("\nThis is the frequency-sorted (from most to least frequencies) dictionary in a list of tuples:\n")
+print(sortedFreqDict)
+____________________________________________
+## Outcome of test running 1:  
+### NOTE: long texts were broken up for easy reading here. Actual codes and outcomes do not break the texts.
+
+This is text count analysis. Please get ready to input your text in one (long) string.
+
+Please input your text. Do not press Enter until the whole string is completed:
+  >>>> But good morning! Good morning to ye and thou! I’d say to all my patients,
+       because I was the worse of the hypocrites, of all the hypocrites,
+       the cruel and phony hypocrites, I was the very worst.
+Here is the original text, 's':
+
+But good morning! Good morning to ye and thou! I’d say to all my patients,
+because I was the worse of the hypocrites, of all the hypocrites,
+the cruel and phony hypocrites, I was the very worst.
+
+The dictionary with word counts:
+{'because': 1, 'good': 2, 'and': 2, 'morning': 2, 'the': 5, 'of': 2,
+'i’d': 1, 'my': 1, 'worst': 1, 'i': 2, 'phony': 1, 'say': 1, 'patients': 1,
+'thou': 1, 'very': 1, 'ye': 1, 'to': 2, 'hypocrites': 3, 'all': 2, 'was': 2,
+'cruel': 1, 'worse': 1, 'but': 1}
+
+Number of distinct words in the original string: 23
+
+You may now query the frequencies of words in the text you input just now.
+Enter a word to check. Enter XXX to quit. >>>> morning
+The frequency of your chosen word: 2
+Enter a word to check. Enter XXX to quit. >>>> Because
+The frequency of your chosen word: 1
+Enter a word to check. Enter XXX to quit. >>>> THE
+The frequency of your chosen word: 5
+Enter a word to check. Enter XXX to quit. >>>> nonexistent
+The frequency of your chosen word: 0
+Enter a word to check. Enter XXX to quit. >>>> hypocrites
+The frequency of your chosen word: 3
+Enter a word to check. Enter XXX to quit. >>>> xxx
+
+You have chosen to quit querying.
+
+This is the sorted dictionary in a list of tuples:
+
+[('all', 2), ('and', 2), ('because', 1), ('but', 1), ('cruel', 1), ('good', 2),
+('hypocrites', 3), ('i', 2), ('i’d', 1), ('morning', 2), ('my', 1), ('of', 2),
+('patients', 1), ('phony', 1), ('say', 1), ('the', 5), ('thou', 1), ('to', 2),
+('very', 1), ('was', 2), ('worse', 1), ('worst', 1), ('ye', 1)]
+
+This is the frequency-sorted (from most to least frequencies) dictionary in a list of tuples:
+
+[('the', 5), ('hypocrites', 3), ('all', 2), ('and', 2), ('good', 2), ('i', 2),
+('morning', 2), ('of', 2), ('to', 2), ('was', 2), ('because', 1), ('but', 1),
+('cruel', 1), ('i’d', 1), ('my', 1), ('patients', 1), ('phony', 1), ('say', 1),
+('thou', 1), ('very', 1), ('worse', 1), ('worst', 1), ('ye', 1)]
+____________________________________________
+
+
