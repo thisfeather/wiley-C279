@@ -2050,19 +2050,99 @@ Use the same pattern to remove the punctuation from the initial s string and cou
 The output should include each distinct word, regardless of case or punctuation,
 along with the number of times each word appears. Also display the number of distinct words in the string.
 
-## Answer:
+## Answer Part 1:
 ____________________________________________
+import string #import the string module 
+#use the built-in string.punctuation method to create a list of all punctuation marks
+punctuation_list =  list(string.punctuation)
+#display the punctuation_list
+print(punctuation_list)
 
+w = ["haythem!", "is" ,"eating", "tacos.", ".haythem", "loves", "tacos", "", ":"]
+w_clean = list()
+#do not change the code above this line.
 
+#your code goes here
+for text in w:
+    textLength = len(text)
+    cleanText = ""
+    for i in range(textLength):
+        testChar = text[i]
+        if testChar not in punctuation_list:
+            cleanText += testChar
+    if cleanText != "":
+        w_clean.append(cleanText)
+
+print(w_clean)
+print(len(w_clean))
 ____________________________________________
-## Outcome of test running:
-
+## Outcome of test running Part 1:
+['!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<',
+'=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~']
+['haythem', 'is', 'eating', 'tacos', 'haythem', 'loves', 'tacos']
+7
 ____________________________________________
+## Answer Part 2:
+____________________________________________
+import string #import the string module 
+#use the string.punctuation built-in python to create a list of all punctuations
+punctuation_list =  list(string.punctuation)  #do not delete this
+
+print(words)
+w_clean = list()
+
+#your code goes here 
+for text in words:
+    textLength = len(text)
+    cleanText = ""
+    for i in range(textLength):
+        testChar = text[i]
+        if testChar not in punctuation_list:
+            cleanText += testChar
+    if cleanText != "":
+        w_clean.append(cleanText)
+
+print("\nHere is the list of cleaned-up words:\n")
+
+print(w_clean)
+print("\nWord count in this list:", len(w_clean))
+____________________________________________
+## Outcome of test running Part 2:
+['imagine', 'a', 'vast', 'sheet', 'of', 'paper', 'on', 'which', 'straight', 'lines,', 'triangles,',
+'squares,', 'pentagons,', 'hexagons,', 'and', 'other', 'figures,', 'instead', 'of', 'remaining',
+'fixed', 'in', 'their', 'places,', 'move', 'freely', 'about,', 'on', 'or', 'in', 'the', 'surface,',
+'but', 'without', 'the', 'power', 'of', 'rising', 'above', 'or', 'sinking', 'below', 'it,', 'very',
+'much', 'like', 'shadows', '-', 'only', 'hard', 'and', 'with', 'luminous', 'edges', '-', 'and', 'you',
+'will', 'then', 'have', 'a', 'pretty', 'correct', 'notion', 'of', 'my', 'country', 'and', 'countrymen.',
+'alas,', 'a', 'few', 'years', 'ago,', 'i', 'should', 'have', 'said', '"my', 'universe":', 'but', 'now',
+'my', 'mind', 'has', 'been', 'opened', 'to', 'higher', 'views', 'of', 'things.']
+
+Here is the list of cleaned-up words:
+
+['imagine', 'a', 'vast', 'sheet', 'of', 'paper', 'on', 'which', 'straight', 'lines', 'triangles',
+'squares', 'pentagons', 'hexagons', 'and', 'other', 'figures', 'instead', 'of', 'remaining', 'fixed',
+'in', 'their', 'places', 'move', 'freely', 'about', 'on', 'or', 'in', 'the', 'surface', 'but', 'without',
+'the', 'power', 'of', 'rising', 'above', 'or', 'sinking', 'below', 'it', 'very', 'much', 'like', 'shadows',
+'only', 'hard', 'and', 'with', 'luminous', 'edges', 'and', 'you', 'will', 'then', 'have', 'a', 'pretty',
+'correct', 'notion', 'of', 'my', 'country', 'and', 'countrymen', 'alas', 'a', 'few', 'years', 'ago', 'i',
+'should', 'have', 'said', 'my', 'universe', 'but', 'now', 'my', 'mind', 'has', 'been', 'opened', 'to',
+'higher', 'views', 'of', 'things']
+
+Word count in this list: 90
+____________________________________________
+#### Note: the solution in Part 2 removes all punctuations within a word, not at the boundary of the words,
+     e.g. "can't" or "well-being". Though it does not affect the results in this question, the solution
+     can use some improvements.
 
 
 
-### Activity N
-xxx
+### Step 7: Put It All Together
+Finally, create a single script that performs all of the following operations on the original s string.
+ - Convert the string to lowercase characters.
+ - Split the lowercase string into individual words.
+ - Remove the punctuation from the lowercase words. Assume that all punctuation is either the first character or the last character of each item in the list.
+ - Perform a count analysis on the words without punctuation characters.
+ - Display the dictionary with the word counts and the number of distinct words in the original string.
 
 ## Answer:
 ____________________________________________
