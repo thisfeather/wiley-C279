@@ -1,0 +1,535 @@
+Python - Class Exercises and Activities 2022-08-12
+
+Carl Tang Yong Han
+
+
+_______________________
+
+#### Worksheet 2 - Classes and Objects
+
+### Practice 1
+Create a class Animal that could represent any animal.
+Include at least two attributes within the new class.
+
+## Answer:
+_____________________________________
+# your code here
+
+class Animal:
+    animal_name = ""
+    number_of_legs = None
+    category = ""
+    have_visible_ears = None
+    
+print(Animal)
+_____________________________________
+## Outcome of running codes:
+
+<class '__main__.Animal'>
+_____________________________________
+
+
+
+### Practice 2
+Using the Animal class from the previous exercise, create three objects that represent animals.
+Print out all attributes for each animal.
+
+## Answer:
+_____________________________________
+# your code here
+
+cat = Animal()
+cat.animal_name = "Cat"
+cat.number_of_legs = 4
+cat.category = "mammal"
+cat.have_visible_ears = True
+
+gold_fish = Animal()
+gold_fish.animal_name = "Gold Fish"
+gold_fish.number_of_legs = 0
+gold_fish.category = "fish"
+gold_fish.have_visible_ears = False
+
+python = Animal()
+python.animal_name = "Python"
+python.number_of_legs = 0
+python.category = "reptile"
+python.have_visible_ears = False
+
+print("\nThese are attributes of:", cat.animal_name)
+print("Number of legs:", cat.number_of_legs)
+print("Category:", cat.category)
+print("Have visible ears or not:", cat.have_visible_ears)
+
+print("\nThese are attributes of:", gold_fish.animal_name)
+print("Number of legs:", gold_fish.number_of_legs)
+print("Category:", gold_fish.category)
+print("Have visible ears or not:", gold_fish.have_visible_ears)
+
+print("\nThese are attributes of:", python.animal_name)
+print("Number of legs:", python.number_of_legs)
+print("Category:", python.category)
+print("Have visible ears or not:", python.have_visible_ears)
+_____________________________________
+## Outcome of running codes:
+
+These are attributes of: Cat
+Number of legs: 4
+Category: mammal
+Have visible ears or not: True
+
+These are attributes of: Gold Fish
+Number of legs: 0
+Category: fish
+Have visible ears or not: False
+
+These are attributes of: Python
+Number of legs: 0
+Category: reptile
+Have visible ears or not: False
+_____________________________________
+
+
+
+### Practice 3
+Create an __init__ method for the Animal class.
+Include at least three of the attributes you originally defined in the new method.
+
+## Answer:
+_____________________________________
+# your code here
+
+class Animal:
+    animal_name = ""
+    number_of_legs = None
+    category = ""
+    have_visible_ears = None
+    
+    def __init__(self, aname, numoflegs, category, havevisears):
+        self.animal_name = aname
+        self.number_of_legs = numoflegs
+        self.category = category
+        self.have_visible_ears = havevisears
+
+# Try intantiate an animal object:
+monkey = Animal("Monkey", 2, "mammal", True)
+
+print(monkey)
+
+print("\nThese are attributes of:", monkey.animal_name)
+print("Number of legs:", monkey.number_of_legs)
+print("Category:", monkey.category)
+print("Have visible ears or not:", monkey.have_visible_ears)
+_____________________________________
+## Outcome of running codes:
+
+<__main__.Animal object at 0x000001A4AEBD3D60>
+
+These are attributes of: Monkey
+Number of legs: 2
+Category: mammal
+Have visible ears or not: True
+_____________________________________
+
+
+
+### Practice 4
+Create a display_info method for the Animal class.
+Create three objects from the Animal class and display each object using the display_info method.
+
+## Answer:
+_____________________________________
+# your code here
+
+class Animal:
+    animal_name = ""
+    number_of_legs = None
+    category = ""
+    have_visible_ears = None
+    
+    def __init__(self, aname, numoflegs, category, havevisears):
+        self.animal_name = aname
+        self.number_of_legs = numoflegs
+        self.category = category
+        self.have_visible_ears = havevisears
+        
+    def display_info(self):
+        print("\nThese are attributes of:", self.animal_name)
+        print("Number of legs:", self.number_of_legs)
+        print("Category:", self.category)
+        print("Have visible ears or not:", self.have_visible_ears)     
+
+        
+# Try intantiate three animal object:
+monkey = Animal("Monkey", 2, "mammal", True)
+lizard = Animal("Lizard", 4, "reptile", False)
+eagle = Animal("Eagle", 2, "bird", False)
+
+monkey.display_info()
+lizard.display_info()
+eagle.display_info()
+_____________________________________
+## Outcome of running codes:
+
+These are attributes of: Monkey
+Number of legs: 2
+Category: mammal
+Have visible ears or not: True
+
+These are attributes of: Lizard
+Number of legs: 4
+Category: reptile
+Have visible ears or not: False
+
+These are attributes of: Eagle
+Number of legs: 2
+Category: bird
+Have visible ears or not: False
+_____________________________________
+
+
+
+### Practice 5a
+The following code includes multiple errors. Find the errors and update the code as necessary.
+Do not change any of the existing code above line 9.
+The final output should read: Harry Potter and the Sorcerer's Stone by J. K. Rowling, published in 1997
+
+## Answer:
+_____________________________________
+class Book:
+    title = ""
+    author = ""
+    pub_date = ""
+    def __init__ (book, ti, au, da):
+        book.title = ti
+        book.author = au
+        book.pub_date = da
+        
+#Change only the code below this line
+    def book_details(self):
+        print (self.title + " by " + self.author + ", published in " + self.pub_date)
+        
+book_1 = Book("Harry Potter and the Sorcerer's Stone", "J. K. Rowling","1997")
+book_1.book_details()
+_____________________________________
+## Outcome of running codes:
+
+Harry Potter and the Sorcerer's Stone by J. K. Rowling, published in 1997
+_____________________________________
+
+
+
+### Practice 5b
+Create and execute another meaningful method for the Animal class.
+Make sure to pass the self object when executing the method.
+
+## Answer:
+_____________________________________
+# your code here
+
+class Animal:
+    animal_name = ""
+    number_of_legs = None
+    category = ""
+    have_visible_ears = None
+    sound = ""
+    
+    def __init__(self, aname, numoflegs, category, havevisears, sound):
+        self.animal_name = aname
+        self.number_of_legs = numoflegs
+        self.category = category
+        self.have_visible_ears = havevisears
+        self.sound = sound
+        
+    def display_info(self):
+        print("\nThese are attributes of:", self.animal_name)
+        print("Number of legs:", self.number_of_legs)
+        print("Category:", self.category)
+        print("Have visible ears or not:", self.have_visible_ears)     
+        
+    def signal_call(self, times):
+        print(self.animal_name, "says: ")
+        for i in range(times):
+            print(self.sound, end=" ")
+            print((i + 1) * "~", end="  ")
+        print("\n")
+
+wolf = Animal("Wolf", 4, "mammal", True, "Woooff")
+wolf.signal_call(4)
+
+salmon = Animal("Salmon", 0, "fish", False, "Blurb")
+salmon.signal_call(5)
+_____________________________________
+## Outcome of running codes:
+
+Wolf says: 
+Woooff ~  Woooff ~~  Woooff ~~~  Woooff ~~~~  
+
+Salmon says: 
+Blurb ~  Blurb ~~  Blurb ~~~  Blurb ~~~~  Blurb ~~~~~  
+_____________________________________
+
+
+
+### Practice 6
+Revise the following code so that the Person class includes a list of addresses rather than a single address.
+
+## Answer:
+_____________________________________
+class Address:
+    number = None
+    street  = None
+    city = None
+    state = None
+    zipcode = None
+    def  __init__(self,num,st,cty,ste,zc):
+        self.number = num
+        self.street = st 
+        self.city = cty
+        self.state= ste
+        self.zipcode  = zc
+    def display(self):
+        print(str(self.number) + " " + self.street + " " + self.city + " " + self.state + " " + self.zipcode)
+        
+
+class Person:
+    fname = None
+    lname = None
+    addresses = None # addresses will hold a list  of addresses that belong to a person
+    def __init__(self,fname,lname,addrs):
+        self.fname = fname
+        self.lname = lname
+        self.addresses = addrs
+    def display(self):
+        # implement the display method to display  first name,  last name, 
+        print(self.fname, self.lname)
+        # then iterate through addresses and display each address in one line.
+        for i in range(len(self.addresses)):
+            self.addresses[i].display()        
+        pass
+    def add_address(self,addr):
+        # implement
+        self.addresses.append(addr)
+        pass
+     
+class Account:
+    ain = None 
+    person = None 
+    def __init__(self,ain,person):
+        self.ain = ain
+        self.person = person
+    def display(self):
+        print("Account Number: " + str(self.ain))
+        print("Account Holder Information: ")
+        self.person.display()
+
+addr1 = Address(123,"Main Street","Asbury Park","NJ","07712")
+addr2 = Address(12,"Rue Simon Bolivard","Paris","France","75019")
+addresses = list()
+addresses.append(addr1)
+addresses.append(addr2)
+
+
+p = Person("Haythem","Balti",addresses)
+addr3 = Address(46,"Fourth Street","Louisville","KY","40208")
+
+p.add_address(addr3)
+
+# p.display()
+a = Account("C1566X56576",p)
+a.display()
+_____________________________________
+## Outcome of running codes:
+
+Account Number: C1566X56576
+Account Holder Information: 
+Haythem Balti
+123 Main Street Asbury Park NJ 07712
+12 Rue Simon Bolivard Paris France 75019
+46 Fourth Street Louisville KY 40208
+_____________________________________
+
+
+
+
+#### Activities: Classes and Objects
+
+
+
+
+
+
+
+
+
+
+
+### Activity 1
+The lesson uses Person and Animal as example classes. For this activity, choose another Noun of your choice
+to create a class. It can be anything you wish, as long as it meets the following criteria:
+ - Do not use people or animals.
+ - The category must be broad enough to include different examples of the category.
+ - It must represent a real-life object.
+Include at least three attributes that are common to most (if not all) instances of the Noun. Use appropriate naming conventions.
+
+## Answer:
+_____________________________________
+class Inventory:
+    brand = ""           # such as Toshiba
+    product_name = ""    # such as Awesome-112 Laptop
+    price = None         # float
+    disc_app = None      # boolean, to check if discount is applicable
+    stock_avail = None   # int to keep track of stock available
+    
+    def __init__(self, brand, pname, price, disc, stock):
+        self.brand = brand
+        self.product_name = pname
+        self.price = price
+        self.disc_app = disc
+        self.stock_avail = stock
+        
+print(Inventory)
+_____________________________________
+## Outcome of running codes:
+
+<class '__main__.Inventory'>
+_____________________________________
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
