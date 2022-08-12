@@ -2018,15 +2018,18 @@ _____________________________________
 
 
 
-
-
-
-
-
-
-
-
-### Activity N
+### Practice 6
+Change the code below as follows:
+ - Add an attribute to the Director class called team. The team represents the employees that the director manages.
+   The team attribute should be a list of Employee objects.
+    - Implement the add_employee method, which takes as input an Employee object and adds it to the team object.
+    - Implement the display method of the Director class to display the information about the director
+      and the list of the employees that the director manages.
+ - Create another class called HourlyEmployee that inherits from Employee.
+    - Add one attribute to the HourlyEmployee class called hourly_rate,
+      which represents the hourly pay rate for the hourly employee.
+    - Implement the __init__ method and display methods for the HourlyEmployee class.
+After you make these changes, verify that the code works by making sure it can display the attributes of the Director object using the display method.
 
 ## Answer:
 _____________________________________
