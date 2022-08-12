@@ -1021,6 +1021,205 @@ _____________________________________
 
 
 
+#### Worksheet 3 - Inheritance
+
+
+### Practice 1
+Create an Animal class that includes two string attributes: name and location.
+Implement the appropriate __init__ and display methods to create and display objects respectively.
+Using inheritance, create another class called Mammal that inherits from the Animal class.
+Create two Mammal objects and display each object's information using the display method.
+
+## Answer:
+_____________________________________
+# your code here  
+
+class Animal:
+    name = ""
+    location = ""
+    have_fins_or_wings = None   # Boolean to indicate if this animal has fins or wings
+    num_of_legs = None          # Integer
+    
+    def __init__(self, name, location, finWing, numLeg):
+        self.name = name
+        self.location = location
+        self.have_fins_or_wings = finWing
+        self.num_of_legs = numLeg
+        
+    def display(self):
+        print(f"\nName of animal: {self.name}")
+        print(f"Found in location: {self.location}")
+        if self.have_fins_or_wings:
+            print("This animal has fins or wings.")
+        else:
+            print("This animal does not have fins or wings.")
+        if self.num_of_legs == 0:
+            print("This animal has no leg.")
+        else:
+            print(f"This animal has {self.num_of_legs} legs.")
+
+# Test the class:
+print(Animal)
+
+print("Test instantiate an Animal object:\n")
+lion = Animal("Lion", "Africa", False, 4)
+
+print(lion)
+lion.display()
+
+# Now use inheritance to create class Mammal:
+print("\nThis is creating an inherited class, Mammal:\n")
+
+class Mammal(Animal):
+    pass
+
+print("Test instantiating two Mammal objects:\n")
+
+print("\nMammal 1:")
+tiger = Mammal("Tiger", "India", False, 4)
+print(tiger)
+tiger.display()
+
+print("\nMammal 2:")
+orangutan = Mammal("Orang Utan", "Malaysia", False, 2)
+print(orangutan)
+orangutan.display()
+_____________________________________
+## Outcome of running codes:
+
+<class '__main__.Animal'>
+Test instantiate an Animal object:
+
+<__main__.Animal object at 0x000002159A79F760>
+
+Name of animal: Lion
+Found in location: Africa
+This animal does not have fins or wings.
+This animal has 4 legs.
+
+This is creating an inherited class, Mammal:
+
+Test instantiating two Mammal objects:
+
+
+Mammal 1:
+<__main__.Mammal object at 0x000002159A772790>
+
+Name of animal: Tiger
+Found in location: India
+This animal does not have fins or wings.
+This animal has 4 legs.
+
+Mammal 2:
+<__main__.Mammal object at 0x000002159A772580>
+
+Name of animal: Orang Utan
+Found in location: Malaysia
+This animal does not have fins or wings.
+This animal has 2 legs.
+_____________________________________
+
+
+
+### Practice 2
+Create an Animal class that includes two string attributes: name and location.
+Implement the appropriate __init__ and display methods to create and display objects.
+Using inheritance, create another class called Mammal that inherits from the Animal class.
+Add at least one more attribute that is specific to the Mammal class and is not included in the Animal class.
+Create two Mammal objects and display them.
+
+## Answer:
+_____________________________________
+# your code here  
+
+class Animal:
+    name = ""
+    location = ""
+    have_fins_or_wings = None   # Boolean to indicate if this animal has fins or wings
+    num_of_legs = None          # Integer
+    
+    def __init__(self, name, location, finWing, numLeg):
+        self.name = name
+        self.location = location
+        self.have_fins_or_wings = finWing
+        self.num_of_legs = numLeg
+        
+    def display(self):
+        print(f"\nName of animal: {self.name}")
+        print(f"Found in location: {self.location}")
+        if self.have_fins_or_wings:
+            print("This animal has fins or wings.")
+        else:
+            print("This animal does not have fins or wings.")
+        if self.num_of_legs == 0:
+            print("This animal has no leg.")
+        else:
+            print(f"This animal has {self.num_of_legs} legs.")
+
+            
+# Now use inheritance to create child class Mammal:
+
+class Mammal(Animal):
+    # Boolean to indicate if the animal has pouch for its baby
+    have_pouch = None         
+    # Boolean to indicate if the animal is protected by law from poaching
+    protected_from_poaching = None
+
+print("This is class Mammal with new attributes:")
+print(Mammal)
+
+# Instantiate two Mammal objects:
+
+print("\nHere are two objects from the Mammal class:\n")
+
+elephant = Mammal("Elephant", "Africa", False, 4)
+elephant.have_pouch = False
+elephant.protected_from_poaching = True
+print("\nNew Mammal 1:")
+print(elephant)
+elephant.display()
+print(f"{elephant.name} have pouch? {elephant.have_pouch}!!")
+print(f"{elephant.name} is protected from poaching? {elephant.protected_from_poaching}!!")
+
+
+kangaroo = Mammal("Kangaroo", "Australia", False, 2)
+kangaroo.have_pouch = True
+kangaroo.protected_from_poaching = False
+print("\nNew Mammal 2:")
+print(kangaroo)
+kangaroo.display()
+print(f"{kangaroo.name} have pouch? {kangaroo.have_pouch}!!")
+print(f"{kangaroo.name} is protected from poaching? {kangaroo.protected_from_poaching}!!")
+_____________________________________
+## Outcome of running codes:
+
+This is class Mammal with new attributes:
+<class '__main__.Mammal'>
+
+Here are two objects from the Mammal class:
+
+
+New Mammal 1:
+<__main__.Mammal object at 0x000002159A7AD100>
+
+Name of animal: Elephant
+Found in location: Africa
+This animal does not have fins or wings.
+This animal has 4 legs.
+Elephant have pouch? False!!
+Elephant is protected from poaching? True!!
+
+New Mammal 2:
+<__main__.Mammal object at 0x000002159A7B7F40>
+
+Name of animal: Kangaroo
+Found in location: Australia
+This animal does not have fins or wings.
+This animal has 2 legs.
+Kangaroo have pouch? True!!
+Kangaroo is protected from poaching? False!!
+_____________________________________
+
 
 
 ### Activity N
@@ -1048,6 +1247,17 @@ _____________________________________
 
 
 
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
 
 ### Activity N
 
@@ -1059,6 +1269,102 @@ _____________________________________
 
 _____________________________________
 
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
 
 
 
