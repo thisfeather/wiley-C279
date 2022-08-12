@@ -725,15 +725,247 @@ _____________________________________
 
 
 
-### Activity N
+#### Classes and Objects Self-Assessment: A Simple Calculator
 
-## Answer:
+### Instructions
+Your program should include the following:
+ - Design a class called SimpleCalculator that performs basic math operations 
+   (addition, subtraction, multiplication, division) on two operands.
+    - Create a separate method for each operation in the class.
+ - The program should accept two values and an operator from the user,
+   perform the selected operation using those two values,
+   and display the result to the user in a meaningful way.
+ - The user should be able to exit the program at any time,
+   using a keyword like "Quit" or "Exit" in any letter case.
+    - If the user chooses to exit,
+      the program should end with an appropriate output message thanking the user.
+
+## Answer Part 1: Build a class
+_____________________________________
+# Carl Tang Yong Han 2022-08-12
+
+class SimpleCalculator:
+    model_name = ""
+    version = ""
+    user_instruction = ""
+    
+    # Save the current operator for method's access later:
+    operator = ""
+    # Save the user-inputted operands for method's access later:
+    operand1 = None
+    operand2 = None
+    
+    
+    def __init__(self, model, version, instruction):
+        self.model_name = model
+        self.version = version
+        self.user_instruction = instruction
+        
+    def manual(self):
+        print(f"{self.model_name} Version {self.version}\n")
+        print("Manual for a Simple Calculator\n")
+        print("Instruction for Use:")
+        print(self.user_instruction)
+        
+    # This is just a function, not a method, to check for decimal input later:
+    def is_decimal(numStr):
+        for i in range(len(numStr)):
+            if numStr[i] == ".":
+                return True
+        return False
+    
+    
+    # In principle, user may set the operands and operator attributes in the class,
+    # and invoke the following 4 methods from the class for different methematical operations.
+    # but one may simply run the "run" method further below from the class, and have a better
+    # user experience doing the operations.
+    
+    # Method for Addition:
+    def add(self):
+        if self.operator != "A":
+            print("Something wrong with the operator, which is not specifically for addition.")
+        elif (self.operand1 != None) and (self.operand2 != None):
+            answer = self.operand1 + self.operand2
+            print(f"{self.operand1} + {self.operand2} = {answer}")
+        else:
+            print("Something wrong with the operands.")
+
+    # Method for Subtraction:
+    def subtract(self):
+        if self.operator != "S":
+            print("Something wrong with the operator, which is not specifically for subtraction.")
+        elif (self.operand1 != None) and (self.operand2 != None):
+            answer = self.operand1 - self.operand2
+            print(f"{self.operand1} - {self.operand2} = {answer}")
+        else:
+            print("Something wrong with the operands.")
+            
+    # Method for Multiplication:
+    def multiply(self):
+        if self.operator != "M":
+            print("Something wrong with the operator, which is not specifically for multiplication.")
+        elif (self.operand1 != None) and (self.operand2 != None):
+            answer = self.operand1 * self.operand2
+            print(f"{self.operand1} * {self.operand2} = {answer}")
+        else:
+            print("Something wrong with the operands.")
+            
+    # Method for Addition:
+    def divide(self):
+        if self.operator != "D":
+            print("Something wrong with the operator, which is not specifically for division.")
+        elif (self.operand1 != None) and (self.operand2 != None):
+            answer = self.operand1 + self.operand2
+            print(f"{self.operand1} + {self.operand2} = {answer}")
+        else:
+            print("Something wrong with the operands.")
+    
+    
+    
+    # A more user-friendly way to run and use the calculator by easy input UI.    
+    # This will kickstart the use of calculator
+    def run(self):
+        print(f"You are using Simple Calculator\n{self.model_name} Version {self.version}\n")
+        
+        while True:
+            input0 = input("Do you want to proceed (P) or quit (Q)? >>>> ").upper()
+            
+            if input0[0] == "Q":   # In case some users actually type out "quit"
+                print("\nYou have chosen to quit.\nThank you, and see you again!\n")
+                break
+            
+            input1 = input("Please enter first number: >>>> ")
+            input2 = input("Please enter second number: >>>> ")
+            input3 = input("Please enter operand:\n\
+            (A)dd, (S)ubtract, (M)ultiply or (D)ivide: >>>> ").upper()
+
+            # To avoid making unnecessary float outcomes, we only treat input as float when
+            # user actually have a "." in the input
+            
+            if is_decimal(input1):
+                self.operand1 = float(input1)
+            else:
+                self.operand1 = int(input1)
+                
+            if is_decimal(input2):
+                self.operand2 = float(input2)
+            else:
+                self.operand2 = int(input2)
+                
+            # User could have typed in "Add", "Subtract", etc., instead of the more convenient
+            # initial letters A, S, D, or M. We can read initial characters.
+            # Also be prepared for some users inputting "+", "-", "*", and "/",
+            # which is more classical though less easy for users to type.
+            # Sometimes user might forget if "M" refers to "Minus" or "Multiply",
+            # which is when "*" would be useful.
+            
+            if (input3[0] == "A") or (input3[0] == "+"):
+                self.operator = "A"
+                self.add()
+            elif (input3[0] == "S") or (input3[0] == "-"):
+                self.operator = "S"
+                self.subtract()
+            elif (input3[0] == "M") or (input3[0] == "*"):
+                self.operator = "M"
+                self.multiply()
+            elif (input3[0] == "D") or (input3[0] == "/"):
+                self.operator = "D"
+                self.divide()
+
+print(SimpleCalculator)
+_____________________________________
+## Answer Part 2a: Use the class in a slow manner to perform calculation:
+_____________________________________
+# Write the user instructions in a string:
+
+instr = "Welcome to our simple calculator.\nThis calculator takes two operand values and one operator value, and \
+function like common mathematical operations, like 'A + B', where A and B are the two operands you input first \
+in sequence, followed by the operator (e.g. '+') that you input later.\nWe offer addition, subtraction, multiplication \
+and division, which you can choose as your input for operator, in the form of  'addition' or 'add' or 'A' or '+' \
+in any case, at your convenience. Similarly for other three operations.\n\n\
+You may manually input the operands and operator as follows,\n\
+my_calculator.operand1 = 123\n\
+my_calculator.operand2 = 456\n\
+my_calculator.operator = 'A'\n\
+and call your intended method matching your operator of choice, i.e. add(), subtract(), multiply() and divide():\n\
+my_calculator.add()    for example\n\n\
+But a better way to use the calculator, which is more fun and convenient, is to call the run() method:\n\
+my_calculator.run()    which will offer easier inputs.\n\n\
+Give it a try, and have fun!"
+
+
+# Instantiate an object and start using:
+print("Instantiate an object and start using:\n ------------------------------")
+my_calc = SimpleCalculator("Classio C279", "3.14", instr)
+print("\n ------------------------------")
+
+# Look up the manual:
+print("Calling my_calc.manual() to look up the manual:\n ------------------------------")
+my_calc.manual()
+print("\n ------------------------------")
+
+# Try a slow and inconvenient method to perform '123 + 456' by manually setting class attributes:
+print("Try a slow and inconvenient method to perform '123 + 456' \
+by manually setting class attributes, followed by running the add() method:\n ------------------------------\n")
+my_calc.operand1 = 123
+my_calc.operand2 = 456
+my_calc.operator = "A"
+my_calc.add()
+print("\n ------------------------------")
+_____________________________________
+## Outcome of running codes, Part 2a:
+
+Instantiate an object and start using:
+ ------------------------------
+
+ ------------------------------
+Calling my_calc.manual() to look up the manual:
+ ------------------------------
+Classio C279 Version 3.14
+
+Manual for a Simple Calculator
+
+Instruction for Use:
+Welcome to our simple calculator.
+This calculator takes two operand values and one operator value, and function like common
+mathematical operations, like 'A + B', where A and B are the two operands you input first
+in sequence, followed by the operator (e.g. '+') that you input later.
+We offer addition, subtraction, multiplication and division, which you can choose as your
+input for operator, in the form of  'addition' or 'add' or 'A' or '+' in any case,
+at your convenience. Similarly for other three operations.
+
+You may manually input the operands and operator as follows,
+my_calculator.operand1 = 123
+my_calculator.operand2 = 456
+my_calculator.operator = 'A'
+and call your intended method matching your operator of choice,
+i.e. add(), subtract(), multiply() and divide():
+my_calculator.add()    for example
+
+But a better way to use the calculator, which is more fun and convenient,
+is to call the run() method:
+my_calculator.run()    which will offer easier inputs.
+
+Give it a try, and have fun!
+
+ ------------------------------
+Try a slow and inconvenient method to perform '123 + 456' by manually setting class attributes, followed by running the add() method:
+ ------------------------------
+
+123 + 456 = 579
+
+ ------------------------------
+
+_____________________________________
+## Answer Part 2b: Use the class in a more convenient manner to perform calculation:
 _____________________________________
 
 _____________________________________
 ## Outcome of running codes:
 
 _____________________________________
+
+
 
 
 
