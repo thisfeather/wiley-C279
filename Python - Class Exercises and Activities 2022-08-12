@@ -355,15 +355,6 @@ _____________________________________
 #### Activities: Classes and Objects
 
 
-
-
-
-
-
-
-
-
-
 ### Activity 1
 The lesson uses Person and Animal as example classes. For this activity, choose another Noun of your choice
 to create a class. It can be anything you wish, as long as it meets the following criteria:
@@ -414,7 +405,7 @@ _____________________________________
 Use the Noun class you created in the previous activity to create at least four different objects.
 Print out all attributes for each object.
 
-## Answer:
+## Answer:  ## Based on class methods already defined in Activity 1
 _____________________________________
 mouse_MOSDEL1234 = Inventory("MOS-DEL-1234", "Dell", "Wireless Mouse Model 1234", 15.50, False, 34)
 mouse_MOSDEL1234.display_attributes()
@@ -465,28 +456,127 @@ _____________________________________
 
 
 
-### Activity N
+### Activity 3
+Create an __init__ method for your Noun class.
+Include at least four of the attributes you originally defined in the new method.
 
 ## Answer:
 _____________________________________
+## NOTE: Already created in Activity 1 above.
+_____________________________________
+## Outcome of running codes:
+## Refer to Activity 1 above.
+_____________________________________
 
+
+
+### Activity 4
+Create a method for your Noun class. The method should perform a specific activity
+(or series of activities) on objects based on the class.
+Although this can be a simple display, you are encouraged to consider more complicated activities in the method.
+
+## Answer Part 1: Update the initial class with added method
+_____________________________________
+class Inventory:
+    sku_no = ""          # SKU (stock-keeping unit) number as ID
+    brand = ""           # such as Toshiba
+    product_name = ""    # such as Awesome-112 Laptop
+    price = None         # float
+    disc_app = None      # boolean, to check if discount is applicable
+    stock_avail = None   # int to keep track of stock available
+    
+    def __init__(self, sku, brand, pname, price, disc, stock):
+        self.sku_no = sku
+        self.brand = brand
+        self.product_name = pname
+        self.price = price
+        self.disc_app = disc
+        self.stock_avail = stock
+        
+    def display_attributes(self):
+        print("\n")
+        print("The SKU Code is:", self.sku_no)
+        print("The brand is:", self.brand)
+        print("The product name is:", self.product_name)
+        print("The price is:", self.price)
+        print("The discount applicability is:", self.disc_app)
+        print("The unit(s) of stock available is:", self.stock_avail)
+        
+    def display_promo(self, percent):  # Display a promo message based on percentage
+        print("\nWelcome to Awesome Electronics!")
+        print(f"{self.brand} {self.product_name}")
+        originalDollar = "{:.2f}".format(self.price)
+        if self.disc_app:
+            # Discount message
+            print(f"Now at {percent}% discount!!")
+            discountedPrice = ((100 - percent) / 100) * self.price
+            discountedDollar = "{:.2f}".format(discountedPrice)
+            print(f"    ONLY ${discountedDollar} !!")
+            print(f"Original Price: ${originalDollar} //")
+            
+            # Giving rough idea of stocks left to create urgency to buy
+            left = self.stock_avail
+            if left < 20:
+                print("\nLess than 20 units left! Hurry!\n")
+            elif left < 30:
+                print("\nLess than 30 units left! What are you waiting for?\n")
+            elif left < 50:
+                print("\nLess than 50 units left! Get your promo code from our app!\n")
+            
+        else:
+            print(f"Now at: ${originalDollar}")
+            print("Download our app to check out our latest products and promotion!\n")
+_____________________________________
+## Answer Part 2: Use the updated class to run method. The class definition was run again,
+                  and the objects creation as in Activity 2 was also run again before the
+                  following codes are run:
+_____________________________________
+# No discount
+mouse_MOSDEL1234.display_promo(0)
+
+# 10% discount for relatively cheap items
+keyb_KEBTOS3310.display_promo(10)
+thud_THDKST2688_128.display_promo(10)
+
+# 15% discount for big ticket purchase, clearing stock for new product release.
+tabl_TABWAC4730.display_promo(15)
 _____________________________________
 ## Outcome of running codes:
 
+
+Welcome to Awesome Electronics!
+Dell Wireless Mouse Model 1234
+Now at: $15.50
+Download our app to check out our latest products and promotion!
+
+
+Welcome to Awesome Electronics!
+Toshiba Wireless Keyboard Model 3310
+Now at 10% discount!!
+    ONLY $25.02 !!
+Original Price: $27.80 //
+
+Less than 30 units left! What are you waiting for?
+
+
+Welcome to Awesome Electronics!
+Kingston Thumb Drive 128GB Model 2688
+Now at 10% discount!!
+    ONLY $52.92 !!
+Original Price: $58.80 //
+
+Less than 50 units left! Get your promo code from our app!
+
+
+Welcome to Awesome Electronics!
+Wacom Drawing Tablet Model 4730
+Now at 15% discount!!
+    ONLY $570.10 !!
+Original Price: $670.70 //
+
+Less than 20 units left! Hurry!
+
 _____________________________________
-
-
-
-### Activity N
-
-## Answer:
-_____________________________________
-
-_____________________________________
-## Outcome of running codes:
-
-_____________________________________
-
 
 
 
