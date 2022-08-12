@@ -580,14 +580,146 @@ _____________________________________
 
 
 
-### Activity N
+### Activity 5
+Create a separate class that is logically related to your original Noun class,
+based on the example that a Person can have one or more Addresses.
+Create at least one Noun object that includes a list of objects from the associated class.
+Display the Noun with the related objects.
 
-## Answer:
+## Answer Part 1: Create a separate class
 _____________________________________
+class Branch:
+    branch_name = ""
+    branch_email = ""
+    branch_address = ""
+    stocks = []  # A list of inventories that the branch store hold
+    inventory_estimation = None  # Estimation of how much the stocks are worth in total sales price
+    
+    def __init__(self, bname, bemail, baddress, stocks):
+        self.branch_name = bname
+        self.branch_email = bemail
+        self.branch_address = baddress
+        self.stocks = stocks
+    
+    def display_branch(self):
+        print("//--------------------------------------//")
+        print(self.branch_name.upper())  ## Display upper case for branch name
+        print("Address: ", self.branch_address)
+        print("Email: ", self.branch_email)
+        print("//--------------------------------------//")
+        
+    def stocks_report(self):
+        stockList = self.stocks
+        self.inventory_estimation = 0
+        print("\nStocks held by the branch:\n")
+        
+        # Loop to print report while adding up estimation of inventory
+        for i in range(len(stockList)):
+            item = stockList[i]
+            price = item.price
+            avail = item.stock_avail
+            self.inventory_estimation += avail * price
+            print(f"{item.sku_no}:\t\t{avail} unit(s)\t\t{item.brand} {item.product_name}")
+            
+        # Present estimation of inventory:
+        inventorySum = "{:.2f}".format(self.inventory_estimation)
+        print(f"\nTotal estimated value of inventory above: ${inventorySum}." )
 
+_____________________________________
+## Answer Part 2: Create one Noun object that includes a list of earlier class of objects
+                  and show case the object from the new class with the help of the list of objects.
+_____________________________________
+# Create list of stocks
+print("Creating a list of stocks, 'nystock'")
+nystock = []
+print(nystock)
+
+item001 = Inventory("MOS-DEL-1234", "Dell", "Wireless Mouse Model 1234", 15.50, False, 34)
+nystock.append(item001)
+item001.display_attributes()
+
+item002 = Inventory("KEB-TOS-3310", "Toshiba", "Wireless Keyboard Model 3310", 27.80, True, 26)
+nystock.append(item002)
+item002.display_attributes()
+
+item003 = Inventory("THD-KST-2688", "Kingston", "Thumb Drive 128GB Model 2688", 58.80, True, 43)
+nystock.append(item003)
+item003.display_attributes()
+
+item004 = Inventory("TAB-WAC-4730", "Wacom", "Drawing Tablet Model 4730", 670.70, True, 16)
+nystock.append(item004)
+item004.display_attributes()
+        
+
+# Instantiate object:
+new_york_branch = Branch("Awesome Electronics New York", "new.york.branch@awesomeelectronics.com",\
+                  "28 Fifth Avenue NYC, NY 10129", nystock)
+
+print("\nInstantiate object 'new_york_branch' and use its methods")
+
+print("\nThis method displays the branch's basic info:\n")
+new_york_branch.display_branch()
+
+print("\nThis method provides a report on the branch's stocks and inventories:")
+new_york_branch.stocks_report()
 _____________________________________
 ## Outcome of running codes:
 
+Creating a list of stocks, 'nystock'
+[]
+
+
+The SKU Code is: MOS-DEL-1234
+The brand is: Dell
+The product name is: Wireless Mouse Model 1234
+The price is: 15.5
+The discount applicability is: False
+The unit(s) of stock available is: 34
+
+
+The SKU Code is: KEB-TOS-3310
+The brand is: Toshiba
+The product name is: Wireless Keyboard Model 3310
+The price is: 27.8
+The discount applicability is: True
+The unit(s) of stock available is: 26
+
+
+The SKU Code is: THD-KST-2688
+The brand is: Kingston
+The product name is: Thumb Drive 128GB Model 2688
+The price is: 58.8
+The discount applicability is: True
+The unit(s) of stock available is: 43
+
+
+The SKU Code is: TAB-WAC-4730
+The brand is: Wacom
+The product name is: Drawing Tablet Model 4730
+The price is: 670.7
+The discount applicability is: True
+The unit(s) of stock available is: 16
+
+Instantiate object 'new_york_branch' and use its methods
+
+This method displays the branch's basic info:
+
+//--------------------------------------//
+AWESOME ELECTRONICS NEW YORK
+Address:  28 Fifth Avenue NYC, NY 10129
+Email:  new.york.branch@awesomeelectronics.com
+//--------------------------------------//
+
+This method provides a report on the branch's stocks and inventories:
+
+Stocks held by the branch:
+
+MOS-DEL-1234:		34 unit(s)		Dell Wireless Mouse Model 1234
+KEB-TOS-3310:		26 unit(s)		Toshiba Wireless Keyboard Model 3310
+THD-KST-2688:		43 unit(s)		Kingston Thumb Drive 128GB Model 2688
+TAB-WAC-4730:		16 unit(s)		Wacom Drawing Tablet Model 4730
+
+Total estimated value of inventory above: $14509.40.
 _____________________________________
 
 
