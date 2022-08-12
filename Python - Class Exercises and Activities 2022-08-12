@@ -1222,15 +1222,234 @@ _____________________________________
 
 
 
-### Activity N
+### Practice 3
+Create a class Animal that includes two string attributes: name and location.
+Implement the appropriate __init__ and display methods to create and display objects.
 
-## Answer:
+Use inheritance to create another class called Mammal that inherits from the Animal class.
+ - Add one more attribute specific to the Mammal class.
+ - Override the display method to display the newly-added attribute of the Mammal class.
+ - Create two Mammal objects and display them.
+ 
+Create another class called Bird that also inherits from the Animal class.
+ - Add one more attribute that is specific to the Bird class.
+ - Override the display method to display the new attribute of the Bird class.
+ - Create two Bird objects and display them.
+ 
+Create another class called Reptile that inherits from the Animal class.
+ - Add one more attribute specific to the Reptile class.
+ - Override the display method to display the new attribute of the Reptile class.
+ - Create two Reptile objects and display them.
+
+## Answer Part 1: Mammal
+_____________________________________
+# your code here  
+
+class Animal:
+    name = ""
+    location = ""
+    have_fins_or_wings = None   # Boolean to indicate if this animal has fins or wings
+    num_of_legs = None          # Integer
+    
+    def __init__(self, name, location, finWing, numLeg):
+        self.name = name
+        self.location = location
+        self.have_fins_or_wings = finWing
+        self.num_of_legs = numLeg
+        
+    def display(self):
+        print(f"\nName of animal: {self.name}")
+        print(f"Found in location: {self.location}")
+        if self.have_fins_or_wings:
+            print("This animal has fins or wings.")
+        else:
+            print("This animal does not have fins or wings.")
+        if self.num_of_legs == 0:
+            print("This animal has no leg.")
+        else:
+            print(f"This animal has {self.num_of_legs} legs.")
+
+            
+# Now use inheritance to create child class Mammal:
+
+class Mammal(Animal):
+    # Boolean to indicate if the animal has pouch for its baby
+    have_pouch = None         
+    # Boolean to indicate if the animal is protected by law from poaching
+    protected_from_poaching = None
+    
+    def display(self):
+        print(f"\nName of animal: {self.name}")
+        print(f"Found in location: {self.location}")
+        
+        if self.have_fins_or_wings:
+            print(f"The {self.name} has fins or wings.", end=" ")
+        else:
+            print(f"The {self.name} does not have fins or wings.", end=" ")
+        if self.num_of_legs == 0:
+            print("It has no leg.")
+        else:
+            print(f"It has {self.num_of_legs} legs.")
+            
+        if self.have_pouch:
+            print(f"Oh, by the way, the {self.name} has a pouch for its baby!")
+        else:
+            print("Oh, by the way, don't bother to look for a pouch on it. It has none.")
+            
+        if self.protected_from_poaching:
+            print("For your information, this species is protected from poaching! Just so you know.")
+        else:
+            print(f"For your information, the {self.name} is not protected by law.")
+            print("But show it some love, will ya?")
+            
+
+print("This is class Mammal with new attributes:")
+print(Mammal)
+
+# Instantiate two Mammal objects:
+
+print("\nHere are two objects from the Mammal class:\n")
+
+elephant = Mammal("Elephant", "Africa", False, 4)
+elephant.have_pouch = False
+elephant.protected_from_poaching = True
+print("\nNew Mammal 1:")
+print(elephant)
+elephant.display()
+
+kangaroo = Mammal("Kangaroo", "Australia", False, 2)
+kangaroo.have_pouch = True
+kangaroo.protected_from_poaching = False
+print("\nNew Mammal 2:")
+print(kangaroo)
+kangaroo.display()
+_____________________________________
+## Outcome of running codes Part 1: Mammal
+
+This is class Mammal with new attributes:
+<class '__main__.Mammal'>
+
+Here are two objects from the Mammal class:
+
+
+New Mammal 1:
+<__main__.Mammal object at 0x000002159A6C42B0>
+
+Name of animal: Elephant
+Found in location: Africa
+The Elephant does not have fins or wings. It has 4 legs.
+Oh, by the way, don't bother to look for a pouch on it. It has none.
+For your information, this species is protected from poaching! Just so you know.
+
+New Mammal 2:
+<__main__.Mammal object at 0x000002159A7728E0>
+
+Name of animal: Kangaroo
+Found in location: Australia
+The Kangaroo does not have fins or wings. It has 2 legs.
+Oh, by the way, the Kangaroo has a pouch for its baby!
+For your information, the Kangaroo is not protected by law.
+But show it some love, will ya?
+_____________________________________
+## Answer Part 2: Bird
+_____________________________________
+# Now use inheritance to create child class Mammal:
+
+class Bird(Animal):
+    can_actually_fly = None    # Boolean
+    eggs_eaten = None          # Boolean, to indicate if humans eat the bird's eggs
+    
+    def display(self):
+        print(f"\nName of animal: {self.name}")
+        print(f"Soars, or runs around, in location: {self.location}")
+        
+        if self.have_fins_or_wings:
+            print(f"The {self.name} has wings. (Well, we don't call them fins)")
+        else:
+            print(f"The {self.name}, if found with no wings, is probably disabled or disformed.")
+        if self.num_of_legs == 0:
+            print("If found with no legs at all, it is probably injured or disabled.")
+        else:
+            print(f"It has {self.num_of_legs} legs,", end=" ")
+            
+        if self.can_actually_fly:
+            if self.num_of_legs != 0:
+                print("which allows it to rest on tree branches.")
+            print(f"A healthy {self.name} can usually fly, though not as fast as an airplane.")
+        else:
+            if self.num_of_legs != 0:
+                print("which allows it to run around on the ground.")
+            print(f"Despite being a winged animal (usually), the {self.name} can't actually fly.")
+            
+        if self.eggs_eaten:
+            print(f"Humans actually do eat the eggs of the {self.name}.")
+        else:
+            print(f"Gluttons as we are, humans usually don't eat the eggs of the {self.name}.")
+            
+
+print("This is class Bird with new attributes:")
+print(Bird)
+
+# Instantiate two Bird objects:
+
+print("\nHere are two objects from the Bird class:\n")
+
+parrot = Bird("Parrot", "Everywhere", True, 2)
+parrot.can_actually_fly = True
+parrot.eggs_eaten = False
+print("\nNew Bird 1:")
+print(parrot)
+parrot.display()
+
+ostrich = Bird("Ostrich", "Africa", True, 2)
+ostrich.can_actually_fly = False
+ostrich.eggs_eaten = True
+print("\nNew Bird 2:")
+print(ostrich)
+ostrich.display()   
+_____________________________________
+## Outcome of running codes Part 2: Bird
+
+This is class Bird with new attributes:
+<class '__main__.Bird'>
+
+Here are two objects from the Bird class:
+
+
+New Bird 1:
+<__main__.Bird object at 0x000002159A79FEE0>
+
+Name of animal: Parrot
+Soars, or runs around, in location: Everywhere
+The Parrot has wings. (Well, we don't call them fins)
+It has 2 legs, which allows it to rest on tree branches.
+A healthy Parrot can usually fly, though not as fast as an airplane.
+Gluttons as we are, humans usually don't eat the eggs of the Parrot.
+
+New Bird 2:
+<__main__.Bird object at 0x000002159A772460>
+
+Name of animal: Ostrich
+Soars, or runs around, in location: Africa
+The Ostrich has wings. (Well, we don't call them fins)
+It has 2 legs, which allows it to run around on the ground.
+Despite being a winged animal (usually), the Ostrich can't actually fly.
+Humans actually do eat the eggs of the Ostrich.
+_____________________________________
+## Answer Part 3: Reptile
 _____________________________________
 
 _____________________________________
-## Outcome of running codes:
+## Outcome of running codes Part 3: Reptile
 
 _____________________________________
+
+
+
+
+
+
+
 
 
 
