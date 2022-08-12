@@ -375,20 +375,33 @@ Include at least three attributes that are common to most (if not all) instances
 ## Answer:
 _____________________________________
 class Inventory:
+    sku_no = ""          # SKU (stock-keeping unit) number as ID
     brand = ""           # such as Toshiba
     product_name = ""    # such as Awesome-112 Laptop
     price = None         # float
     disc_app = None      # boolean, to check if discount is applicable
     stock_avail = None   # int to keep track of stock available
     
-    def __init__(self, brand, pname, price, disc, stock):
+    def __init__(self, sku, brand, pname, price, disc, stock):
+        self.sku_no = sku
         self.brand = brand
         self.product_name = pname
         self.price = price
         self.disc_app = disc
         self.stock_avail = stock
         
+    def display_attributes(self):
+        print("\n")
+        print("The SKU Code is:", self.sku_no)
+        print("The brand is:", self.brand)
+        print("The product name is:", self.product_name)
+        print("The price is:", self.price)
+        print("The discount applicability is:", self.disc_app)
+        print("The unit(s) of stock available is:", self.stock_avail)
+        
 print(Inventory)
+
+    
 _____________________________________
 ## Outcome of running codes:
 
@@ -397,16 +410,58 @@ _____________________________________
 
 
 
-### Activity N
+### Activity 2
+Use the Noun class you created in the previous activity to create at least four different objects.
+Print out all attributes for each object.
 
 ## Answer:
 _____________________________________
+mouse_MOSDEL1234 = Inventory("MOS-DEL-1234", "Dell", "Wireless Mouse Model 1234", 15.50, False, 34)
+mouse_MOSDEL1234.display_attributes()
 
+keyb_KEBTOS3310 = Inventory("KEB-TOS-3310", "Toshiba", "Wireless Keyboard Model 3310", 27.80, True, 26)
+keyb_KEBTOS3310.display_attributes()
+
+thud_THDKST2688_128 = Inventory("THD-KST-2688", "Kingston", "Thumb Drive 128GB Model 2688", 58.80, True, 43)
+thud_THDKST2688_128.display_attributes()
+
+tabl_TABWAC4730 = Inventory("TAB-WAC-4730", "Wacom", "Drawing Tablet Model 4730", 670.70, True, 16)
+tabl_TABWAC4730.display_attributes()
 _____________________________________
 ## Outcome of running codes:
 
-_____________________________________
 
+The SKU Code is: MOS-DEL-1234
+The brand is: Dell
+The product name is: Wireless Mouse Model 1234
+The price is: 15.5
+The discount applicability is: False
+The unit(s) of stock available is: 34
+
+
+The SKU Code is: KEB-TOS-3310
+The brand is: Toshiba
+The product name is: Wireless Keyboard Model 3310
+The price is: 27.8
+The discount applicability is: True
+The unit(s) of stock available is: 26
+
+
+The SKU Code is: THD-KST-2688
+The brand is: Kingston
+The product name is: Thumb Drive 128GB Model 2688
+The price is: 58.8
+The discount applicability is: True
+The unit(s) of stock available is: 43
+
+
+The SKU Code is: TAB-WAC-4730
+The brand is: Wacom
+The product name is: Drawing Tablet Model 4730
+The price is: 670.7
+The discount applicability is: True
+The unit(s) of stock available is: 16
+_____________________________________
 
 
 
