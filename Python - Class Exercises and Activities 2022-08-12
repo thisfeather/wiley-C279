@@ -1540,27 +1540,489 @@ _____________________________________
 
 
 
-### Activity N
+### Practice 4
+Create a class Animal that includes two string attributes: name and location.
+Implement the appropriate __init__ and display methods to create and display objects respectively.
 
-## Answer:
+Use inheritance to create another class called Mammal that inherits from the Animal class.
+ - Add one more attribute specific to the Mammal class.
+ - Override the __init__ and display methods to display the new attribute of the Mammal class.
+ - Create two Mammal objects and display them.
+
+Create another class called Bird that also inherits from the Animal class.
+ - Add one more attribute specific to the Bird class.
+ - Override the __init__ and display methods to display the new attribute of the Bird class.
+ - Create two Bird objects and display them.
+
+Create another class called Reptile that inherits from the Animal class.
+ - Add one more attribute specific to the Reptile class.
+ - Override the __init__ and display methods to display the new attribute of the Reptile class.
+ - Create two Reptile objects and display them.
+
+## Answer Part 1: Mammal
+_____________________________________
+# your code here  
+
+class Animal:
+    name = ""
+    location = ""
+    have_fins_or_wings = None   # Boolean to indicate if this animal has fins or wings
+    num_of_legs = None          # Integer
+    
+    def __init__(self, name, location, finWing, numLeg):
+        self.name = name
+        self.location = location
+        self.have_fins_or_wings = finWing
+        self.num_of_legs = numLeg
+        
+    def display(self):
+        print(f"\nName of animal: {self.name}")
+        print(f"Found in location: {self.location}")
+        if self.have_fins_or_wings:
+            print("This animal has fins or wings.")
+        else:
+            print("This animal does not have fins or wings.")
+        if self.num_of_legs == 0:
+            print("This animal has no leg.")
+        else:
+            print(f"This animal has {self.num_of_legs} legs.")
+
+            
+# Now use inheritance to create child class Mammal:
+
+class Mammal(Animal):
+    # Boolean to indicate if the animal has pouch for its baby
+    have_pouch = None         
+    # Boolean to indicate if the animal is protected by law from poaching
+    protected_from_poaching = None
+    
+    def __init__(self, name, location, finWing, numLeg, pouch, protect):
+        self.name = name
+        self.location = location
+        self.have_fins_or_wings = finWing
+        self.num_of_legs = numLeg
+        self.have_pouch = pouch
+        self.protected_from_poaching = protect
+    
+    def display(self):
+        print(f"\nName of animal: {self.name}")
+        print(f"Found in location: {self.location}")
+        
+        if self.have_fins_or_wings:
+            print(f"The {self.name} has fins or wings.", end=" ")
+        else:
+            print(f"The {self.name} does not have fins or wings.", end=" ")
+        if self.num_of_legs == 0:
+            print("It has no leg.")
+        else:
+            print(f"It has {self.num_of_legs} legs.")
+            
+        if self.have_pouch:
+            print(f"Oh, by the way, the {self.name} has a pouch for its baby!")
+        else:
+            print("Oh, by the way, don't bother to look for a pouch on it. It has none.")
+            
+        if self.protected_from_poaching:
+            print("For your information, this species is protected from poaching! Just so you know.")
+        else:
+            print(f"For your information, the {self.name} is not protected by law.")
+            print("But show it some love, will ya?")
+            
+
+print("This is class Mammal with new attributes:")
+print(Mammal)
+
+# Instantiate two Mammal objects:
+
+print("\nHere are two objects from the Mammal class:\n")
+
+elephant = Mammal("Elephant", "Africa", False, 4, False, True)
+print("\nNew Mammal 1:")
+print(elephant)
+elephant.display()
+
+kangaroo = Mammal("Kangaroo", "Australia", False, 2, True, False)
+print("\nNew Mammal 2:")
+print(kangaroo)
+kangaroo.display()
+_____________________________________
+## Outcome of running codes Part 1: Mammal
+
+## NOTE: same as Practice 3, no need to repeat here.
+_____________________________________
+## Answer Part 2: Bird
+_____________________________________
+# Now use inheritance to create child class Bird:
+
+class Bird(Animal):
+    can_actually_fly = None    # Boolean
+    eggs_eaten = None          # Boolean, to indicate if humans eat the bird's eggs
+    
+    def __init__(self, name, location, finWing, numLeg, fly, eggs):
+        self.name = name
+        self.location = location
+        self.have_fins_or_wings = finWing
+        self.num_of_legs = numLeg
+        self.can_actually_fly = fly
+        self.eggs_eaten = eggs   
+    
+    def display(self):
+        print(f"\nName of animal: {self.name}")
+        print(f"Soars, or runs around, in location: {self.location}")
+        
+        if self.have_fins_or_wings:
+            print(f"The {self.name} has wings. (Well, we don't call them fins)")
+        else:
+            print(f"The {self.name}, if found with no wings, is probably disabled or disformed.")
+        if self.num_of_legs == 0:
+            print("If found with no legs at all, it is probably injured or disabled.")
+        else:
+            print(f"It has {self.num_of_legs} legs,", end=" ")
+            
+        if self.can_actually_fly:
+            if self.num_of_legs != 0:
+                print("which allows it to rest on tree branches.")
+            print(f"A healthy {self.name} can usually fly, though not as fast as an airplane.")
+        else:
+            if self.num_of_legs != 0:
+                print("which allows it to run around on the ground.")
+            print(f"Despite being a winged animal (usually), the {self.name} can't actually fly.")
+            
+        if self.eggs_eaten:
+            print(f"Humans actually do eat the eggs of the {self.name}.")
+        else:
+            print(f"Gluttons as we are, humans usually don't eat the eggs of the {self.name}.")
+            
+
+print("This is class Bird with new attributes:")
+print(Bird)
+
+# Instantiate two Bird objects:
+
+print("\nHere are two objects from the Bird class:\n")
+
+parrot = Bird("Parrot", "Everywhere", True, 2, True, False)
+print("\nNew Bird 1:")
+print(parrot)
+parrot.display()
+
+ostrich = Bird("Ostrich", "Africa", True, 2, False, True)
+print("\nNew Bird 2:")
+print(ostrich)
+ostrich.display()   
+_____________________________________
+## Outcome of running codes Part 2: Bird
+
+## NOTE: same as Practice 3, no need to repeat here.
+_____________________________________
+## Answer Part 3: Reptile
+_____________________________________
+# Now use inheritance to create child class Reptile:
+
+class Reptile(Animal):
+    cultural_ref = ""     # A string describing the cultural references of this reptile
+    movies_made = None    # Boolean indicating if there are already movies on this reptile
+
+    def __init__(self, name, location, finWing, numLeg, cultural, movies):
+        self.name = name
+        self.location = location
+        self.have_fins_or_wings = finWing
+        self.num_of_legs = numLeg
+        self.cultural_ref = cultural
+        self.movies_made = movies   
+    
+    def display(self):
+        intro = f"\nFrom paleontologic times when reptiles lived among the dinosaurs,\n\
+to the urban legends that there are Reptilian humanoids of possibly extraterrestial origin,\n\
+reptiles are no strangers to popular cultures.\n\
+Introducing a member of the reptilian family, the {self.name}!\n"
+        print(intro)
+        print("If you're thinking of its mythical Mayan counterpart, a.k.a. the winged serpant god Kukulcan,")
+        print(f"well, the {self.name} {'has' if self.have_fins_or_wings else 'has no'} wings.")
+        print(f"On the other hand, if you're thinking of the 'Controlling-the-World-Behind-the-Scene'\n\
+powerful intelligent Reptilian species walking on two feet, well, the more mundane {self.name} has \
+{self.num_of_legs if self.num_of_legs != 0 else 'no'} legs.\n")
+        if self.movies_made:
+            print(f"You might already know, that there are movies about {self.name}!")
+        else:
+            print(f"It's a shame that the Hollywood has not made a movie about {self.name}!")
+        print("By the way, did you know that: \n", self.cultural_ref)
+        
+
+# Create some cultural reference texts:
+
+anaconda_ref = "'Anaconda' turns out is the name of a famous software used by Data Scientists,\n\
+which includes programming tools of -- Python! How funny!\n"
+
+crocodile_ref = "'Crocodile' turns out is a brand of luxury clothing and accessories,\n\
+which some believe to be a rip-off from a similar famous brand Lacoste!\n"
+
+
+print("This is class Reptile with new attributes:")
+print(Reptile)
+
+# Instantiate two Bird objects:
+
+print("\nHere are two objects from the Reptile class:\n")
+
+crocodile = Reptile("Crocodile", "Everywhere", False, 4, crocodile_ref, True)
+print("\nNew Reptile 1:")
+print(crocodile)
+crocodile.display()
+
+anaconda = Reptile("Anaconda", "Everywhere", False, 0, anaconda_ref, True)
+print("\nNew Reptile 2:")
+print(anaconda)
+anaconda.display() 
+_____________________________________
+## Outcome of running codes Part 3: Reptile
+
+## NOTE: same as Practice 3, no need to repeat here.
 _____________________________________
 
+
+
+### Practice 5
+Create a class Animal that includes two string attributes: name and location.
+Implement the appropriate __init__ and display method, to create and display objects respectively.
+
+Use inheritance to create another class called Mammal that will inherit from the Animal class.
+ - Add one more attribute specific to the Mammal class.
+ - Override the __init__ and display methods to display the new added attribute of the mammal class.
+   Use the __init__ method of the parent class (Animal) to set the values of the name and location attributes.
+ - Create two mammal objects and display them.
+
+Create another class called Bird that also inherits from the Animal class.
+ - Add one more attribute that specific to the bird class.
+ - Override the __init__ and display methods to display the new added attribute of the bird class.
+   Use the __init__ method of the parent class (Animal) to set the values of the name and location attributes.
+ - Create two bird objects and display them.
+
+Create another class called Reptile that inherits from the animal class.
+ - Add one more attribute that specific to the reptile class.
+ - Override the __init__ and display methods to display the new added attribute of the reptile class.
+   Use the __init__ method of the parent class (Animal) to set the values of the name and location attributes.
+ - Create two reptile objects and display them
+
+## Answer Part 1: Mammal
 _____________________________________
-## Outcome of running codes:
+# your code here  
 
+class Animal:
+    name = ""
+    location = ""
+    have_fins_or_wings = None   # Boolean to indicate if this animal has fins or wings
+    num_of_legs = None          # Integer
+    
+    def __init__(self, name, location, finWing, numLeg):
+        self.name = name
+        self.location = location
+        self.have_fins_or_wings = finWing
+        self.num_of_legs = numLeg
+        
+    def display(self):
+        print(f"\nName of animal: {self.name}")
+        print(f"Found in location: {self.location}")
+        if self.have_fins_or_wings:
+            print("This animal has fins or wings.")
+        else:
+            print("This animal does not have fins or wings.")
+        if self.num_of_legs == 0:
+            print("This animal has no leg.")
+        else:
+            print(f"This animal has {self.num_of_legs} legs.")
+
+            
+# Now use inheritance to create child class Mammal:
+
+class Mammal(Animal):
+    # Boolean to indicate if the animal has pouch for its baby
+    have_pouch = None         
+    # Boolean to indicate if the animal is protected by law from poaching
+    protected_from_poaching = None
+    
+    def __init__(self, name, location, finWing, numLeg, pouch, protect):
+        Animal.__init__(self, name, location, finWing, numLeg)
+        self.have_pouch = pouch
+        self.protected_from_poaching = protect
+    
+    def display(self):
+        print(f"\nName of animal: {self.name}")
+        print(f"Found in location: {self.location}")
+        
+        if self.have_fins_or_wings:
+            print(f"The {self.name} has fins or wings.", end=" ")
+        else:
+            print(f"The {self.name} does not have fins or wings.", end=" ")
+        if self.num_of_legs == 0:
+            print("It has no leg.")
+        else:
+            print(f"It has {self.num_of_legs} legs.")
+            
+        if self.have_pouch:
+            print(f"Oh, by the way, the {self.name} has a pouch for its baby!")
+        else:
+            print("Oh, by the way, don't bother to look for a pouch on it. It has none.")
+            
+        if self.protected_from_poaching:
+            print("For your information, this species is protected from poaching! Just so you know.")
+        else:
+            print(f"For your information, the {self.name} is not protected by law.")
+            print("But show it some love, will ya?")
+            
+
+print("This is class Mammal with new attributes:")
+print(Mammal)
+
+# Instantiate two Mammal objects:
+
+print("\nHere are two objects from the Mammal class:\n")
+
+elephant = Mammal("Elephant", "Africa", False, 4, False, True)
+print("\nNew Mammal 1:")
+print(elephant)
+elephant.display()
+
+kangaroo = Mammal("Kangaroo", "Australia", False, 2, True, False)
+print("\nNew Mammal 2:")
+print(kangaroo)
+kangaroo.display()
+_____________________________________
+## Outcome of running codes Part 1: Mammal
+
+## NOTE: same as Practice 3, no need to repeat here.
+_____________________________________
+## Answer Part 2: Bird
+_____________________________________
+# Now use inheritance to create child class Bird:
+
+class Bird(Animal):
+    can_actually_fly = None    # Boolean
+    eggs_eaten = None          # Boolean, to indicate if humans eat the bird's eggs
+    
+    def __init__(self, name, location, finWing, numLeg, fly, eggs):
+        Animal.__init__(self, name, location, finWing, numLeg)
+        self.can_actually_fly = fly
+        self.eggs_eaten = eggs   
+    
+    def display(self):
+        print(f"\nName of animal: {self.name}")
+        print(f"Soars, or runs around, in location: {self.location}")
+        
+        if self.have_fins_or_wings:
+            print(f"The {self.name} has wings. (Well, we don't call them fins)")
+        else:
+            print(f"The {self.name}, if found with no wings, is probably disabled or disformed.")
+        if self.num_of_legs == 0:
+            print("If found with no legs at all, it is probably injured or disabled.")
+        else:
+            print(f"It has {self.num_of_legs} legs,", end=" ")
+            
+        if self.can_actually_fly:
+            if self.num_of_legs != 0:
+                print("which allows it to rest on tree branches.")
+            print(f"A healthy {self.name} can usually fly, though not as fast as an airplane.")
+        else:
+            if self.num_of_legs != 0:
+                print("which allows it to run around on the ground.")
+            print(f"Despite being a winged animal (usually), the {self.name} can't actually fly.")
+            
+        if self.eggs_eaten:
+            print(f"Humans actually do eat the eggs of the {self.name}.")
+        else:
+            print(f"Gluttons as we are, humans usually don't eat the eggs of the {self.name}.")
+            
+
+print("This is class Bird with new attributes:")
+print(Bird)
+
+# Instantiate two Bird objects:
+
+print("\nHere are two objects from the Bird class:\n")
+
+parrot = Bird("Parrot", "Everywhere", True, 2, True, False)
+print("\nNew Bird 1:")
+print(parrot)
+parrot.display()
+
+ostrich = Bird("Ostrich", "Africa", True, 2, False, True)
+print("\nNew Bird 2:")
+print(ostrich)
+ostrich.display()   
+_____________________________________
+## Outcome of running codes Part 2: Bird
+
+## NOTE: same as Practice 3, no need to repeat here.
+_____________________________________
+## Answer Part 3: Reptile
+_____________________________________
+# Now use inheritance to create child class Reptile:
+
+class Reptile(Animal):
+    cultural_ref = ""     # A string describing the cultural references of this reptile
+    movies_made = None    # Boolean indicating if there are already movies on this reptile
+
+    def __init__(self, name, location, finWing, numLeg, cultural, movies):
+        Animal.__init__(self, name, location, finWing, numLeg)
+        self.cultural_ref = cultural
+        self.movies_made = movies   
+    
+    def display(self):
+        intro = f"\nFrom paleontologic times when reptiles lived among the dinosaurs,\n\
+to the urban legends that there are Reptilian humanoids of possibly extraterrestial origin,\n\
+reptiles are no strangers to popular cultures.\n\
+Introducing a member of the reptilian family, the {self.name}!\n"
+        print(intro)
+        print("If you're thinking of its mythical Mayan counterpart, a.k.a. the winged serpant god Kukulcan,")
+        print(f"well, the {self.name} {'has' if self.have_fins_or_wings else 'has no'} wings.")
+        print(f"On the other hand, if you're thinking of the 'Controlling-the-World-Behind-the-Scene'\n\
+powerful intelligent Reptilian species walking on two feet, well, the more mundane {self.name} has \
+{self.num_of_legs if self.num_of_legs != 0 else 'no'} legs.\n")
+        if self.movies_made:
+            print(f"You might already know, that there are movies about {self.name}!")
+        else:
+            print(f"It's a shame that the Hollywood has not made a movie about {self.name}!")
+        print("By the way, did you know that: \n", self.cultural_ref)
+        
+
+# Create some cultural reference texts:
+
+anaconda_ref = "'Anaconda' turns out is the name of a famous software used by Data Scientists,\n\
+which includes programming tools of -- Python! How funny!\n"
+
+crocodile_ref = "'Crocodile' turns out is a brand of luxury clothing and accessories,\n\
+which some believe to be a rip-off from a similar famous brand Lacoste!\n"
+
+
+print("This is class Reptile with new attributes:")
+print(Reptile)
+
+# Instantiate two Bird objects:
+
+print("\nHere are two objects from the Reptile class:\n")
+
+crocodile = Reptile("Crocodile", "Everywhere", False, 4, crocodile_ref, True)
+print("\nNew Reptile 1:")
+print(crocodile)
+crocodile.display()
+
+anaconda = Reptile("Anaconda", "Everywhere", False, 0, anaconda_ref, True)
+print("\nNew Reptile 2:")
+print(anaconda)
+anaconda.display() 
+_____________________________________
+## Outcome of running codes Part 3: Reptile
+
+## NOTE: same as Practice 3, no need to repeat here.
 _____________________________________
 
 
 
-### Activity N
 
-## Answer:
-_____________________________________
 
-_____________________________________
-## Outcome of running codes:
 
-_____________________________________
+
+
 
 
 
