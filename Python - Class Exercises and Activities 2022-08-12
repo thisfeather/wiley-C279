@@ -768,11 +768,8 @@ class SimpleCalculator:
         print(self.user_instruction)
         
     # This is just a function, not a method, to check for decimal input later:
-    def is_decimal(numStr):
-        for i in range(len(numStr)):
-            if numStr[i] == ".":
-                return True
-        return False
+    def is_decimal(self, numStr):
+        return ("." in numStr)
     
     
     # In principle, user may set the operands and operator attributes in the class,
@@ -786,7 +783,7 @@ class SimpleCalculator:
             print("Something wrong with the operator, which is not specifically for addition.")
         elif (self.operand1 != None) and (self.operand2 != None):
             answer = self.operand1 + self.operand2
-            print(f"{self.operand1} + {self.operand2} = {answer}")
+            print(f"\n   Results:      {self.operand1} + {self.operand2} = {answer}\n")
         else:
             print("Something wrong with the operands.")
 
@@ -796,7 +793,7 @@ class SimpleCalculator:
             print("Something wrong with the operator, which is not specifically for subtraction.")
         elif (self.operand1 != None) and (self.operand2 != None):
             answer = self.operand1 - self.operand2
-            print(f"{self.operand1} - {self.operand2} = {answer}")
+            print(f"\n   Results:      {self.operand1} - {self.operand2} = {answer}\n")
         else:
             print("Something wrong with the operands.")
             
@@ -806,7 +803,7 @@ class SimpleCalculator:
             print("Something wrong with the operator, which is not specifically for multiplication.")
         elif (self.operand1 != None) and (self.operand2 != None):
             answer = self.operand1 * self.operand2
-            print(f"{self.operand1} * {self.operand2} = {answer}")
+            print(f"\n   Results:      {self.operand1} x {self.operand2} = {answer}\n")
         else:
             print("Something wrong with the operands.")
             
@@ -815,8 +812,8 @@ class SimpleCalculator:
         if self.operator != "D":
             print("Something wrong with the operator, which is not specifically for division.")
         elif (self.operand1 != None) and (self.operand2 != None):
-            answer = self.operand1 + self.operand2
-            print(f"{self.operand1} + {self.operand2} = {answer}")
+            answer = self.operand1 / self.operand2
+            print(f"\n   Results:      {self.operand1} / {self.operand2} = {answer}\n")
         else:
             print("Something wrong with the operands.")
     
@@ -836,18 +833,17 @@ class SimpleCalculator:
             
             input1 = input("Please enter first number: >>>> ")
             input2 = input("Please enter second number: >>>> ")
-            input3 = input("Please enter operand:\n\
-            (A)dd, (S)ubtract, (M)ultiply or (D)ivide: >>>> ").upper()
+            input3 = input("Please enter operand:\n(A)dd, (S)ubtract, (M)ultiply or (D)ivide: >>>> ").upper()
 
             # To avoid making unnecessary float outcomes, we only treat input as float when
             # user actually have a "." in the input
             
-            if is_decimal(input1):
+            if self.is_decimal(input1):
                 self.operand1 = float(input1)
             else:
                 self.operand1 = int(input1)
                 
-            if is_decimal(input2):
+            if self.is_decimal(input2):
                 self.operand2 = float(input2)
             else:
                 self.operand2 = int(input2)
@@ -871,6 +867,8 @@ class SimpleCalculator:
             elif (input3[0] == "D") or (input3[0] == "/"):
                 self.operator = "D"
                 self.divide()
+            else:
+                print("\nSorry, the calculator does not do the operation you mentioned.\n")
 
 print(SimpleCalculator)
 _____________________________________
@@ -913,7 +911,7 @@ my_calc.operator = "A"
 my_calc.add()
 print("\n ------------------------------")
 _____________________________________
-## Outcome of running codes, Part 2a:
+## Outcome of running codes, Part 2a:  ## (NOTE: longer text output has been broken up for easier reading on GitHub)
 
 Instantiate an object and start using:
  ------------------------------
@@ -927,23 +925,20 @@ Manual for a Simple Calculator
 
 Instruction for Use:
 Welcome to our simple calculator.
-This calculator takes two operand values and one operator value, and function like common
-mathematical operations, like 'A + B', where A and B are the two operands you input first
-in sequence, followed by the operator (e.g. '+') that you input later.
-We offer addition, subtraction, multiplication and division, which you can choose as your
-input for operator, in the form of  'addition' or 'add' or 'A' or '+' in any case,
+This calculator takes two operand values and one operator value, and function like common mathematical operations,
+like 'A + B', where A and B are the two operands you input first in sequence, followed by the operator (e.g. '+')
+that you input later. We offer addition, subtraction, multiplication and division,
+which you can choose as your input for operator, in the form of  'addition' or 'add' or 'A' or '+' in any case,
 at your convenience. Similarly for other three operations.
 
 You may manually input the operands and operator as follows,
 my_calculator.operand1 = 123
 my_calculator.operand2 = 456
 my_calculator.operator = 'A'
-and call your intended method matching your operator of choice,
-i.e. add(), subtract(), multiply() and divide():
+and call your intended method matching your operator of choice, i.e. add(), subtract(), multiply() and divide():
 my_calculator.add()    for example
 
-But a better way to use the calculator, which is more fun and convenient,
-is to call the run() method:
+But a better way to use the calculator, which is more fun and convenient, is to call the run() method:
 my_calculator.run()    which will offer easier inputs.
 
 Give it a try, and have fun!
@@ -952,17 +947,75 @@ Give it a try, and have fun!
 Try a slow and inconvenient method to perform '123 + 456' by manually setting class attributes, followed by running the add() method:
  ------------------------------
 
-123 + 456 = 579
+
+   Results:      123 + 456 = 579
+
 
  ------------------------------
-
 _____________________________________
 ## Answer Part 2b: Use the class in a more convenient manner to perform calculation:
 _____________________________________
+# Use the calculator in a more convenient way, by calling the my_calc.run() method:
 
+my_calc.run()
 _____________________________________
 ## Outcome of running codes:
 
+You are using Simple Calculator
+Classio C279 Version 3.14
+
+Do you want to proceed (P) or quit (Q)? >>>> p
+Please enter first number: >>>> 56
+Please enter second number: >>>> 78
+Please enter operand:
+(A)dd, (S)ubtract, (M)ultiply or (D)ivide: >>>> addition
+
+   Results:      56 + 78 = 134
+
+Do you want to proceed (P) or quit (Q)? >>>> Proceed
+Please enter first number: >>>> 3.142
+Please enter second number: >>>> 7
+Please enter operand:
+(A)dd, (S)ubtract, (M)ultiply or (D)ivide: >>>> SUB
+
+   Results:      3.142 - 7 = -3.858
+
+Do you want to proceed (P) or quit (Q)? >>>> Proceed!!!
+Please enter first number: >>>> -234
+Please enter second number: >>>> 567
+Please enter operand:
+(A)dd, (S)ubtract, (M)ultiply or (D)ivide: >>>> *
+
+   Results:      -234 x 567 = -132678
+
+Do you want to proceed (P) or quit (Q)? >>>> p
+Please enter first number: >>>> 897.453
+Please enter second number: >>>> 34.59
+Please enter operand:
+(A)dd, (S)ubtract, (M)ultiply or (D)ivide: >>>> D
+
+   Results:      897.453 / 34.59 = 25.945446660884645
+
+Do you want to proceed (P) or quit (Q)? >>>> pro
+Please enter first number: >>>> 6
+Please enter second number: >>>> 2
+Please enter operand:
+(A)dd, (S)ubtract, (M)ultiply or (D)ivide: >>>> Power
+
+Sorry, the calculator does not do the operation you mentioned.
+
+Do you want to proceed (P) or quit (Q)? >>>> P
+Please enter first number: >>>> -90.0
+Please enter second number: >>>> -15.0
+Please enter operand:
+(A)dd, (S)ubtract, (M)ultiply or (D)ivide: >>>> ///
+
+   Results:      -90.0 / -15.0 = 6.0
+
+Do you want to proceed (P) or quit (Q)? >>>> Quit !!!!
+
+You have chosen to quit.
+Thank you, and see you again!
 _____________________________________
 
 
