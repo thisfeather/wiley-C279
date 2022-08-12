@@ -1353,7 +1353,7 @@ But show it some love, will ya?
 _____________________________________
 ## Answer Part 2: Bird
 _____________________________________
-# Now use inheritance to create child class Mammal:
+# Now use inheritance to create child class Bird:
 
 class Bird(Animal):
     can_actually_fly = None    # Boolean
@@ -1438,19 +1438,105 @@ Humans actually do eat the eggs of the Ostrich.
 _____________________________________
 ## Answer Part 3: Reptile
 _____________________________________
+# Now use inheritance to create child class Reptile:
 
+class Reptile(Animal):
+    cultural_ref = ""     # A string describing the cultural references of this reptile
+    movies_made = None    # Boolean indicating if there are already movies on this reptile
+    
+    def display(self):
+        intro = f"\nFrom paleontologic times when reptiles lived among the dinosaurs,\n\
+to the urban legends that there are Reptilian humanoids of possibly extraterrestial origin,\n\
+reptiles are no strangers to popular cultures.\n\
+Introducing a member of the reptilian family, the {self.name}!\n"
+        print(intro)
+        print("If you're thinking of its mythical Mayan counterpart, a.k.a. the winged serpant god Kukulcan,")
+        print(f"well, the {self.name} {'has' if self.have_fins_or_wings else 'has no'} wings.")
+        print(f"On the other hand, if you're thinking of the 'Controlling-the-World-Behind-the-Scene'\n\
+powerful intelligent Reptilian species walking on two feet, well, the more mundane {self.name} has \
+{self.num_of_legs if self.num_of_legs != 0 else 'no'} legs.\n")
+        if self.movies_made:
+            print(f"You might already know, that there are movies about {self.name}!")
+        else:
+            print(f"It's a shame that the Hollywood has not made a movie about {self.name}!")
+        print("By the way, did you know that: \n", self.cultural_ref)
+        
+
+# Create some cultural reference texts:
+
+anaconda_ref = "'Anaconda' turns out is the name of a famous software used by Data Scientists,\n\
+which includes programming tools of -- Python! How funny!\n"
+
+crocodile_ref = "'Crocodile' turns out is a brand of luxury clothing and accessories,\n\
+which some believe to be a rip-off from a similar famous brand Lacoste!\n"
+
+
+print("This is class Reptile with new attributes:")
+print(Reptile)
+
+# Instantiate two Bird objects:
+
+print("\nHere are two objects from the Reptile class:\n")
+
+crocodile = Reptile("Crocodile", "Everywhere", False, 4)
+crocodile.cultural_ref = crocodile_ref
+crocodile.movies_made = True
+print("\nNew Reptile 1:")
+print(crocodile)
+crocodile.display()
+
+anaconda = Reptile("Anaconda", "Everywhere", False, 0)
+anaconda.cultural_ref = anaconda_ref
+anaconda.movies_made = True
+print("\nNew Reptile 2:")
+print(anaconda)
+anaconda.display() 
 _____________________________________
 ## Outcome of running codes Part 3: Reptile
 
+This is class Reptile with new attributes:
+<class '__main__.Reptile'>
+
+Here are two objects from the Reptile class:
+
+
+New Reptile 1:
+<__main__.Reptile object at 0x000002159A79F130>
+
+From paleontologic times when reptiles lived among the dinosaurs,
+to the urban legends that there are Reptilian humanoids of possibly extraterrestial origin,
+reptiles are no strangers to popular cultures.
+Introducing a member of the reptilian family, the Crocodile!
+
+If you're thinking of its mythical Mayan counterpart, a.k.a. the winged serpant god Kukulcan,
+well, the Crocodile has no wings.
+On the other hand, if you're thinking of the 'Controlling-the-World-Behind-the-Scene'
+powerful intelligent Reptilian species walking on two feet, well, the more mundane Crocodile has 4 legs.
+
+You might already know, that there are movies about Crocodile!
+By the way, did you know that: 
+ 'Crocodile' turns out is a brand of luxury clothing and accessories,
+which some believe to be a rip-off from a similar famous brand Lacoste!
+
+
+New Reptile 2:
+<__main__.Reptile object at 0x000002159A871EE0>
+
+From paleontologic times when reptiles lived among the dinosaurs,
+to the urban legends that there are Reptilian humanoids of possibly extraterrestial origin,
+reptiles are no strangers to popular cultures.
+Introducing a member of the reptilian family, the Anaconda!
+
+If you're thinking of its mythical Mayan counterpart, a.k.a. the winged serpant god Kukulcan,
+well, the Anaconda has no wings.
+On the other hand, if you're thinking of the 'Controlling-the-World-Behind-the-Scene'
+powerful intelligent Reptilian species walking on two feet, well, the more mundane Anaconda has no legs.
+
+You might already know, that there are movies about Anaconda!
+By the way, did you know that: 
+ 'Anaconda' turns out is the name of a famous software used by Data Scientists,
+which includes programming tools of -- Python! How funny!
 _____________________________________
-
-
-
-
-
-
-
-
 
 
 
