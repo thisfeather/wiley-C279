@@ -2398,15 +2398,68 @@ and then create at least two new objects based on the inherited class and displa
 
 ## Answer:
 _____________________________________
+class CafeDrink(Drink):
+    price_medium = None      # price for a medium-sized serving
+    cafe_name = ""           # name of the Cafe or Cafe Franchise
+    member_discount = None   # boolean, if any member discount is given
+    
+    def __init__(self, dname, sweet, alcoholic, calories, price, cafe, discount):
+        Drink.__init__(self, dname, sweet, alcoholic, calories)
+        self.price_medium = price
+        self.cafe_name = cafe
+        self.member_discount = discount
+        
+    def display(self):
+        print(f"\nCheck out {self.drink_name}, available at {self.cafe_name}.")
+        print(f"It is {'sweetened' if self.sweet_or_not else 'not sweetened'} and", end = " ")
+        print(f"{'alcoholic, not recommended for minors' if self.alcoholic else 'non-alcoholic'}.")
+        print(f"Each serving of 12 ounces contains {self.calories_12_oz} calories, your cup size may vary.")
+        print(f"Medium cup at ${'{:.2f}'.format(self.price_medium)},", end=" ")
+        gotDiscount = "member discount available!"
+        noDiscount = "download our app to check out promotions!"
+        print(f"{gotDiscount if self.member_discount else noDiscount}\n")
+        
 
+print("Test create two objects using this amended child class, CafeDrink:")
+
+latte_espresso_whole = \
+CafeDrink("Latte (Espressio Coffee) with Whole Milk", False, False, 122, 5.60, "Starbucks Coffee", False)
+print("\nCafe Drink 1, latte_espresso_whole:", latte_espresso_whole)
+latte_espresso_whole.display()
+
+kombucha = \
+CafeDrink("Kombucha", True, True, 157, 5.80, "Real Food Cafe", True)
+print("\nCafe Drink 2, kombucha:", kombucha)
+kombucha.display()
 _____________________________________
 ## Outcome of running codes:
 
+Test create two objects using this amended child class, CafeDrink:
+
+Cafe Drink 1, latte_espresso_whole: <__main__.CafeDrink object at 0x00000253C0AB7FA0>
+
+Check out Latte (Espressio Coffee) with Whole Milk, available at Starbucks Coffee.
+It is not sweetened and non-alcoholic.
+Each serving of 12 ounces contains 122 calories, your cup size may vary.
+Medium cup at $5.60, download our app to check out promotions!
+
+
+Cafe Drink 2, kombucha: <__main__.CafeDrink object at 0x00000253C0AB2D00>
+
+Check out Kombucha, available at Real Food Cafe.
+It is sweetened and alcoholic, not recommended for minors.
+Each serving of 12 ounces contains 157 calories, your cup size may vary.
+Medium cup at $5.80, member discount available!
 _____________________________________
 
 
 
-### Activity N
+### Activity 3
+Create a second and a third class that inherit from the Noun class you started with.
+
+Include at least three class-specific attributes for each class.
+For each of the new classes, override the __init__ and display methods to display the new attributes.
+Create at least two new objects based on the inherited class and display them with the class attributes.
 
 ## Answer:
 _____________________________________
