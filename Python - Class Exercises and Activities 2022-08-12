@@ -2033,24 +2033,261 @@ After you make these changes, verify that the code works by making sure it can d
 
 ## Answer:
 _____________________________________
+class Person:
+    first_name="" 
+    last_name="" 
+    def __init__(self,fname,lname): 
+        self.first_name = fname
+        self.last_name = lname
+    def display(self): 
+        print("Person First Name: " + self.first_name)
+        print("Person Last Name: " + self.last_name)
+        
 
+class Employee(Person):
+    employee_id=None
+    def __init__(self,emp_id,fname,lname):
+        Person.__init__(self,fname,lname) 
+        self.employee_id =emp_id
+    def display(self):
+        print("Employee ID: " + self.employee_id)
+        print("Employee First Name: " + self.first_name)
+        print("Employee Last Name: " + self.last_name)
+
+class Director(Employee):
+    director_level=None
+    team =None
+    def __init__(self,emp_id,fname,lname,d_level):
+        # do not change this code
+        Employee.__init__(self,emp_id,fname,lname)
+        self.director_level = d_level
+        self.team = list()
+    def display(self):
+        # a method that displays all the attributes of a director object
+        print("Director ID: " + self.employee_id)
+        print("Director First Name: " + self.first_name)
+        print("Director Last Name: " + self.last_name)
+        print("Director Level: " + self.director_level)
+        print("\nEmployees managed by this Director:\n")
+        for i in range(len(self.team)):
+            employeeI = self.team[i]
+            print(f"{i+1}. {employeeI.first_name} {employeeI.last_name}, ID {employeeI.employee_id}")
+        pass
+    def add_employee(self,emp):
+        # a method to add an employee object to the team attribute 
+        self.team.append(emp)
+        pass
+    
+class HourlyEmployee(Employee):
+    hourly_rate = None
+    # implement this  class
+    def __init__(self,emp_id,fname,lname,hrate):
+        Employee.__init__(self,emp_id,fname,lname)
+        self.hourly_rate = hrate
+    def display(self):
+        print("Employee ID: " + self.employee_id)
+        print("Employee First Name: " + self.first_name)
+        print("Employee Last Name: " + self.last_name)
+        print("This is an Hourly Employee.")
+        print("Hourly rate: $" + "{:.2f}".format(self.hourly_rate))     
+    pass
+
+
+# DO NOT CHANGE THIS CODE 
+d1 = Director("E24523525","Haythem","Balti","D-LEVEL-1")
+
+
+# create first employee object 
+e1 = Employee("E4746456456","Mark","Smith")
+# add employee e1 to the team attribute of the Director class 
+d1.add_employee(e1)
+# create second hourlyemployee object 
+e2 = HourlyEmployee("E47464578978","Mary","Lang", 16.50)
+# add hourly employee e2 to the team attribute of the Director class 
+d1.add_employee(e2)
+
+
+d1.display()
+
+# additional: display the hourly employee:
+print("\nThis is the hourly employee e2:\n")
+e2.display()
 _____________________________________
 ## Outcome of running codes:
 
+Director ID: E24523525
+Director First Name: Haythem
+Director Last Name: Balti
+Director Level: D-LEVEL-1
+
+Employees managed by this Director:
+
+1. Mark Smith, ID E4746456456
+2. Mary Lang, ID E47464578978
+
+This is the hourly employee e2:
+
+Employee ID: E47464578978
+Employee First Name: Mary
+Employee Last Name: Lang
+This is an Hourly Employee.
+Hourly rate: $16.50
 _____________________________________
 
 
 
 
-### Activity N
+### Practice 7
+Implement the classes below as follows:
+Implement the __init__ and display methods of the Asset class.
+Next, leverage the __init__ and display methods from the Asset class to create the following:
+ - Implement the __init__ and display methods of the Stock class.
+ - Implement the __init__ and display methods of the Bond class.
+ - Implement the __init__ and display methods of the MutualFund class.
+Create two objects from each of the Stock, Bond, and MutualFund classes.
+Use the display method to display the contents of each object.
 
 ## Answer:
 _____________________________________
+class Asset: 
+    symbol=None
+    price=None
+    description=None
+    def __init__(self,sym,pce,desc):
+        self.symbol = sym
+        self.price = pce
+        self.description = desc
+        pass
+    def display(self):
+        print("\nAsset Symbol:", self.symbol)
+        print("Asset Price:", self.price)
+        print("Description:", self.description)
+        pass
 
+
+class Stock(Asset):
+    company_name = None
+    def __init__(self,sym,pce,desc,comname):
+        Asset.__init__(self,sym,pce,desc)
+        self.company_name = comname
+    def display(self):
+        print(f"\nStocks for {self.symbol} ({self.company_name}):")
+        print(f"NOTE: {self.description}")
+        print(f"Total value held: ${self.price}")
+
+
+class Bond(Asset):
+    interest_rate=None
+    def __init__(self,sym,pce,desc,intrate):
+        Asset.__init__(self,sym,pce,desc)
+        self.interest_rate = intrate
+    def display(self):
+        print(f"\n{self.description} ({self.symbol})")
+        print(f"Interest Rate (a.k.a. Coupon Rate): {self.interest_rate}%")
+        print(f"Total value held: ${self.price}")
+        
+
+class MutualFund(Asset):
+    fund_manager=None
+    def __init__(self,sym,pce,desc,fundman):
+        Asset.__init__(self,sym,pce,desc)
+        self.fund_manager = fundman
+    def display(self):
+        print(f"\nMutual Fund {self.symbol}, Fund Manager: {self.fund_manager}")
+        print(f"More info:\n{self.description}")
+        print(f"Total value held: ${self.price}")
+        
+    
+# Now create two objects from each child class:    
+    
+stock_desc1 = "Asset price refers to total valuation of all units of shares as of today."
+stock_desc2 = "Alphabet Inc. was restructured from Google LLC.\n\
+Asset price refers to total valuation of all units of shares as of today."
+
+bond_desc1 = "Treasury 5-Year Bond"
+bond_desc2 = "Amazon.com, Inc. 3-Year Company Bond"
+
+mutual_fund_desc1 = "Golden Bull Investment Fund. Portfolio includes exposure to:\n\
+treasury and company bonds, REITs, stocks, and Forex."
+mutual_fund_desc2 = "Quantum Wealth Fund. Portfolio includes exposure to:\n\
+bonds, stocks, futures, options, Forex and privare equities."
+
+aaplStock = Stock("AAPL", 600000, stock_desc1, "Apple Inc.")
+print("\nStock 1 instantiated:", aaplStock)
+aaplStock.display()
+
+googStock = Stock("GOOG", 500000, stock_desc2, "Alphabet Inc.")
+print("\nStock 2 instantiated:", googStock)
+googStock.display()
+
+treasBond = Bond("TREAS", 800000, bond_desc1, 5)
+print("\nBond 1 instantiated:", treasBond)
+treasBond.display()
+
+amznBond = Bond("AMZN", 700000, bond_desc2, 7)
+print("\nBond 1 instantiated:", amznBond)
+amznBond.display()
+
+golbMFund = MutualFund("GOLB", 400000, mutual_fund_desc1, "David Rich")
+print("\nMutual Fund 1 instantiated:", golbMFund)
+golbMFund.display()
+
+quawMFund = MutualFund("QUAW", 300000, mutual_fund_desc2, "Richard Buffet")
+print("\nMutual Fund 1 instantiated:", quawMFund)
+quawMFund.display()
 _____________________________________
 ## Outcome of running codes:
 
+Stock 1 instantiated: <__main__.Stock object at 0x000002159A79FB20>
+
+Stocks for AAPL (Apple Inc.):
+NOTE: Asset price refers to total valuation of all units of shares as of today.
+Total value held: $600000
+
+Stock 2 instantiated: <__main__.Stock object at 0x000002159A79FD00>
+
+Stocks for GOOG (Alphabet Inc.):
+NOTE: Alphabet Inc. was restructured from Google LLC.
+Asset price refers to total valuation of all units of shares as of today.
+Total value held: $500000
+
+Bond 1 instantiated: <__main__.Bond object at 0x000002159A772910>
+
+Treasury 5-Year Bond (TREAS)
+Interest Rate (a.k.a. Coupon Rate): 5%
+Total value held: $800000
+
+Bond 1 instantiated: <__main__.Bond object at 0x000002159A7AD790>
+
+Amazon.com, Inc. 3-Year Company Bond (AMZN)
+Interest Rate (a.k.a. Coupon Rate): 7%
+Total value held: $700000
+
+Mutual Fund 1 instantiated: <__main__.MutualFund object at 0x000002159A8ACF10>
+
+Mutual Fund GOLB, Fund Manager: David Rich
+More info:
+Golden Bull Investment Fund. Portfolio includes exposure to:
+treasury and company bonds, REITs, stocks, and Forex.
+Total value held: $400000
+
+Mutual Fund 1 instantiated: <__main__.MutualFund object at 0x000002159A7ADFA0>
+
+Mutual Fund QUAW, Fund Manager: Richard Buffet
+More info:
+Quantum Wealth Fund. Portfolio includes exposure to:
+bonds, stocks, futures, options, Forex and privare equities.
+Total value held: $300000
 _____________________________________
+
+
+
+
+#### 
+
+
+
+
 
 
 
