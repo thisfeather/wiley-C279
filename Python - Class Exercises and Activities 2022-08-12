@@ -2758,21 +2758,315 @@ _____________________________________
 
 
 
+#### Inheritance Self-Assessment: File System
 
+For this assessment, you will use Python to model a computer's file system.
+1. Create a class called FileItem that represents any file in an operating system.
+    - Research and identify attributes that are common to all files in an OS, 
+      such as permissions, owner, size, and so on.
+2. Create a class called CsvFile that inherits from FileItem and that represents a CSV file in an operating system.
+    - Include attributes that are specific to a CSV file.
+3. Create a class JpgFile that inherits from FileItem and that represents a JPG file in an operating system.
+    - Include attributes that are specific to a JPG file.
+4. Create a class Mp3File that inherits from FileItem and that represents an MP3 file in an operating system.
+    - Include attributes that are specific to an MP3 file.
 
+## Answer Part 1: Create a class called FileItem
+_____________________________________
+## Part 1: create class FileItem:
 
+class FileItem:
+    file_name = ""
+    item_type = ""        # refers to file type, e.g. .jpg
+    directory_path = ""
+    date_created = ""     # Assuming the format of YYYY-MM-DD HH:MM
+    date_modified = ""    # Assuming the format of YYYY-MM-DD HH:MM
+    size = None           # float, assuming no unit conversion needed
+    size_unit = ""        # assuming only use KB and MB for now, without conversion
+    owner = ""
+    computer = ""
+    permission = ""       # using Linux syntax of -rwxrwxrwx, though the OS looks more Windows-like
+    password = ""
+    
+    def __init__(self, fname, itype, path, created, modified, size, unit, owner, computer, permission, password):
+        self.file_name = fname
+        self.item_type = itype
+        self.directory_path = path
+        self.date_created = created
+        self.date_modified = modified
+        self.size = size
+        self.size_unit = unit
+        self.owner = owner
+        self.computer = computer
+        self.permission = permission
+        self.permission = password
+        
+    def display_full_name(self, breakLine):
+        if breakLine == True:
+            print(f"{self.file_name}.{self.item_type.lower()}")
+        else:
+            print(f"{self.file_name}.{self.item_type.lower()}", end = "")
+        
+    def display_full_size(self, breakLine):
+        if breakLine == True:
+            print(f"{self.size} {self.size_unit}")
+        else:
+            print(f"{self.size} {self.size_unit}", end = "")
+        
+    def display_short_summary(self):
+        self.display_full_name(False)
+        print("\t\t", end = "")
+        self.display_full_size(False)
+        print("\t\t", end = "")
+        print(f"Modified {self.date_modified}", end = "")
+        
+    def display_attributes(self):
+        print(f"File Name:\t\t", end = "")
+        self.display_full_name(True)
+        print(f"Item Type:\t\t{self.item_type.upper()}")
+        print(f"Directory Path:\t\t{self.directory_path}", )
+        print(f"Date Created:\t\t{self.date_created}")
+        print(f"Date Modified:\t\t{self.date_modified}")
+        print(f"Size:         \t\t", end = "")
+        self.display_full_size(True)
+        print(f"Owner:        \t\t{self.owner}")
+        print(f"Computer:\t\t{self.computer}")
+        
+        
+    # the permission setting can only be viewed and edited with password input.
+    def security(self, inputPassword):
+        while inputPassword != self.password:
+            print("\nPassword incorrect.")
+        else:
+            print("\nThis is the permission setting: ", self.permission)
+            change = input("Change permission setting? y/n: >>>> ")
+            if change == "y":
+                newPermission = input("Input new permission in the form of '-rwxrwxrwx': >>>> ")
+                self.permission = newPermission
+            print("Quitting security settings now.")
+ 
+print(FileItem)
 
+# Test create a PDF file:
 
+reading01pdf = \
+FileItem("Reading 01", "PDF", "C:\\Users\\Carl\\Documents", "2022-08-12 01:02", "2022-08-12 01:07", \
+         510, "KB", "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxrwxrwx", "")
+print("\nCreated a PDF file, and displaying its attributes:\n")
+reading01pdf.display_attributes()
+_____________________________________
+## Outcome of running codes Part 1: Create a class called FileItem
 
-### Activity N
+<class '__main__.FileItem'>
 
-## Answer:
+Created a PDF file, and displaying its attributes:
+
+File Name:		Reading 01.pdf
+Item Type:		PDF
+Directory Path:		C:\Users\Carl\Documents
+Date Created:		2022-08-12 01:02
+Date Modified:		2022-08-12 01:07
+Size:         		510 KB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+_____________________________________
+## Answer Part 2: Create a class called CsvFile
+_____________________________________
+## Part 2: Create a class called CsvFile
+
+class CsvFile(FileItem):
+    # list of software that the file type is compatible with
+    compatible = []
+    # integer index for the compatible software element that opens this CSV file by default
+    default_open = None
+    
+    def __init__(self, fname, itype, path, created, modified, size, unit, \
+                 owner, computer, permission, password, compatible, default):
+        FileItem.__init__(self, fname, itype, path, created, modified, size, unit, \
+                          owner, computer, permission, password)
+        self.compatible = compatible
+        self.default_open = default
+        
+    def display_attributes(self):
+        super().display_attributes()
+        print("Compatible Software:")
+        for i in range(len(self.compatible)):
+            print(f"\t\t\t\t{self.compatible[i]}")
+        print(f"Default Software to Open File:\t{self.compatible[self.default_open]}")
+        # super().display_attributes()
+        
+
+# We shall temporarily initialize the 6 CSV files to temporary directory paths at Documents,
+# which can be changed later with directory-related class.
+
+compatibleSoftwares = ["Microsoft Excel", "Google Sheets", "MySQL"]
+
+research01csv = \
+CsvFile("Research 01", "CSV", "C:\\Users\\Carl\\Documents", "2022-08-12 02:02", "2022-08-12 02:17", \
+         231, "KB", "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxr--r--", "Password123", \
+       compatibleSoftwares, 0)
+print("\nCreated a CSV file, and displaying its attributes:\n")
+research01csv.display_attributes()
+
+research02csv = \
+CsvFile("Research 02", "CSV", "C:\\Users\\Carl\\Documents", "2022-08-12 02:12", "2022-08-12 02:27", \
+         231.6, "KB", "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxr--r--", "Password123", \
+       compatibleSoftwares, 1)
+print("\nCreated a CSV file, and displaying its attributes:\n")
+research02csv.display_attributes()
+
+research03csv = \
+CsvFile("Research 03", "CSV", "C:\\Users\\Carl\\Documents", "2022-08-12 02:23", "2022-08-12 02:38", \
+         185.7, "KB", "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxr--r--", "Password123", \
+       compatibleSoftwares, 0)
+print("\nCreated a CSV file, and displaying its attributes:\n")
+research03csv.display_attributes()
+
+research04csv = \
+CsvFile("Research 04", "CSV", "C:\\Users\\Carl\\Documents", "2022-08-12 02:34", "2022-08-12 02:49", \
+         207.4, "KB", "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxr--r--", "Password123", \
+       compatibleSoftwares, 2)
+print("\nCreated a CSV file, and displaying its attributes:\n")
+research04csv.display_attributes()
+
+research05csv = \
+CsvFile("Research 05", "CSV", "C:\\Users\\Carl\\Documents", "2022-08-12 02:45", "2022-08-12 03:04", \
+         218.3, "KB", "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxr--r--", "Password123", \
+       compatibleSoftwares, 0)
+print("\nCreated a CSV file, and displaying its attributes:\n")
+research05csv.display_attributes()
+
+research06csv = \
+CsvFile("Research 05", "CSV", "C:\\Users\\Carl\\Documents", "2022-08-12 02:58", "2022-08-12 03:19", \
+         196.2, "KB", "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxr--r--", "Password123", \
+       compatibleSoftwares, 2)
+print("\nCreated a CSV file, and displaying its attributes:\n")
+research05csv.display_attributes()
+_____________________________________
+## Outcome of running codes Part 2: Create a class called CsvFile
+
+Created a CSV file, and displaying its attributes:
+
+File Name:		Research 01.csv
+Item Type:		CSV
+Directory Path:		C:\Users\Carl\Documents
+Date Created:		2022-08-12 02:02
+Date Modified:		2022-08-12 02:17
+Size:         		231 KB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+Compatible Software:
+				Microsoft Excel
+				Google Sheets
+				MySQL
+Default Software to Open File:	Microsoft Excel
+
+Created a CSV file, and displaying its attributes:
+
+File Name:		Research 02.csv
+Item Type:		CSV
+Directory Path:		C:\Users\Carl\Documents
+Date Created:		2022-08-12 02:12
+Date Modified:		2022-08-12 02:27
+Size:         		231.6 KB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+Compatible Software:
+				Microsoft Excel
+				Google Sheets
+				MySQL
+Default Software to Open File:	Google Sheets
+
+Created a CSV file, and displaying its attributes:
+
+File Name:		Research 03.csv
+Item Type:		CSV
+Directory Path:		C:\Users\Carl\Documents
+Date Created:		2022-08-12 02:23
+Date Modified:		2022-08-12 02:38
+Size:         		185.7 KB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+Compatible Software:
+				Microsoft Excel
+				Google Sheets
+				MySQL
+Default Software to Open File:	Microsoft Excel
+
+Created a CSV file, and displaying its attributes:
+
+File Name:		Research 04.csv
+Item Type:		CSV
+Directory Path:		C:\Users\Carl\Documents
+Date Created:		2022-08-12 02:34
+Date Modified:		2022-08-12 02:49
+Size:         		207.4 KB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+Compatible Software:
+				Microsoft Excel
+				Google Sheets
+				MySQL
+Default Software to Open File:	MySQL
+
+Created a CSV file, and displaying its attributes:
+
+File Name:		Research 05.csv
+Item Type:		CSV
+Directory Path:		C:\Users\Carl\Documents
+Date Created:		2022-08-12 02:45
+Date Modified:		2022-08-12 03:04
+Size:         		218.3 KB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+Compatible Software:
+				Microsoft Excel
+				Google Sheets
+				MySQL
+Default Software to Open File:	Microsoft Excel
+
+Created a CSV file, and displaying its attributes:
+
+File Name:		Research 05.csv
+Item Type:		CSV
+Directory Path:		C:\Users\Carl\Documents
+Date Created:		2022-08-12 02:45
+Date Modified:		2022-08-12 03:04
+Size:         		218.3 KB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+Compatible Software:
+				Microsoft Excel
+				Google Sheets
+				MySQL
+Default Software to Open File:	Microsoft Excel
+_____________________________________
+## Answer Part 3: Create a class called JpgFile
 _____________________________________
 
 _____________________________________
-## Outcome of running codes:
+## Outcome of running codes Part 3: Create a class called JpgFile
 
 _____________________________________
+## Answer Part 4: Create a class called Mp3File
+_____________________________________
+
+_____________________________________
+## Outcome of running codes Part 4: Create a class called Mp3File
+
+_____________________________________
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
