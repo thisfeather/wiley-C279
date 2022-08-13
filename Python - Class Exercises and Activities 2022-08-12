@@ -2283,15 +2283,118 @@ _____________________________________
 
 
 
-#### 
+#### Activities: Inheritance
+
+
+### Activity 0
+Before beginning, create a class Noun to use as the starting point for the activities in this section.
+The Noun class can be anything you wish, as long as it meets the following criteria:
+ - Do not use people or animals.
+ - The category must be broad enough to include different examples of the category.
+ - It must represent a real-life object.
+Include at least three attributes that are common to most (if not all) instances of the Noun.
+Use appropriate naming conventions. If you created a Noun class for an earlier activity in this course,
+you are welcome to use it for the activities in this page, or you can create a new one.
+Implement the appropriate __init__ and display methods to create and display objects respectively.
+
+## Answer:
+_____________________________________
+class Drink:
+    drink_name = ""
+    sweet_or_not = None         # Boolean
+    alcoholic = None            # Boolean, in case it's alcoholic and not children-friendly
+    calories_12_oz = None       # Calories for every 12 ounces
+    
+    def __init__(self, dname, sweet, alcoholic, calories):
+        self.drink_name = dname
+        self.sweet_or_not = sweet
+        self.alcoholic = alcoholic
+        self.calories_12_oz = calories
+        
+    def display(self):
+        print(f"\nThe drink is {self.drink_name}.")
+        print(f"It is {'sweetened' if self.sweet_or_not else 'not sweetened'} and", end = " ")
+        print(f"{'alcoholic, please try and avoid' if self.alcoholic else 'non-alcoholic'}.")
+        print(f"Each serving of 12 ounces contains {self.calories_12_oz} calories.")
+
+print("Test create two drinks:")
+
+black_coffee = Drink("Black Coffee", False, False, 3)
+print("\nDrink 1, black_coffee:", black_coffee)
+black_coffee.display()
+
+regular_beer = Drink("Regular Beer", False, True, 155)
+print("\nDrink 2, regular_beer:", regular_beer)
+regular_beer.display()
+_____________________________________
+## Outcome of running codes:
+
+Test create two drinks:
+
+Drink 1, black_coffee: <__main__.Drink object at 0x00000253C0AB2100>
+
+The drink is Black Coffee.
+It is not sweetened and non-alcoholic.
+Each serving of 12 ounces contains 3 calories.
+
+Drink 2, regular_beer: <__main__.Drink object at 0x00000253C09D35E0>
+
+The drink is Regular Beer.
+It is not sweetened and alcoholic, please try and avoid.
+Each serving of 12 ounces contains 155 calories.
+_____________________________________
 
 
 
+### Activity 1
+Use inheritance to create another class that will inherit from the Noun class.
+Create two objects using the new class and display each object's information using the display method.
+As an example from this lesson, we started with an Animal class, created a Mammal class that inherits from Animal,
+and then created two Mammal objects.
+You will need to identify an appropriate class based on your own Noun class as well as appropriate objects
+that represent the inherited class.
+
+## Answer:
+_____________________________________
+class CafeDrink(Drink):
+    pass
+
+print("Test create two objects using this child class, CafeDrink:")
+
+earl_grey = Drink("Earl Grey Tea", False, False, 4)
+print("\nCafe Drink 1, earl_grey:", earl_grey)
+earl_grey.display()
+
+coffee_light_whipped = Drink("Coffee with Light Whipped Cream", True, False, 17)
+print("\nCafe Drink 2, coffee_light_whipped:", coffee_light_whipped)
+coffee_light_whipped.display()
+_____________________________________
+## Outcome of running codes:
+
+Test create two objects using this child class, CafeDrink:
+
+Cafe Drink 1, earl_grey: <__main__.Drink object at 0x00000253C0AB2400>
+
+The drink is Earl Grey Tea.
+It is not sweetened and non-alcoholic.
+Each serving of 12 ounces contains 4 calories.
+
+Cafe Drink 2, coffee_light_whipped: <__main__.Drink object at 0x00000253C0AB2C40>
+
+The drink is Coffee with Light Whipped Cream.
+It is sweetened and non-alcoholic.
+Each serving of 12 ounces contains 17 calories.
+_____________________________________
 
 
 
-
-### Activity N
+### Activity 2
+Add at least two attributes to the new class created in the previous activity.
+These attributes should be different from the attributes in the original Noun class and specific to the new class.
+As an example from the lesson, the Animal class included the attributes of name and place.
+The Mammal class that inherits from the Animal class would include mammal-specific attributes, such as gender and fur length.
+Override the __init__ and display methods to display the new attributes,
+and then create at least two new objects based on the inherited class and display them with the class attributes.
 
 ## Answer:
 _____________________________________
@@ -2348,6 +2451,43 @@ _____________________________________
 ## Outcome of running codes:
 
 _____________________________________
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
+
+
+### Activity N
+
+## Answer:
+_____________________________________
+
+_____________________________________
+## Outcome of running codes:
+
+_____________________________________
+
 
 
 
