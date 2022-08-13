@@ -2463,47 +2463,304 @@ Create at least two new objects based on the inherited class and display them wi
 
 ## Answer:
 _____________________________________
+# Make a child class of Vending Machine Drinks
 
+class VendingMachineDrink(Drink):
+    brand = ""
+    packaging_unit = ""    # e.g. 8-ounce can or 16-ounce bottle
+    price = None          # price of packaging unit from a vending machine.
+    recycleable = None    # boolean for whether the packaging can be recycled locally
+    
+    def __init__(self, dname, sweet, alcoholic, calories, brand, pack, price, recycle):
+        Drink.__init__(self, dname, sweet, alcoholic, calories)
+        self.brand = brand
+        self.packaging_unit = pack
+        self.price = price
+        self.recycleable = recycle
+        
+    def display(self):
+        print("\nAvailable at our network of vending machines:", end=" ")
+        print(f"{self.brand} ({self.drink_name}), {self.packaging_unit}")
+        priceDollar = "{:.2f}".format(self.price)
+        print(f"${priceDollar} / unit, accepts coins, $2 and $5 notes, and bus fare card scan.")
+        sw = "Sweetened" if self.sweet_or_not else "Non-sweetened"
+        alc = "contains alcohol" if self.alcoholic else "non-alcoholic"
+        print(f"Info: {sw}, {alc}.")
+        print(f"Calories per 12 ounce: {self.calories_12_oz}, please enjoy in moderation.")
+        if self.recycleable:
+            print("Please recycle the can or bottle.")
+        else:
+            print("Please keep our environment clean, dispose of used containers properly.")
+        
+        
+coke_classic = \
+VendingMachineDrink("Classic Coke Soda", True, False, 140, "Coca-Cola", "8-Oz Can", 1.20, True)
+print("\nVending Machine Drink 1, coke_classic:", coke_classic)
+coke_classic.display()
+
+sports_drink_gatorade = \
+VendingMachineDrink("Sports Drink Isotonic", True, False, 94, "Gatorade", "12-Oz Bottle", 1.50, False )
+print("\nVending Machine Drink 2, sports_drink_gatorade:", sports_drink_gatorade)
+sports_drink_gatorade.display()
+
+
+# Make a child class of Supermarket-sold Drinks
+
+class SupermarketDrink(Drink):
+    brand = ""
+    price = None              # price per unit of packaging
+    packaging = ""
+    section = ""              # section in Supermarket
+    discount_percent = None   # if 0, it means no discount
+    
+    def __init__(self, dname, sweet, alcoholic, calories, brand, price, pack, sect, discPer):
+        Drink.__init__(self, dname, sweet, alcoholic, calories)
+        self.brand = brand
+        self.price = price
+        self.packaging = pack
+        self.section = sect
+        self.discount_percent = discPer
+        
+    def display(self):
+        print(f"\nSection: {self.section}")
+        print(f"Product: {self.brand} {self.drink_name}, {self.packaging}")
+        priceDollar = "{:.2f}".format(self.price * (100 - self.discount_percent) / 100)
+        dp = self.discount_percent
+        print(f"Now at ${priceDollar}, {'lowest price' if dp == 0 else 'at ' + str(dp) + '% discount'}!")
+        sw = "Sweetened" if self.sweet_or_not else "Non-sweetened"
+        alc = "contains alcohol" if self.alcoholic else "non-alcoholic"
+        print(f"Note: {sw}, {alc}.")
+        print(f"Nutritional info: {self.calories_12_oz} calories per 12 ounce.")
+        
+
+cranberry_lakewood = \
+SupermarketDrink("Organic Pure Cranberry Juice", False, False, 205, \
+                 "Lakewood", 12.50, "34-Oz Bottle", "Health Foods Section", 15)
+print("\nSupermarket Drink 1, cranberry_lakewood:", cranberry_lakewood)
+cranberry_lakewood.display()
+
+soy_nutrisoy = \
+SupermarketDrink("Classic Soya Milk", True, False, 172, \
+                 "NutriSoy", 2.20, "34-Oz Box", "Refrigerated Drinks Section", 0)
+print("\nSupermarket Drink 2, soy_nutrisoy:", soy_nutrisoy)
+soy_nutrisoy.display()
 _____________________________________
 ## Outcome of running codes:
 
+Vending Machine Drink 1, coke_classic: <__main__.VendingMachineDrink object at 0x00000253C0AB2CD0>
+
+Available at our network of vending machines: Coca-Cola (Classic Coke Soda), 8-Oz Can
+$1.20 / unit, accepts coins, $2 and $5 notes, and bus fare card scan.
+Info: Sweetened, non-alcoholic.
+Calories per 12 ounce: 140, please enjoy in moderation.
+Please recycle the can or bottle.
+
+Vending Machine Drink 2, sports_drink_gatorade: <__main__.VendingMachineDrink object at 0x00000253C0AB2220>
+
+Available at our network of vending machines: Gatorade (Sports Drink Isotonic), 12-Oz Bottle
+$1.50 / unit, accepts coins, $2 and $5 notes, and bus fare card scan.
+Info: Sweetened, non-alcoholic.
+Calories per 12 ounce: 94, please enjoy in moderation.
+Please keep our environment clean, dispose of used containers properly.
+
+Supermarket Drink 1, cranberry_lakewood: <__main__.SupermarketDrink object at 0x00000253C0AB2310>
+
+Section: Health Foods Section
+Product: Lakewood Organic Pure Cranberry Juice, 34-Oz Bottle
+Now at $10.62, at 15% discount!
+Note: Non-sweetened, non-alcoholic.
+Nutritional info: 205 calories per 12 ounce.
+
+
+Supermarket Drink 2, soy_nutrisoy: <__main__.SupermarketDrink object at 0x00000253C09C9370>
+
+Section: Refrigerated Drinks Section
+Product: NutriSoy Classic Soya Milk, 34-Oz Box
+Now at $2.20, lowest price!
+Note: Sweetened, non-alcoholic.
+Nutritional info: 172 calories per 12 ounce.
 _____________________________________
 
 
 
-### Activity N
+### Activity 4
+Using the three inherited classes you have already created, use the __init__ method 
+of the Noun class to set the values of the original attributes defined in the Noun class.
+Create two objects for each of the three inherited classes and display all attributes,
+including attributes from the original Noun class.
 
 ## Answer:
 _____________________________________
+## NOTE: Not sure what the question wants and how to achieve what the question says,
+##       here's a probably incorrect attempt:
 
+cappuccino = CafeDrink("Cappuccino", True, False, 123, None, None, None)
+
+cappuccino.price_medium = 5.70
+cappuccino.cafe_name = "The Coffee Bean & Tea Leaf"
+cappuccino.member_discount = True
+
+print("Cafe Drink Sample 1, cappuccino:", cappuccino)
+cappuccino.display()
 _____________________________________
 ## Outcome of running codes:
 
+Cafe Drink Sample 1, cappuccino: <__main__.CafeDrink object at 0x00000253C09D3760>
+
+Check out Cappuccino, available at The Coffee Bean & Tea Leaf.
+It is sweetened and non-alcoholic.
+Each serving of 12 ounces contains 123 calories, your cup size may vary.
+Medium cup at $5.70, member discount available!
 _____________________________________
 
 
 
-### Activity N
+### Activity 5
+Create a class that inherits from your initial inherited class.
+Include at least one attribute specific to this class.
+Create two objects based on this class and display all attributes for each object.
+As an example from the lesson, we started with an Animal class and then created a 
+Mammal class that inherits from Animal. We could have also created additional classes 
+that inherit from Mammal, such as Dog and Cat, which would have their own class-specific attributes.
 
 ## Answer:
 _____________________________________
+class PackedDrink(SupermarketDrink):
+    bundle_packing = ""          # e.g. Pack of 12
+    # price is now referring to the bundle price, not single can.
+    
+    def __init__(self, dname, sweet, alcoholic, calories, brand, price, pack, sect, discPer, bunPack):
+        SupermarketDrink.__init__(self, dname, sweet, alcoholic, calories, brand, price, pack, sect, discPer)
+        self.bundle_packing = bunPack
+        
+    def display(self):
+        print(f"\nSection: {self.section}")
+        print(f"Product: {self.brand} {self.drink_name}, {self.packaging}")
+        print(f"Special Bundle: {self.bundle_packing}")
+        priceDollar = "{:.2f}".format(self.price * (100 - self.discount_percent) / 100)
+        dp = self.discount_percent
+        print(f"Now at Bundle Price ${priceDollar}, {'lowest price' if dp == 0 else 'at ' + str(dp) + '% discount'}!")
+        sw = "Sweetened" if self.sweet_or_not else "Non-sweetened"
+        alc = "contains alcohol" if self.alcoholic else "non-alcoholic"
+        print(f"Note: {sw}, {alc}.")
+        print(f"Nutritional info: {self.calories_12_oz} calories per 12 ounce.")
 
+# Create objects:
+coke_diet_bundle = \
+PackedDrink("Diet Coke Soda", True, False, 7, "Coca-Cola", \
+            14.00, "8-Oz Can", "Cased and Bundled Drinks Section", 10, "Pack of 12")
+print("\nPacked Drink 1, coke_diet_bundle:", coke_diet_bundle)
+coke_diet_bundle.display()
+
+chrysanthemum_he_bundle = \
+PackedDrink("Chrysanthemum Tea", True, False, 133, "Heaven & Earth", \
+           19.20, "8-Oz Box", "Cased and Bundled Drinks Section", 5, "Pack of 16")
+print("\nPacked Drink 2, chrysanthemum_he_bundle:", chrysanthemum_he_bundle)
+chrysanthemum_he_bundle.display()
 _____________________________________
 ## Outcome of running codes:
 
+Packed Drink 1, coke_diet_bundle: <__main__.PackedDrink object at 0x00000253C09BAEB0>
+
+Section: Cased and Bundled Drinks Section
+Product: Coca-Cola Diet Coke Soda, 8-Oz Can
+Special Bundle: Pack of 12
+Now at Bundle Price $12.60, at 10% discount!
+Note: Sweetened, non-alcoholic.
+Nutritional info: 7 calories per 12 ounce.
+
+Packed Drink 2, chrysanthemum_he_bundle: <__main__.PackedDrink object at 0x00000253C0914E20>
+
+Section: Cased and Bundled Drinks Section
+Product: Heaven & Earth Chrysanthemum Tea, 8-Oz Box
+Special Bundle: Pack of 16
+Now at Bundle Price $18.24, at 5% discount!
+Note: Sweetened, non-alcoholic.
+Nutritional info: 133 calories per 12 ounce.
 _____________________________________
 
 
 
-### Activity N
+### Activity 6
+Create another class that inherits from the class created for the previous activity.
+For the new class, create at least one class-specific attribute and one object based on the class.
+Use isinstance() to verify that the new object is an instance of each of the parent classes of the new class.
 
 ## Answer:
 _____________________________________
+class OnlineDrink(PackedDrink):
+    online_platform = ""       # Platform at which product is sold online
+    delivery_charge = None
+    
+    def __init__(self, dname, sweet, alcoholic, calories, \
+                 brand, price, pack, sect, discPer, bunPack, platform, deliCharge):
+        PackedDrink.__init__(self, dname, sweet, alcoholic, calories, \
+                 brand, price, pack, sect, discPer, bunPack)
+        self.online_platform = platform
+        self.delivery_charge = deliCharge
+        
+    def display(self):
+        print(f"\nAvailable online: {self.online_platform}")
+        print(f"Product: {self.brand} {self.drink_name}, {self.packaging}")
+        print(f"Special Bundle: {self.bundle_packing}")
+        priceDollar = "{:.2f}".format(self.price * (100 - self.discount_percent) / 100)
+        dp = self.discount_percent
+        print(f"Now at Bundle Price ${priceDollar}, {'lowest price' if dp == 0 else 'at ' + str(dp) + '% discount'}!")
+        print(f"Delivery charge: ${'{:.2f}'.format(self.delivery_charge)}")
+        sw = "Sweetened" if self.sweet_or_not else "Non-sweetened"
+        alc = "contains alcohol" if self.alcoholic else "non-alcoholic"
+        print(f"Note: {sw}, {alc}.")
+        print(f"Nutritional info: {self.calories_12_oz} calories per 12 ounce.")
+        print(f"Also available at brick-and-mortar store: Awesome Supermarket, {self.section}")
+        
 
+tomato_gh_bundle_online = \
+OnlineDrink("Tomato Juice", False, False, 80, "Good Health", 12.00, "8-Oz Bottle",\
+            "Health Foods Section", 5, "Pack of 6", "amazon.com.sg", 2.30)
+print("\nOnline Drink 1, tomato_gh_bundle_online:", tomato_gh_bundle_online)
+tomato_gh_bundle_online.display()
+
+# Check for inheritance:
+print("\nInheritance Check:")
+print("\nIs tomato_gh_bundle_online an instance of the class OnlineDrink?", \
+      isinstance(tomato_gh_bundle_online, OnlineDrink))
+print("\nIs tomato_gh_bundle_online an instance of the class PackedDrink?", \
+      isinstance(tomato_gh_bundle_online, PackedDrink))
+print("\nIs tomato_gh_bundle_online an instance of the class SupermarketDrink?", \
+      isinstance(tomato_gh_bundle_online, SupermarketDrink))
+print("\nIs tomato_gh_bundle_online an instance of the class Drink?", \
+      isinstance(tomato_gh_bundle_online, Drink))
 _____________________________________
 ## Outcome of running codes:
 
+Online Drink 1, tomato_gh_bundle_online: <__main__.OnlineDrink object at 0x00000253C09142B0>
+
+Available online: amazon.com.sg
+Product: Good Health Tomato Juice, 8-Oz Bottle
+Special Bundle: Pack of 6
+Now at Bundle Price $11.40, at 5% discount!
+Delivery charge: $2.30
+Note: Non-sweetened, non-alcoholic.
+Nutritional info: 80 calories per 12 ounce.
+Also available at brick-and-mortar store: Awesome Supermarket, Health Foods Section
+
+Inheritance Check:
+
+Is tomato_gh_bundle_online an instance of the class OnlineDrink? True
+
+Is tomato_gh_bundle_online an instance of the class PackedDrink? True
+
+Is tomato_gh_bundle_online an instance of the class SupermarketDrink? True
+
+Is tomato_gh_bundle_online an instance of the class Drink? True
 _____________________________________
+
+
+
+
+
+
+
 
 
 
