@@ -2790,7 +2790,7 @@ class FileItem:
     
     def __init__(self, fname, itype, path, created, modified, size, unit, owner, computer, permission, password):
         self.file_name = fname
-        self.item_type = itype
+        self.item_type = itype.lower()
         self.directory_path = path
         self.date_created = created
         self.date_modified = modified
@@ -3043,10 +3043,320 @@ Default Software to Open File:	Microsoft Excel
 _____________________________________
 ## Answer Part 3: Create a class called JpgFile
 _____________________________________
+## Part 3: Create a class called JpgFile
+
+class JpgFile(FileItem):
+    # Origin
+    authors = ""
+    date_taken = ""
+    program_name = ""         # not applicable if it's screen capture, but can refer to camera driver
+    # Image details
+    image_id = ""
+    width = None              # in pixel, integer
+    height = None             # in pixel, integer
+    horizontal_resolution = None    # in dpi, integer
+    vertical_resolution = None      # in dpi, integer
+    bit_depth = None                # integer representing no. of bits
+    
+    
+    
+    def __init__(self, fname, itype, path, created, modified, size, unit, \
+                 owner, computer, permission, password, \
+                 authors, taken, program, imageId, width, height, hoRes, veRes, bitDepth):
+        FileItem.__init__(self, fname, itype, path, created, modified, size, unit, \
+                          owner, computer, permission, password)
+        # Allow flexibility in one of the parent attributes,
+        # i.e. allowing either JPG or JPEG as input, in either case
+        if itype.lower() == "jpg" or itype.lower() == "jpeg":
+            self.item_type = "jpg"
+            
+        self.authors = authors
+        self.date_taken = taken
+        self.program_name = program
+        self.image_id = imageId
+        self.width = width
+        self.height = height
+        self.horizontal_resolution = hoRes
+        self.vertical_resolution = veRes
+        self.bit_depth = bitDepth
+        
+    def display_attributes(self):
+        super().display_attributes()
+        print("\nOrigin ----------")
+        print(f"Authors:\t\t{self.authors}")
+        print(f"Date Taken:\t\t{self.date_taken}")
+        print(f"Program Name:\t\t{self.program_name}")
+        print("\nImage ----------")
+        print(f"Image ID:\t\t{self.image_id}")
+        print(f"Dimensions:\t\t{self.width} x {self.height}")
+        print(f"Width:\t\t{self.width}")
+        print(f"Height:\t\t{self.height}")
+        print(f"Horizontal Resolution:\t{self.horizontal_resolution}")
+        print(f"Vertical Resolution:\t{self.vertical_resolution}")
+        print(f"Bit Depth:\t\t{self.bit_depth}")
+        
+
+# We shall temporarily initialize the 8 JPG files to temporary directory paths at Pictures,
+# which can be changed later with directory-related class. We might also change file name later.
+    
+picture01jpg = \
+JpgFile("Picture 01", "JPG", "C:\\Users\\Carl\\Pictures", "2022-08-13 03:12", "2022-08-13 03:19", \
+        178.2, "KB", "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxrwxrwx", "", \
+        "Carl", "2022-08-13 03:11", "Screenshot", "", 2082, 1310, 192, 192, 24)
+print("\nCreated a JPG file picture01jpg, and displaying its attributes:\n")
+picture01jpg.display_attributes()
+
+picture02jpg = \
+JpgFile("Picture 02", "jpg", "C:\\Users\\Carl\\Pictures", "2022-08-13 03:17", "2022-08-13 03:24", \
+        183.1, "KB", "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxrwxrwx", "", \
+        "Carl", "2022-08-13 03:16", "Screenshot", "", 2082, 1310, 192, 192, 24)
+print("\nCreated a JPG file picture02jpg, and displaying its attributes:\n")
+picture02jpg.display_attributes()
+
+picture03jpg = \
+JpgFile("Picture 03", "JPEG", "C:\\Users\\Carl\\Pictures", "2022-08-13 03:22", "2022-08-13 03:29", \
+        179.6, "KB", "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxrwxrwx", "", \
+        "Carl", "2022-08-13 03:21", "Screenshot", "", 2082, 1310, 192, 192, 24)
+print("\nCreated a JPG file picture03jpg, and displaying its attributes:\n")
+picture03jpg.display_attributes()
+
+picture04jpg = \
+JpgFile("Picture 04", "jpeg", "C:\\Users\\Carl\\Pictures", "2022-08-13 03:27", "2022-08-13 03:34", \
+        179.6, "KB", "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxrwxrwx", "", \
+        "Carl", "2022-08-13 03:26", "Screenshot", "", 2082, 1310, 192, 192, 24)
+print("\nCreated a JPG file picture04jpg, and displaying its attributes:\n")
+picture04jpg.display_attributes()
+
+picture05jpg = \
+JpgFile("Picture 05", "jpeg", "C:\\Users\\Carl\\Pictures", "2022-07-23 08:27", "2022-07-23 08:34", \
+        179.6, "KB", "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxrwxrwx", "", \
+        "Carl", "2022-07-23 08:26", "CANON 456.17.3", "", 5472, 3648, 350, 350, 24)
+print("\nCreated a JPG file picture05jpg, and displaying its attributes:\n")
+picture05jpg.display_attributes()
+
+picture06jpg = \
+JpgFile("Picture 06", "JPG", "C:\\Users\\Carl\\Pictures", "2022-07-23 08:12", "2022-07-23 08:19", \
+        178.2, "KB", "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxrwxrwx", "", \
+        "Carl", "2022-07-23 08:11", "CANON 456.17.3", "", 5472, 3648, 350, 350, 24)
+print("\nCreated a JPG file picture06jpg, and displaying its attributes:\n")
+picture06jpg.display_attributes()
+
+picture07jpg = \
+JpgFile("Picture 07", "jpg", "C:\\Users\\Carl\\Pictures", "2022-07-23 08:17", "2022-07-23 08:24", \
+        183.1, "KB", "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxrwxrwx", "", \
+        "Carl", "2022-07-23 08:16", "CANON 456.17.3", "", 5472, 3648, 350, 350, 24)
+print("\nCreated a JPG file picture07jpg, and displaying its attributes:\n")
+picture07jpg.display_attributes()
+
+picture08jpg = \
+JpgFile("Picture 08", "JPEG", "C:\\Users\\Carl\\Pictures", "2022-07-23 08:22", "2022-07-23 08:29", \
+        179.6, "KB", "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxrwxrwx", "", \
+        "Carl", "2022-07-23 08:21", "CANON 456.17.3", "", 5472, 3648, 350, 350, 24)
+print("\nCreated a JPG file picture08jpg, and displaying its attributes:\n")
+picture08jpg.display_attributes()
 
 _____________________________________
 ## Outcome of running codes Part 3: Create a class called JpgFile
 
+Created a JPG file picture01jpg, and displaying its attributes:
+
+File Name:		Picture 01.jpg
+Item Type:		JPG
+Directory Path:		C:\Users\Carl\Pictures
+Date Created:		2022-08-13 03:12
+Date Modified:		2022-08-13 03:19
+Size:         		178.2 KB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Origin ----------
+Authors:		Carl
+Date Taken:		2022-08-13 03:11
+Program Name:		Screenshot
+
+Image ----------
+Image ID:		
+Dimensions:		2082 x 1310
+Width:		2082
+Height:		1310
+Horizontal Resolution:	192
+Vertical Resolution:	192
+Bit Depth:		24
+
+Created a JPG file picture02jpg, and displaying its attributes:
+
+File Name:		Picture 02.jpg
+Item Type:		JPG
+Directory Path:		C:\Users\Carl\Pictures
+Date Created:		2022-08-13 03:17
+Date Modified:		2022-08-13 03:24
+Size:         		183.1 KB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Origin ----------
+Authors:		Carl
+Date Taken:		2022-08-13 03:16
+Program Name:		Screenshot
+
+Image ----------
+Image ID:		
+Dimensions:		2082 x 1310
+Width:		2082
+Height:		1310
+Horizontal Resolution:	192
+Vertical Resolution:	192
+Bit Depth:		24
+
+Created a JPG file picture03jpg, and displaying its attributes:
+
+File Name:		Picture 03.jpg
+Item Type:		JPG
+Directory Path:		C:\Users\Carl\Pictures
+Date Created:		2022-08-13 03:22
+Date Modified:		2022-08-13 03:29
+Size:         		179.6 KB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Origin ----------
+Authors:		Carl
+Date Taken:		2022-08-13 03:21
+Program Name:		Screenshot
+
+Image ----------
+Image ID:		
+Dimensions:		2082 x 1310
+Width:		2082
+Height:		1310
+Horizontal Resolution:	192
+Vertical Resolution:	192
+Bit Depth:		24
+
+Created a JPG file picture04jpg, and displaying its attributes:
+
+File Name:		Picture 04.jpg
+Item Type:		JPG
+Directory Path:		C:\Users\Carl\Pictures
+Date Created:		2022-08-13 03:27
+Date Modified:		2022-08-13 03:34
+Size:         		179.6 KB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Origin ----------
+Authors:		Carl
+Date Taken:		2022-08-13 03:26
+Program Name:		Screenshot
+
+Image ----------
+Image ID:		
+Dimensions:		2082 x 1310
+Width:		2082
+Height:		1310
+Horizontal Resolution:	192
+Vertical Resolution:	192
+Bit Depth:		24
+
+Created a JPG file picture05jpg, and displaying its attributes:
+
+File Name:		Picture 05.jpg
+Item Type:		JPG
+Directory Path:		C:\Users\Carl\Pictures
+Date Created:		2022-07-23 08:27
+Date Modified:		2022-07-23 08:34
+Size:         		179.6 KB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Origin ----------
+Authors:		Carl
+Date Taken:		2022-07-23 08:26
+Program Name:		CANON 456.17.3
+
+Image ----------
+Image ID:		
+Dimensions:		5472 x 3648
+Width:		5472
+Height:		3648
+Horizontal Resolution:	350
+Vertical Resolution:	350
+Bit Depth:		24
+
+Created a JPG file picture06jpg, and displaying its attributes:
+
+File Name:		Picture 06.jpg
+Item Type:		JPG
+Directory Path:		C:\Users\Carl\Pictures
+Date Created:		2022-07-23 08:12
+Date Modified:		2022-07-23 08:19
+Size:         		178.2 KB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Origin ----------
+Authors:		Carl
+Date Taken:		2022-07-23 08:11
+Program Name:		CANON 456.17.3
+
+Image ----------
+Image ID:		
+Dimensions:		5472 x 3648
+Width:		5472
+Height:		3648
+Horizontal Resolution:	350
+Vertical Resolution:	350
+Bit Depth:		24
+
+Created a JPG file picture07jpg, and displaying its attributes:
+
+File Name:		Picture 07.jpg
+Item Type:		JPG
+Directory Path:		C:\Users\Carl\Pictures
+Date Created:		2022-07-23 08:17
+Date Modified:		2022-07-23 08:24
+Size:         		183.1 KB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Origin ----------
+Authors:		Carl
+Date Taken:		2022-07-23 08:16
+Program Name:		CANON 456.17.3
+
+Image ----------
+Image ID:		
+Dimensions:		5472 x 3648
+Width:		5472
+Height:		3648
+Horizontal Resolution:	350
+Vertical Resolution:	350
+Bit Depth:		24
+
+Created a JPG file picture08jpg, and displaying its attributes:
+
+File Name:		Picture 08.jpg
+Item Type:		JPG
+Directory Path:		C:\Users\Carl\Pictures
+Date Created:		2022-07-23 08:22
+Date Modified:		2022-07-23 08:29
+Size:         		179.6 KB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Origin ----------
+Authors:		Carl
+Date Taken:		2022-07-23 08:21
+Program Name:		CANON 456.17.3
+
+Image ----------
+Image ID:		
+Dimensions:		5472 x 3648
+Width:		5472
+Height:		3648
+Horizontal Resolution:	350
+Vertical Resolution:	350
+Bit Depth:		24
 _____________________________________
 ## Answer Part 4: Create a class called Mp3File
 _____________________________________
