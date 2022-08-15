@@ -86,6 +86,45 @@ ________________________________________________
 
 // 02 - Git
 
+Git commands:
+
+git add - moves changes from working directory to staging area 
+          (prepare a snapshot before committing to history)
+
+git checkout - navigate existing branches, and checking out old commits.
+
+git clone - create a copy of existing repo
+
+git commit - take the staged snapshot and commit to history
+
+git config - setting new configuration options
+
+git fetch - download a branch from another repo.
+            NOTE: does not integrate into local repo.
+            
+git init - initialize a new Git repo
+
+git pull - downloads a branch from remote repo, and immediately merges into current branch.
+           (i.e. fit + merge)
+           
+git push - push a local branch to another repo.
+
+git status - display staged snapshot. Use with add and commit.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
