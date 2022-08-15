@@ -1,0 +1,114 @@
+SRE - Summary 2022-08-15
+
+
+________________________________________________
+
+// 01 - Introduction to DevOps
+
+Different roles work as one team in DevOps Practice:
+
+Developers adopt quicker changes, latest features and embrace risk.
+Operations adopt stability, reliability and repeatability.
+DevOps offer a common language these primary two teams,
+which allows them to function as one team who own the product.
+
+DevOps typically is implemented in Agile environment.
+Unlike the Waterfall model of product development,
+the Agile model features shorter cycles of iterations:
+  planning, req analysis, designing, building & testing.
+  sprints are typically in 2 - 3 weeks, with frequent feedback-and-adjust cycles
+  (which the Waterfall model cannot affort)
+  cycles will incrementally deliver parts of the product
+typical ceremonies: standup meetings (usually daily),
+with Kanban to queue and prioritize tasks.
+
+Five phases of agile: forming, storming, norming, performing and adjourning.
+The work areas are separated into: dev, test, staging and production
+
+DevOps Pipelines:
+ensure the continuous build, test, package, deployment and validation of app and environment.
+
+The ideal continous delivery process:
+- check out code and build
+- unit testing
+- quality control
+- deployment to test environment
+- fetch latest builds
+- integration testing
+- packaging and archiving
+- fetch release ready builds
+- deploy to pre-production environment
+- acceptance testing
+- deploy to production environment
+
+DevOps practices use a wide variety of tools, many of which to support automation.
+
+DevOps Tools:
+- SCM - revision / history control of code changes
+  e.g. Git
+- CI (continuous integration) and Automation Servers - build and test code, automate tasks, create pipelines
+  e.g. Jenkins, TeamCity, CircleCI
+- Automated Deployments - automatically deploy or repeatable deployments
+  e.g. FluxCD, Puppet, Chef, IBM U-Deploy, DeployBot, Shippable
+- Cloud - let someone else manage the physical.
+  No lead times, virtualize hardward / infrastructure for environment, do all in codes
+  e.g. AWS, Azure, GCP, Digital Ocean, Rackspace
+- Orchestration - create environments, provision hosts and services, continuous updates of patches
+  e.g. Ansible, Puppet, Chef, Terraform, Helm
+- Container - package apps with all dependencies. "Microservices"
+  (Unlike Java, it ruly runs everywhere)
+  e.g. Docker
+- Container Services: enterprise solution to manage containers and isolation
+  e.g. Kubernetes, OpenShift
+- Monitoring - identifying issues and observe happenings in environment
+  e.g. metrics, logs, events, thresholds for alerts.
+  
+Idempotent: running the same code repeatedly, only update what has changed.
+
+Containers: reduce dependency hell, container packages together all needed parts in one atomic component.
+            constructed of layers (of images), used for microservices.
+            
+Management Tools:
+   manage features of a project: tickets, asset management, releases, incidents, problems, knowledge base.
+   service tools: ServiceNow, Jira
+   
+Workflow (in cycle): sprint > release > deploy > monitor > incident > post-mortem > sprint
+
+APIs allow interconnectivity of apps.
+
+DevOps requires constant communication & updates.
+   communication channels: Git, Slack, HipChat, Email, SMS
+   
+The DevOps Cycle:
+Plan > build > continuous integration > deploy > operate > continuous feedback > plan
+
+________________________________________________
+
+// 02 - Git
+
+
+
+
+________________________________________________
+
+
+
+
+________________________________________________
+
+
+
+
+________________________________________________
+
+
+
+
+________________________________________________
+
+
+  
+
+
+
+
