@@ -3360,9 +3360,404 @@ Bit Depth:		24
 _____________________________________
 ## Answer Part 4: Create a class called Mp3File
 _____________________________________
+## Part 4: Create a class called Mp3File
 
+class Mp3File(FileItem):
+    # Description
+    title = ""
+    rating = None   # integer, 1 - 5 stars
+    # Media
+    artists = ""
+    album = ""
+    year = None     # integer for year
+    genre = ""
+    length = ""     # format: HH:MM:SS for time length
+    # Audio
+    bit_rate = None # integer, in kbps
+    # Origin
+    publisher = ""
+    copyright = ""
+    
+    def __init__(self, fname, itype, path, created, modified, size, unit, \
+                 owner, computer, permission, password, \
+                 title, rating, artists, album, year, genre, length, \
+                 bitRate, publisher, copyright):
+        FileItem.__init__(self, fname, itype, path, created, modified, size, unit, \
+                 owner, computer, permission, password)
+        self.title = title
+        self.rating = rating
+        self.artists = artists
+        self.album = album
+        self.year = year
+        self.genre = genre
+        self.length = length
+        self.bit_rate = bitRate
+        self.publisher = publisher
+        self.copyright = copyright
+        
+    def display_rating(self):
+        i = self.rating
+        if i > 5:
+            print(5 * "* ")
+        else:
+            print(i * "* ")
+            
+    def display_attributes(self):
+        super().display_attributes()
+        print("\nDescription ----------")
+        print(f"Title:\t\t{self.title}")
+        print(f"Rating:\t\t", end="")
+        self.display_rating()
+        print("\nMedia ----------")
+        print(f"Artists:\t\t{self.artists}")
+        print(f"Album:\t\t{self.album}")
+        print(f"Year:\t\t{self.year}")
+        print(f"Genre:\t\t{self.genre}")
+        print(f"Length:\t\t{self.length}")
+        print("\nAudio ----------")
+        print(f"Bit Rate:\t\t{self.bit_rate} kbps")
+        print("\nOrigin ----------")
+        print(f"Publisher:\t\t{self.publisher}")
+        print(f"Copyright:\t\t{self.copyright}")
+        
+        
+# Creating objects:
+
+song01mp3 = \
+Mp3File("Song 01", "MP3", "C:\\Users\\Carl\\Music", "2021-06-12 09:17", "2021-06-12 09:17", 3.8, "MB", \
+        "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxrwxrwx", "", \
+        "Happy Times", 4, "Alice Wood", "Camping Songs - the Must-Have Collection", 1997, "Country", \
+        "00:03:48", 128, "Pacific Music", "NA")
+print("\nCreated an MP3 file item song01mp3, and displaying its attributes:\n")        
+song01mp3.display_attributes()    
+
+song02mp3 = \
+Mp3File("Song 02", "MP3", "C:\\Users\\Carl\\Music", "2021-06-12 09:18", "2021-06-12 09:18", 3.9, "MB", \
+        "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxrwxrwx", "", \
+        "Bon Fire", 3, "Bob Hill", "Camping Songs - the Must-Have Collection", 1997, "Rock", \
+        "00:03:54", 128, "Pacific Music", "NA")
+print("\nCreated an MP3 file item song02mp3, and displaying its attributes:\n")        
+song02mp3.display_attributes() 
+
+song03mp3 = \
+Mp3File("Song 03", "MP3", "C:\\Users\\Carl\\Music", "2021-06-12 09:18", "2021-06-12 09:18", 4.1, "MB", \
+        "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxrwxrwx", "", \
+        "Memories in the Hill", 5, "Cindy Green", "Camping Songs - the Must-Have Collection", 1997, "Country", \
+        "00:04:06", 128, "Pacific Music", "NA")
+print("\nCreated an MP3 file item song03mp3, and displaying its attributes:\n")        
+song03mp3.display_attributes() 
+
+song04mp3 = \
+Mp3File("Song 04", "MP3", "C:\\Users\\Carl\\Music", "2021-06-12 09:18", "2021-06-12 09:18", 4.2, "MB", \
+        "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxrwxrwx", "", \
+        "Memories in the Hill", 5, "Dan Creek", "Camping Songs - the Must-Have Collection", 1997, "Jazz", \
+        "00:04:12", 128, "Pacific Music", "NA")
+print("\nCreated an MP3 file item song04mp3, and displaying its attributes:\n")        
+song04mp3.display_attributes() 
+
+song05mp3 = \
+Mp3File("Song 05", "MP3", "C:\\Users\\Carl\\Music", "2021-06-12 09:18", "2021-06-12 09:18", 3.7, "MB", \
+        "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxrwxrwx", "", \
+        "Butterflies", 3, "Ellen Stone", "Camping Songs - the Must-Have Collection", 1997, "Country", \
+        "00:03:42", 128, "Pacific Music", "NA")
+print("\nCreated an MP3 file item song05mp3, and displaying its attributes:\n")        
+song05mp3.display_attributes() 
+
+researchInterview01mp3 = \
+Mp3File("Research Interview 01", "MP3", "C:\\Users\\Carl\\Documents", "2022-07-29 14:25", "2022-07-29 14:25", 131.5, "MB", \
+        "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxr--r--", "Password123", \
+        "", 0, "", "", None, "", \
+        "02:11:03", 128, "", "")
+print("\nCreated an MP3 file item researchInterview01mp3, and displaying its attributes:\n")        
+researchInterview01mp3.display_attributes() 
+
+researchInterview02mp3 = \
+Mp3File("Research Interview 02", "MP3", "C:\\Users\\Carl\\Documents", "2022-07-30 15:45", "2022-07-30 15:45", 140.2, "MB", \
+        "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxr--r--", "Password123", \
+        "", 0, "", "", None, "", \
+        "02:20:12", 128, "", "")
+print("\nCreated an MP3 file item researchInterview02mp3, and displaying its attributes:\n")        
+researchInterview02mp3.display_attributes() 
+    
+researchInterview03mp3 = \
+Mp3File("Research Interview 03", "MP3", "C:\\Users\\Carl\\Documents", "2022-07-31 13:06", "2022-07-31 13:06", 90.7, "MB", \
+        "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxr--r--", "Password123", \
+        "", 0, "", "", None, "", \
+        "01:30:42", 128, "", "")
+print("\nCreated an MP3 file item researchInterview03mp3, and displaying its attributes:\n")        
+researchInterview03mp3.display_attributes() 
+
+researchInterview04mp3 = \
+Mp3File("Research Interview 04", "MP3", "C:\\Users\\Carl\\Documents", "2022-07-31 15:31", "2022-07-31 15:31", 65.8, "MB", \
+        "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxr--r--", "Password123", \
+        "", 0, "", "", None, "", \
+        "01:05:48", 128, "", "")
+print("\nCreated an MP3 file item researchInterview04mp3, and displaying its attributes:\n")        
+researchInterview04mp3.display_attributes() 
 _____________________________________
 ## Outcome of running codes Part 4: Create a class called Mp3File
+
+
+Created an MP3 file item song01mp3, and displaying its attributes:
+
+File Name:		Song 01.mp3
+Item Type:		MP3
+Directory Path:		C:\Users\Carl\Music
+Date Created:		2021-06-12 09:17
+Date Modified:		2021-06-12 09:17
+Size:         		3.8 MB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Description ----------
+Title:		Happy Times
+Rating:		* * * * 
+
+Media ----------
+Artists:		Alice Wood
+Album:		Camping Songs - the Must-Have Collection
+Year:		1997
+Genre:		Country
+Length:		00:03:48
+
+Audio ----------
+Bit Rate:		128 kbps
+
+Origin ----------
+Publisher:		Pacific Music
+Copyright:		NA
+
+Created an MP3 file item song02mp3, and displaying its attributes:
+
+File Name:		Song 02.mp3
+Item Type:		MP3
+Directory Path:		C:\Users\Carl\Music
+Date Created:		2021-06-12 09:18
+Date Modified:		2021-06-12 09:18
+Size:         		3.9 MB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Description ----------
+Title:		Bon Fire
+Rating:		* * * 
+
+Media ----------
+Artists:		Bob Hill
+Album:		Camping Songs - the Must-Have Collection
+Year:		1997
+Genre:		Rock
+Length:		00:03:54
+
+Audio ----------
+Bit Rate:		128 kbps
+
+Origin ----------
+Publisher:		Pacific Music
+Copyright:		NA
+
+Created an MP3 file item song03mp3, and displaying its attributes:
+
+File Name:		Song 03.mp3
+Item Type:		MP3
+Directory Path:		C:\Users\Carl\Music
+Date Created:		2021-06-12 09:18
+Date Modified:		2021-06-12 09:18
+Size:         		4.1 MB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Description ----------
+Title:		Memories in the Hill
+Rating:		* * * * * 
+
+Media ----------
+Artists:		Cindy Green
+Album:		Camping Songs - the Must-Have Collection
+Year:		1997
+Genre:		Country
+Length:		00:04:06
+
+Audio ----------
+Bit Rate:		128 kbps
+
+Origin ----------
+Publisher:		Pacific Music
+Copyright:		NA
+
+Created an MP3 file item song04mp3, and displaying its attributes:
+
+File Name:		Song 04.mp3
+Item Type:		MP3
+Directory Path:		C:\Users\Carl\Music
+Date Created:		2021-06-12 09:18
+Date Modified:		2021-06-12 09:18
+Size:         		4.2 MB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Description ----------
+Title:		Memories in the Hill
+Rating:		* * * * * 
+
+Media ----------
+Artists:		Dan Creek
+Album:		Camping Songs - the Must-Have Collection
+Year:		1997
+Genre:		Jazz
+Length:		00:04:12
+
+Audio ----------
+Bit Rate:		128 kbps
+
+Origin ----------
+Publisher:		Pacific Music
+Copyright:		NA
+
+Created an MP3 file item song05mp3, and displaying its attributes:
+
+File Name:		Song 05.mp3
+Item Type:		MP3
+Directory Path:		C:\Users\Carl\Music
+Date Created:		2021-06-12 09:18
+Date Modified:		2021-06-12 09:18
+Size:         		3.7 MB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Description ----------
+Title:		Butterflies
+Rating:		* * * 
+
+Media ----------
+Artists:		Ellen Stone
+Album:		Camping Songs - the Must-Have Collection
+Year:		1997
+Genre:		Country
+Length:		00:03:42
+
+Audio ----------
+Bit Rate:		128 kbps
+
+Origin ----------
+Publisher:		Pacific Music
+Copyright:		NA
+
+Created an MP3 file item researchInterview01mp3, and displaying its attributes:
+
+File Name:		Research Interview 01.mp3
+Item Type:		MP3
+Directory Path:		C:\Users\Carl\Documents
+Date Created:		2022-07-29 14:25
+Date Modified:		2022-07-29 14:25
+Size:         		131.5 MB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Description ----------
+Title:		
+Rating:		
+
+Media ----------
+Artists:		
+Album:		
+Year:		None
+Genre:		
+Length:		02:11:03
+
+Audio ----------
+Bit Rate:		128 kbps
+
+Origin ----------
+Publisher:		
+Copyright:		
+
+Created an MP3 file item researchInterview02mp3, and displaying its attributes:
+
+File Name:		Research Interview 02.mp3
+Item Type:		MP3
+Directory Path:		C:\Users\Carl\Documents
+Date Created:		2022-07-30 15:45
+Date Modified:		2022-07-30 15:45
+Size:         		140.2 MB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Description ----------
+Title:		
+Rating:		
+
+Media ----------
+Artists:		
+Album:		
+Year:		None
+Genre:		
+Length:		02:20:12
+
+Audio ----------
+Bit Rate:		128 kbps
+
+Origin ----------
+Publisher:		
+Copyright:		
+
+Created an MP3 file item researchInterview03mp3, and displaying its attributes:
+
+File Name:		Research Interview 03.mp3
+Item Type:		MP3
+Directory Path:		C:\Users\Carl\Documents
+Date Created:		2022-07-31 13:06
+Date Modified:		2022-07-31 13:06
+Size:         		90.7 MB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Description ----------
+Title:		
+Rating:		
+
+Media ----------
+Artists:		
+Album:		
+Year:		None
+Genre:		
+Length:		01:30:42
+
+Audio ----------
+Bit Rate:		128 kbps
+
+Origin ----------
+Publisher:		
+Copyright:		
+
+Created an MP3 file item researchInterview04mp3, and displaying its attributes:
+
+File Name:		Research Interview 04.mp3
+Item Type:		MP3
+Directory Path:		C:\Users\Carl\Documents
+Date Created:		2022-07-31 15:31
+Date Modified:		2022-07-31 15:31
+Size:         		65.8 MB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Description ----------
+Title:		
+Rating:		
+
+Media ----------
+Artists:		
+Album:		
+Year:		None
+Genre:		
+Length:		01:05:48
+
+Audio ----------
+Bit Rate:		128 kbps
+
+Origin ----------
+Publisher:		
+Copyright:
 
 _____________________________________
 
