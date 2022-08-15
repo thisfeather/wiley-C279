@@ -2893,7 +2893,9 @@ class CsvFile(FileItem):
         for i in range(len(self.compatible)):
             print(f"\t\t\t\t{self.compatible[i]}")
         print(f"Default Software to Open File:\t{self.compatible[self.default_open]}")
-        # super().display_attributes()
+        # show if file is password-protected:
+        if self.password != "":
+            print("This file is password-protected.")
         
 
 # We shall temporarily initialize the 6 CSV files to temporary directory paths at Documents,
@@ -2945,6 +2947,7 @@ research05csv.display_attributes()
 _____________________________________
 ## Outcome of running codes Part 2: Create a class called CsvFile
 
+
 Created a CSV file, and displaying its attributes:
 
 File Name:		Research 01.csv
@@ -2960,6 +2963,7 @@ Compatible Software:
 				Google Sheets
 				MySQL
 Default Software to Open File:	Microsoft Excel
+This file is password-protected.
 
 Created a CSV file, and displaying its attributes:
 
@@ -2976,6 +2980,7 @@ Compatible Software:
 				Google Sheets
 				MySQL
 Default Software to Open File:	Google Sheets
+This file is password-protected.
 
 Created a CSV file, and displaying its attributes:
 
@@ -2992,6 +2997,7 @@ Compatible Software:
 				Google Sheets
 				MySQL
 Default Software to Open File:	Microsoft Excel
+This file is password-protected.
 
 Created a CSV file, and displaying its attributes:
 
@@ -3008,6 +3014,7 @@ Compatible Software:
 				Google Sheets
 				MySQL
 Default Software to Open File:	MySQL
+This file is password-protected.
 
 Created a CSV file, and displaying its attributes:
 
@@ -3024,6 +3031,7 @@ Compatible Software:
 				Google Sheets
 				MySQL
 Default Software to Open File:	Microsoft Excel
+This file is password-protected.
 
 Created a CSV file, and displaying its attributes:
 
@@ -3040,6 +3048,7 @@ Compatible Software:
 				Google Sheets
 				MySQL
 Default Software to Open File:	Microsoft Excel
+This file is password-protected.
 _____________________________________
 ## Answer Part 3: Create a class called JpgFile
 _____________________________________
@@ -3763,27 +3772,225 @@ _____________________________________
 
 
 
+### Challenge
+Create a class Directory that inherits from FileItem and that represents a directory in an operating system.
+  - Create a filesystem with at least 20 objects
+  - Include at least three objects of each type (CsvFile, JpgFile, Mp3File, and Directory)
+  - Include a directory structure with a depth of at least three (directory in a directory in a directory)
+  - Include at least one directory that contains at least two other directories and at least two files.
+
+## Answer Part 1: Create the class Directory
+_____________________________________
+# Create a class Directory
+
+class Directory(FileItem):
+    directory_list = []            # Isolating directories and different items within a directory
+    file_list = []                 # Keeping a list of files in the directory
+    
+    
+    # Assuming the item_type for a directory is a file item type called ".dir"
+    
+    def __init__(self, fname, itype, path, created, modified, size, unit, owner, \
+                 computer, permission, password, dirList, fileList):
+        FileItem.__init__(self, fname, itype, path, created, modified, size, unit, owner, \
+                          computer, permission, password)
+        self.directory_list = dirList
+        self.file_list = fileList
+ 
+
+    def add_to_dir(self, item):         # Adding any file item, either directory or file, to this directory
+        item.directory_path = self.path + "\\" + self.file_name
+        if item.item_type == "dir":
+            self.directory_list.append(item)
+        else:
+            self.file_list.append(item)
+            
+        # sorting directories based on names
+        # create dictionary of key:value of file_name:fileItem
+        dirDict = {}
+        dirLength = len(self.directory_list)
+        sortedDirList = []
+        for i in range(dirLength):
+            dirDict[self.directory_list[i].file_name] = self.directory_list[i]
+        for j in sorted(dirDict.keys()):
+            sortedDirList.append(dirDict[j])
+        self.directory_list = sortedDirList
+        
+        # sorting files based on names
+        # create dictionary of key:value of file_name:fileItem
+        fileDict = {}
+        fileLength = len(self.file_list)
+        sortedFileList = []
+        for i in range(fileLength):
+            fileDict[self.file_list[i].file_name] = self.file_list[i]
+        for j in sorted(fileDict.keys()):
+            sortedFileList.append(fileDict[j])
+        self.file_list = sortedFileList
+        
+        
+    def remove_from_dir(self, item):    # Removing any file item
+        if item.item_type == "dir":
+            self.directory_list.remove(item)
+        else:
+            self.file_list.remove(item)
+            
+            
+    # Count directory depth of an item:
+    def dir_depth(item):
+        dirDepth = 0
+        pathStr = item.directory_path
+        for char in pathStr:
+            if char == "\\":
+                dirDepth += 1
+        return dirDepth
+        
+
+    
+    # Give full size of directories with its contents
+    
+    def dir_full_size(self):
+        # sum over all file items, with KB or MB conversion:
+        # do directories first, followed by files:
+        
+        totalSizeInKB = 0                # Total size in KB
+        
+        if self.directory_list == []:
+            pass
+        else:
+            for item in self.directory_list:
+                itemSize = item.size
+                itemUnit = item.size_unit
+                if itemUnit == "MB":
+                    itemSize = 1024 * itemSize       # Conversion from MB to KB
+                totalSizeInKB += itemSize
+                
+        if self.file_list == []:
+            pass
+        else:
+            for item in self.file_list:
+                itemSize = item.size
+                itemUnit = item.size_unit
+                if itemUnit == "MB":
+                    itemSize = 1024 * itemSize       # Conversion from MB to KB
+                totalSizeInKB += itemSize
+        
+        return totalSizeInKB
+    
+    
+    def display_fill_directory_path(self):
+        pathText = self.directory_path + '\\' + self.file_name
+        print(f"Full Directory Path:    {pathText}")
+            
+    
+            
+    def display_attributes(self):
+        print(f"Directory Name:\t\t", end = "")
+        print(f"Item Type:\t\t{self.item_type.upper()}")
+        print(f"Directory Path:\t\t{self.directory_path}", )
+        print(f"Date Created:\t\t{self.date_created}")
+        print(f"Date Modified:\t\t{self.date_modified}")
+        print(f"Size:         \t\t{self.dir_full_size()}")
+        print(f"Owner:        \t\t{self.owner}")
+        print(f"Computer:\t\t{self.computer}")
+        
+        # Display if directory is password-protected
+        if self.password != "":
+            print("This directory is password-protected")
+        
+    
+    def display_basic(self):           # Display basic contents in directory, without branching in trees.
+        pathText = self.directory_path + "\\" + self.file_name
+        print(f"\nDirectory: {pathText}")
+        print(f"Size: {self.full_size()}    Date Modified: {self.date_modified}\n")
+        print(f"    Item Name\t\t\tSize\t\tDate Modified")
+        for item in self.directory_list:
+            print(f"    {item.file_name}\t\t\t{item.size} {item.size_unit}\t\t{item.date_modified}")
+        for item in self.file_list:
+            print(f"    {item.file_name}\t\t\t{item.size} {item.size_unit}\t\t{item.date_modified}")
+ 
+
+    def display_expand(self):         # Display the whole tree structure of the directory
+        if self.directory_list != []:
+            for folder in self.directory_list:
+                folderDirNum = dir_depth(folder)
+                folderSpace = folderDirNum * "    "
+                print(f"{folderSpace}-- {folder.file_name} >")
+                display_expand(folder)
+        for file in self.file_list:
+            fileDirNum = dir_depth(file)
+            fileSpace = fileDirNum * "    "
+            print(f"{fileSpace}-- {file.file_name}.{file.item_type.lower()}")
+            
 
 
+# Now test create the Home directory:
 
+homeDir = \
+Directory("Carl", "DIR", "C:\\Users", "2022-08-13 22:22", "2022-08-13 22:22", 1, "KB",\
+           "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxr--r--", "Password123",\
+           [], [])
 
+print("\nHome Directory created:", homeDir)
+homeDir.display_fill_directory_path()
 
+# Create the Documents directory
+        
+documentsDir = \
+Directory("Documents", "DIR", "C:\\Users\\Carl", "2022-08-13 22:32", "2022-08-13 22:32", 1, "KB",\
+           "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxr--r--", "Password123",\
+           [], [])
 
+print("\nDocuments Directory created:", documentsDir)
+documentsDir.display_fill_directory_path()        
 
+# Create the Pictures directory
+        
+picturesDir = \
+Directory("Pictures", "DIR", "C:\\Users\\Carl", "2022-08-13 22:42", "2022-08-13 22:42", 1, "KB",\
+           "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxrwxrwx", "",\
+           [], [])
 
+print("\nPictures Directory created:", picturesDir)
+picturesDir.display_fill_directory_path()     
+                
+# Create the Music directory
+        
+MusicDir = \
+Directory("Music", "DIR", "C:\\Users\\Carl", "2022-08-13 22:52", "2022-08-13 22:52", 1, "KB",\
+           "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxrwxrwx", "",\
+           [], [])
 
+print("\nMusic Directory created:", MusicDir)
+MusicDir.display_fill_directory_path()   
+_____________________________________
+## Outcome of running codes Part 1: Create the class Directory
 
+Home Directory created: <__main__.Directory object at 0x00000253C0AF2070>
+Full Directory Path:    C:\Users\Carl
 
+Documents Directory created: <__main__.Directory object at 0x00000253C0AF2F70>
+Full Directory Path:    C:\Users\Carl\Documents
 
-### Activity N
+Pictures Directory created: <__main__.Directory object at 0x00000253C0AF2610>
+Full Directory Path:    C:\Users\Carl\Pictures
 
-## Answer:
+Music Directory created: <__main__.Directory object at 0x00000253C0AF2970>
+Full Directory Path:    C:\Users\Carl\Music
+_____________________________________
+## Answer Part 2: Populate and manipulate directories
 _____________________________________
 
 _____________________________________
-## Outcome of running codes:
+## Outcome of running codes Part 2: Populate and manipulate directories
 
 _____________________________________
+
+
+
+
+
+
+
 
 
 
