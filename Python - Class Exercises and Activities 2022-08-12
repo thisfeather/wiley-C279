@@ -2947,7 +2947,6 @@ research05csv.display_attributes()
 _____________________________________
 ## Outcome of running codes Part 2: Create a class called CsvFile
 
-
 Created a CSV file, and displaying its attributes:
 
 File Name:		Research 01.csv
@@ -3035,19 +3034,19 @@ This file is password-protected.
 
 Created a CSV file, and displaying its attributes:
 
-File Name:		Research 05.csv
+File Name:		Research 06.csv
 Item Type:		CSV
 Directory Path:		C:\Users\Carl\Documents
-Date Created:		2022-08-12 02:45
-Date Modified:		2022-08-12 03:04
-Size:         		218.3 KB
+Date Created:		2022-08-12 02:58
+Date Modified:		2022-08-12 03:19
+Size:         		196.2 KB
 Owner:        		DESKTOP-TZBC123\Carl
 Computer:		DESKTOP-TZBC123 (This PC)
 Compatible Software:
 				Microsoft Excel
 				Google Sheets
 				MySQL
-Default Software to Open File:	Microsoft Excel
+Default Software to Open File:	MySQL
 This file is password-protected.
 _____________________________________
 ## Answer Part 3: Create a class called JpgFile
@@ -3799,8 +3798,8 @@ class Directory(FileItem):
  
 
     def add_to_dir(self, item):         # Adding any file item, either directory or file, to this directory
-        item.directory_path = self.path + "\\" + self.file_name
-        if item.item_type == "dir":
+        item.directory_path = self.directory_path + "\\" + self.file_name
+        if item.item_type.lower() == "dir":
             self.directory_list.append(item)
         else:
             self.file_list.append(item)
@@ -3829,21 +3828,23 @@ class Directory(FileItem):
         
         
     def remove_from_dir(self, item):    # Removing any file item
-        if item.item_type == "dir":
-            self.directory_list.remove(item)
+        if item.item_type.lower() == "dir":
+            index = self.directory_list.index(item)
+            del self.directory_list[index]
         else:
-            self.file_list.remove(item)
+            index = self.file_list.index(item)
+            del self.file_list[index]
             
             
     # Count directory depth of an item:
-    def dir_depth(item):
+    def dir_depth(self, item):
         dirDepth = 0
         pathStr = item.directory_path
         for char in pathStr:
             if char == "\\":
                 dirDepth += 1
         return dirDepth
-        
+    
 
     
     # Give full size of directories with its contents
@@ -3853,6 +3854,7 @@ class Directory(FileItem):
         # do directories first, followed by files:
         
         totalSizeInKB = 0                # Total size in KB
+        fullSize = 0                     # in either KB or MB
         
         if self.directory_list == []:
             pass
@@ -3873,23 +3875,33 @@ class Directory(FileItem):
                 if itemUnit == "MB":
                     itemSize = 1024 * itemSize       # Conversion from MB to KB
                 totalSizeInKB += itemSize
+                
+        if totalSizeInKB >= 1024:
+            fullSize = totalSizeInKB / 1024
+            self.size_unit = "MB"
+            self.size = fullSize
+        else:
+            fullSize = totalSizeInKB
+            self.size_unit = "KB"
+            self.size = fullSize
         
-        return totalSizeInKB
-    
-    
-    def display_fill_directory_path(self):
+        return fullSize
+  
+
+
+    def display_full_directory_path(self):
         pathText = self.directory_path + '\\' + self.file_name
         print(f"Full Directory Path:    {pathText}")
             
     
             
     def display_attributes(self):
-        print(f"Directory Name:\t\t", end = "")
+        self.display_full_directory_path()
         print(f"Item Type:\t\t{self.item_type.upper()}")
         print(f"Directory Path:\t\t{self.directory_path}", )
         print(f"Date Created:\t\t{self.date_created}")
         print(f"Date Modified:\t\t{self.date_modified}")
-        print(f"Size:         \t\t{self.dir_full_size()}")
+        print(f"Size:         \t\t{round(self.dir_full_size(),1)} {self.size_unit}")
         print(f"Owner:        \t\t{self.owner}")
         print(f"Computer:\t\t{self.computer}")
         
@@ -3901,23 +3913,23 @@ class Directory(FileItem):
     def display_basic(self):           # Display basic contents in directory, without branching in trees.
         pathText = self.directory_path + "\\" + self.file_name
         print(f"\nDirectory: {pathText}")
-        print(f"Size: {self.full_size()}    Date Modified: {self.date_modified}\n")
+        print(f"Size: {round(self.dir_full_size(), 1)} {self.size_unit}   Date Modified: {self.date_modified}\n")
         print(f"    Item Name\t\t\tSize\t\tDate Modified")
         for item in self.directory_list:
-            print(f"    {item.file_name}\t\t\t{item.size} {item.size_unit}\t\t{item.date_modified}")
+            print(f"    {item.file_name}\t\t\t{round(item.size, 1)} {item.size_unit}\t\t{item.date_modified}")
         for item in self.file_list:
-            print(f"    {item.file_name}\t\t\t{item.size} {item.size_unit}\t\t{item.date_modified}")
+            print(f"    {item.file_name}.{item.item_type.lower()}\t\t\t{round(item.size, 1)} {item.size_unit}\t\t{item.date_modified}")
  
 
     def display_expand(self):         # Display the whole tree structure of the directory
+        folderDirNum = self.dir_depth(self)       # Calculate how much to indent each line of tree structure.
+        folderSpace = folderDirNum * "    "
+        print(f"{folderSpace}-- {self.file_name} >")
         if self.directory_list != []:
             for folder in self.directory_list:
-                folderDirNum = dir_depth(folder)
-                folderSpace = folderDirNum * "    "
-                print(f"{folderSpace}-- {folder.file_name} >")
-                display_expand(folder)
+                folder.display_expand()
         for file in self.file_list:
-            fileDirNum = dir_depth(file)
+            fileDirNum = self.dir_depth(file)     # Calculate how much to indent each line of tree structure.
             fileSpace = fileDirNum * "    "
             print(f"{fileSpace}-- {file.file_name}.{file.item_type.lower()}")
             
@@ -3931,7 +3943,7 @@ Directory("Carl", "DIR", "C:\\Users", "2022-08-13 22:22", "2022-08-13 22:22", 1,
            [], [])
 
 print("\nHome Directory created:", homeDir)
-homeDir.display_fill_directory_path()
+homeDir.display_full_directory_path()
 
 # Create the Documents directory
         
@@ -3941,7 +3953,7 @@ Directory("Documents", "DIR", "C:\\Users\\Carl", "2022-08-13 22:32", "2022-08-13
            [], [])
 
 print("\nDocuments Directory created:", documentsDir)
-documentsDir.display_fill_directory_path()        
+documentsDir.display_full_directory_path()        
 
 # Create the Pictures directory
         
@@ -3951,116 +3963,410 @@ Directory("Pictures", "DIR", "C:\\Users\\Carl", "2022-08-13 22:42", "2022-08-13 
            [], [])
 
 print("\nPictures Directory created:", picturesDir)
-picturesDir.display_fill_directory_path()     
+picturesDir.display_full_directory_path()     
                 
 # Create the Music directory
         
-MusicDir = \
+musicDir = \
 Directory("Music", "DIR", "C:\\Users\\Carl", "2022-08-13 22:52", "2022-08-13 22:52", 1, "KB",\
            "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxrwxrwx", "",\
            [], [])
 
-print("\nMusic Directory created:", MusicDir)
-MusicDir.display_fill_directory_path()   
+print("\nMusic Directory created:", musicDir)
+musicDir.display_full_directory_path()   
+       
 _____________________________________
-## Outcome of running codes Part 1: Create the class Directory
+## Outcome of running codes Part 1: Populate and manipulate directories
 
-Home Directory created: <__main__.Directory object at 0x00000253C0AF2070>
+Home Directory created: <__main__.Directory object at 0x0000027760B75790>
 Full Directory Path:    C:\Users\Carl
 
-Documents Directory created: <__main__.Directory object at 0x00000253C0AF2F70>
+Documents Directory created: <__main__.Directory object at 0x0000027760C5A520>
 Full Directory Path:    C:\Users\Carl\Documents
 
-Pictures Directory created: <__main__.Directory object at 0x00000253C0AF2610>
+Pictures Directory created: <__main__.Directory object at 0x0000027760B97100>
 Full Directory Path:    C:\Users\Carl\Pictures
 
-Music Directory created: <__main__.Directory object at 0x00000253C0AF2970>
+Music Directory created: <__main__.Directory object at 0x0000027760B97DC0>
 Full Directory Path:    C:\Users\Carl\Music
 _____________________________________
-## Answer Part 2: Populate and manipulate directories
+## Answer Part 2: Populate and display directories (Note: using the file items already created above)
+_____________________________________
+# Part 2: Populate the directories and display them:
+
+# Documents Directory: Keep all the CSVs:
+documentsDir.add_to_dir(research01csv)
+documentsDir.add_to_dir(research02csv)
+documentsDir.add_to_dir(research03csv)
+documentsDir.add_to_dir(research04csv)
+documentsDir.add_to_dir(research05csv)
+documentsDir.add_to_dir(research06csv)
+
+# Showcase Documents:
+print("\n\nShowcase the directory Documents:\nFirst the attributes, followed by basic listing of contents.\n")
+documentsDir.display_attributes()
+documentsDir.display_basic()
+
+
+# Pictures Directory: Keep all the JPGs:
+picturesDir.add_to_dir(picture01jpg)
+picturesDir.add_to_dir(picture02jpg)
+picturesDir.add_to_dir(picture03jpg)
+picturesDir.add_to_dir(picture04jpg)
+picturesDir.add_to_dir(picture05jpg)
+picturesDir.add_to_dir(picture06jpg)
+picturesDir.add_to_dir(picture07jpg)
+picturesDir.add_to_dir(picture08jpg)
+
+# Showcase Pictures:
+print("\n\nShowcase the directory Pictures:\nFirst the attributes, followed by basic listing of contents.\n")
+picturesDir.display_attributes()
+picturesDir.display_basic()
+
+
+# Music Directory: Keep all the MP3s:
+musicDir.add_to_dir(song01mp3)
+musicDir.add_to_dir(song02mp3)
+musicDir.add_to_dir(song03mp3)
+musicDir.add_to_dir(song04mp3)
+musicDir.add_to_dir(song05mp3)
+musicDir.add_to_dir(researchInterview01mp3)
+musicDir.add_to_dir(researchInterview02mp3)
+musicDir.add_to_dir(researchInterview03mp3)
+musicDir.add_to_dir(researchInterview04mp3)
+
+# Showcase Music:
+print("\n\nShowcase the directory Music:\nFirst the attributes, followed by basic listing of contents.\n")
+musicDir.display_attributes()
+musicDir.display_basic()
+
+
+# Now put the Documents, Pictures and Music directories into the Home Directory
+homeDir.add_to_dir(documentsDir)
+homeDir.add_to_dir(picturesDir)
+homeDir.add_to_dir(musicDir)
+
+# Showcase Home Directory:
+print("\n\nShowcase the directory Home:\nFirst the attributes, followed by basic listing of contents.\n")
+homeDir.display_attributes()
+homeDir.display_basic()
+
+
+# Display the whole file structure tree:
+print("\n\nDisplay the whole file structure tree:\n -----------------------------------")
+homeDir.display_expand()
+_____________________________________
+## Outcome of running codes Part 2: Populate and display directories
+
+
+Showcase the directory Documents:
+First the attributes, followed by basic listing of contents.
+
+Full Directory Path:    C:\Users\Carl\Documents
+Item Type:		DIR
+Directory Path:		C:\Users\Carl
+Date Created:		2022-08-13 22:32
+Date Modified:		2022-08-13 22:32
+Size:         		1.2 MB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+This directory is password-protected
+
+Directory: C:\Users\Carl\Documents
+Size: 1.2 MB   Date Modified: 2022-08-13 22:32
+
+    Item Name			Size		Date Modified
+    Research 01.csv			231 KB		2022-08-12 02:17
+    Research 02.csv			231.6 KB		2022-08-12 02:27
+    Research 03.csv			185.7 KB		2022-08-12 02:38
+    Research 04.csv			207.4 KB		2022-08-12 02:49
+    Research 05.csv			218.3 KB		2022-08-12 03:04
+    Research 06.csv			196.2 KB		2022-08-12 03:19
+
+
+Showcase the directory Pictures:
+First the attributes, followed by basic listing of contents.
+
+Full Directory Path:    C:\Users\Carl\Pictures
+Item Type:		DIR
+Directory Path:		C:\Users\Carl
+Date Created:		2022-08-13 22:42
+Date Modified:		2022-08-13 22:42
+Size:         		1.4 MB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Directory: C:\Users\Carl\Pictures
+Size: 1.4 MB   Date Modified: 2022-08-13 22:42
+
+    Item Name			Size		Date Modified
+    Picture 01.jpg			178.2 KB		2022-08-13 03:19
+    Picture 02.jpg			183.1 KB		2022-08-13 03:24
+    Picture 03.jpg			179.6 KB		2022-08-13 03:29
+    Picture 04.jpg			179.6 KB		2022-08-13 03:34
+    Picture 05.jpg			179.6 KB		2022-07-23 08:34
+    Picture 06.jpg			178.2 KB		2022-07-23 08:19
+    Picture 07.jpg			183.1 KB		2022-07-23 08:24
+    Picture 08.jpg			179.6 KB		2022-07-23 08:29
+
+
+Showcase the directory Music:
+First the attributes, followed by basic listing of contents.
+
+Full Directory Path:    C:\Users\Carl\Music
+Item Type:		DIR
+Directory Path:		C:\Users\Carl
+Date Created:		2022-08-13 22:52
+Date Modified:		2022-08-13 22:52
+Size:         		447.9 MB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+
+Directory: C:\Users\Carl\Music
+Size: 447.9 MB   Date Modified: 2022-08-13 22:52
+
+    Item Name			Size		Date Modified
+    Research Interview 01.mp3			131.5 MB		2022-07-29 14:25
+    Research Interview 02.mp3			140.2 MB		2022-07-30 15:45
+    Research Interview 03.mp3			90.7 MB		2022-07-31 13:06
+    Research Interview 04.mp3			65.8 MB		2022-07-31 15:31
+    Song 01.mp3			3.8 MB		2021-06-12 09:17
+    Song 02.mp3			3.9 MB		2021-06-12 09:18
+    Song 03.mp3			4.1 MB		2021-06-12 09:18
+    Song 04.mp3			4.2 MB		2021-06-12 09:18
+    Song 05.mp3			3.7 MB		2021-06-12 09:18
+
+
+Showcase the directory Home:
+First the attributes, followed by basic listing of contents.
+
+Full Directory Path:    C:\Users\Carl
+Item Type:		DIR
+Directory Path:		C:\Users
+Date Created:		2022-08-13 22:22
+Date Modified:		2022-08-13 22:22
+Size:         		450.5 MB
+Owner:        		DESKTOP-TZBC123\Carl
+Computer:		DESKTOP-TZBC123 (This PC)
+This directory is password-protected
+
+Directory: C:\Users\Carl
+Size: 450.5 MB   Date Modified: 2022-08-13 22:22
+
+    Item Name			Size		Date Modified
+    Documents			1.2 MB		2022-08-13 22:32
+    Music			447.9 MB		2022-08-13 22:52
+    Pictures			1.4 MB		2022-08-13 22:42
+
+
+Display the whole file structure tree:
+ -----------------------------------
+    -- Carl >
+        -- Documents >
+            -- Research 01.csv
+            -- Research 02.csv
+            -- Research 03.csv
+            -- Research 04.csv
+            -- Research 05.csv
+            -- Research 06.csv
+        -- Music >
+            -- Research Interview 01.mp3
+            -- Research Interview 02.mp3
+            -- Research Interview 03.mp3
+            -- Research Interview 04.mp3
+            -- Song 01.mp3
+            -- Song 02.mp3
+            -- Song 03.mp3
+            -- Song 04.mp3
+            -- Song 05.mp3
+        -- Pictures >
+            -- Picture 01.jpg
+            -- Picture 02.jpg
+            -- Picture 03.jpg
+            -- Picture 04.jpg
+            -- Picture 05.jpg
+            -- Picture 06.jpg
+            -- Picture 07.jpg
+            -- Picture 08.jpg
+_____________________________________
+## Answer Part 3: Rename files and reorganize files and directories
+_____________________________________
+# Part 3: Rename files and reorganize files and directories
+
+
+# Bring in the PDF file created earlier to Documents.
+documentsDir.add_to_dir(reading01pdf)
+
+# Make a Research directory
+researchDir = \
+Directory("Research", "DIR", "C:\\Users\\Carl", "2022-08-14 23:15", "2022-08-14 23:15", 1, "KB",\
+           "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxr--r--", "Password123",\
+           [], [])
+
+# Move Research to Documents.
+# This has to be done first so that other inner items using its directory path later can get correct paths.
+documentsDir.add_to_dir(researchDir)
+
+
+
+# Move items from Documents to Research directory.
+researchDir.add_to_dir(research01csv)
+documentsDir.remove_from_dir(research01csv)
+researchDir.add_to_dir(research02csv)
+documentsDir.remove_from_dir(research02csv)
+researchDir.add_to_dir(research03csv)
+documentsDir.remove_from_dir(research03csv)
+researchDir.add_to_dir(research04csv)
+documentsDir.remove_from_dir(research04csv)
+researchDir.add_to_dir(research05csv)
+documentsDir.remove_from_dir(research05csv)
+researchDir.add_to_dir(research06csv)
+documentsDir.remove_from_dir(research06csv)
+
+
+# Some pictures are renamed as graphs and moved to sub-directory Graph under Research
+graphsDir = \
+Directory("Graphs", "DIR", "C:\\Users\\Carl", "2022-08-14 23:20", "2022-08-14 23:20", 1, "KB",\
+           "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxr--r--", "Password123",\
+           [], [])
+
+researchDir.add_to_dir(graphsDir)
+
+graphsDir.add_to_dir(picture01jpg)
+picturesDir.remove_from_dir(picture01jpg)
+picture01jpg.file_name = "Graph 01"
+graphsDir.add_to_dir(picture02jpg)
+picturesDir.remove_from_dir(picture02jpg)
+picture02jpg.file_name = "Graph 02"
+graphsDir.add_to_dir(picture03jpg)
+picturesDir.remove_from_dir(picture03jpg)
+picture03jpg.file_name = "Graph 03"
+graphsDir.add_to_dir(picture04jpg)
+picturesDir.remove_from_dir(picture04jpg)
+picture04jpg.file_name = "Graph 04"
+
+
+
+# Research interviews are moved from Music to Interviews, which will be moved under Research
+interviewsDir = \
+Directory("Interviews", "DIR", "C:\\Users\\Carl", "2022-08-14 23:25", "2022-08-14 23:25", 1, "KB",\
+           "DESKTOP-TZBC123\\Carl", "DESKTOP-TZBC123 (This PC)", "-rwxr--r--", "Password123",\
+           [], [])
+
+researchDir.add_to_dir(interviewsDir)
+
+interviewsDir.add_to_dir(researchInterview01mp3)
+musicDir.remove_from_dir(researchInterview01mp3) # This removal action does not seem necessary
+interviewsDir.add_to_dir(researchInterview02mp3) 
+musicDir.remove_from_dir(researchInterview02mp3)
+interviewsDir.add_to_dir(researchInterview03mp3)
+musicDir.remove_from_dir(researchInterview03mp3)
+interviewsDir.add_to_dir(researchInterview04mp3)
+musicDir.remove_from_dir(researchInterview04mp3)
+
+
+print("\nWith the research CSV files already moved from Documents to Research;")
+
+print("\n\nSome pictures are renamed as graphs and moved to sub-directory Graph under Research,")
+print("\nand Research will be moved to Documents.\n")
+graphsDir.display_basic()
+
+print("\n\nResearch interviews are moved from Music to Interviews, which will be moved under Research,")
+print("\nand Research will be moved to Documents.\n")
+interviewsDir.display_basic()
+
+print("\n\nThis is the Research directory under the Documents directory:\n")
+
+researchDir.display_basic()
+
+print("\n\nHere is the updated overall file and directory structure:\n")
+homeDir.display_expand()
+
+_____________________________________
+## Outcome of running codes Part 3: Rename files and reorganize files and directories
+
+With the research CSV files already moved from Documents to Research;
+
+
+Some pictures are renamed as graphs and moved to sub-directory Graph under Research,
+
+and Research will be moved to Documents.
+
+
+Directory: C:\Users\Carl\Documents\Research\Graphs
+Size: 720.5 KB   Date Modified: 2022-08-14 23:20
+
+    Item Name			Size		Date Modified
+    Graph 01.jpg			178.2 KB		2022-08-13 03:19
+    Graph 02.jpg			183.1 KB		2022-08-13 03:24
+    Graph 03.jpg			179.6 KB		2022-08-13 03:29
+    Graph 04.jpg			179.6 KB		2022-08-13 03:34
+
+
+Research interviews are moved from Music to Interviews, which will be moved under Research,
+
+and Research will be moved to Documents.
+
+
+Directory: C:\Users\Carl\Documents\Research\Interviews
+Size: 428.2 MB   Date Modified: 2022-08-14 23:25
+
+    Item Name			Size		Date Modified
+    Research Interview 01.mp3			131.5 MB		2022-07-29 14:25
+    Research Interview 02.mp3			140.2 MB		2022-07-30 15:45
+    Research Interview 03.mp3			90.7 MB		2022-07-31 13:06
+    Research Interview 04.mp3			65.8 MB		2022-07-31 15:31
+
+
+This is the Research directory under the Documents directory:
+
+
+Directory: C:\Users\Carl\Documents\Research
+Size: 430.1 MB   Date Modified: 2022-08-14 23:15
+
+    Item Name			Size		Date Modified
+    Graphs			720.5 KB		2022-08-14 23:20
+    Interviews			428.2 MB		2022-08-14 23:25
+    Research 01.csv			231 KB		2022-08-12 02:17
+    Research 02.csv			231.6 KB		2022-08-12 02:27
+    Research 03.csv			185.7 KB		2022-08-12 02:38
+    Research 04.csv			207.4 KB		2022-08-12 02:49
+    Research 05.csv			218.3 KB		2022-08-12 03:04
+    Research 06.csv			196.2 KB		2022-08-12 03:19
+
+
+Here is the updated overall file and directory structure:
+
+    -- Carl >
+        -- Documents >
+            -- Research >
+                -- Graphs >
+                    -- Graph 01.jpg
+                    -- Graph 02.jpg
+                    -- Graph 03.jpg
+                    -- Graph 04.jpg
+                -- Interviews >
+                    -- Research Interview 01.mp3
+                    -- Research Interview 02.mp3
+                    -- Research Interview 03.mp3
+                    -- Research Interview 04.mp3
+                -- Research 01.csv
+                -- Research 02.csv
+                -- Research 03.csv
+                -- Research 04.csv
+                -- Research 05.csv
+                -- Research 06.csv
+            -- Reading 01.pdf
+        -- Music >
+            -- Song 01.mp3
+            -- Song 02.mp3
+            -- Song 03.mp3
+            -- Song 04.mp3
+            -- Song 05.mp3
+        -- Pictures >
+            -- Picture 05.jpg
+            -- Picture 06.jpg
+            -- Picture 07.jpg
+            -- Picture 08.jpg
 _____________________________________
 
-_____________________________________
-## Outcome of running codes Part 2: Populate and manipulate directories
-
-_____________________________________
-
-
-
-
-
-
-
-
-
-
-### Activity N
-
-## Answer:
-_____________________________________
-
-_____________________________________
-## Outcome of running codes:
-
-_____________________________________
-
-
-
-
-### Activity N
-
-## Answer:
-_____________________________________
-
-_____________________________________
-## Outcome of running codes:
-
-_____________________________________
-
-
-
-### Activity N
-
-## Answer:
-_____________________________________
-
-_____________________________________
-## Outcome of running codes:
-
-_____________________________________
-
-
-
-### Activity N
-
-## Answer:
-_____________________________________
-
-_____________________________________
-## Outcome of running codes:
-
-_____________________________________
-
-
-
-### Activity N
-
-## Answer:
-_____________________________________
-
-_____________________________________
-## Outcome of running codes:
-
-_____________________________________
-
-
-
-### Activity N
-
-## Answer:
-_____________________________________
-
-_____________________________________
-## Outcome of running codes:
-
-_____________________________________
