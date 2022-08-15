@@ -1,0 +1,31 @@
+SRE - Group 2 Summary - 2022-08-15 Git Day 1
+
+Group 2 Team Members: Aaron Low, Britney Toh, Carl Tang
+
+
+Questions:
+-manage user permissions like pull push
+-create individual branches to the repo
+-take a main branch and commit at the same time
+
+
+Experience:
+- Aaron created a repo "aaron0096/GitExercise", and as the admin he gave permission to 
+  Britney and Carl by their GitHub ID to push and pull to and from the repo.
+  Britney initially had problem trying access the repo shared by Aaron, and met with issues of authentication.
+  After resolving authentication issue with key, all three members were able to clone the repo to
+  local directories and start making new files, which were eventually pushed and visible to all members on GitHub.
+
+- Branches were created by Aaron, Britney and Carl. None were merged to main branch.
+  Britney and Carl also tried deleting their own branches remotely and locally, followed by each pushing new branches remotely,
+  making altogether 4 branches in the end. Carl also tried to push an update to only his new branch, but was not successful.
+  Due to the late update of previous pushes, this was speculated to be due to a lag in GitHub update response,
+  but refreshes of browser for GitHub proved otherwise.
+
+- All three members made changes to local main branch and pushed to remote repo. Carl pushed first and was successful,
+  whereby others members could see the update on GitHub, however when Aaron and Britney were trying to push updates from
+  local main almost concurrently (with Aaron slightly preceeding Britney), Aaron was successfully pushing but Britney was
+  facing an error. After a while Britney managed to push again, with changes on GitHub visible to all three members.
+  
+  
+  
