@@ -1,0 +1,168 @@
+SRE - Group 2 Summary - 2022-08-17 Jenkins Day 1
+
+Group 2 Members: Aaron Low, Britney Toh, Carl Tang
+
+
+
+
+1) What is Jenkins:
+
+
+Before Jenkins: commits to repos used to be inconsistent, e.g. of different time zones,
+"development hell" happens. Delivery of software is slow, monolythic and cannot iterate.
+
+Jenkins is a Continuous Integration tool that allows continuous development, test and deployent
+of newly created codes.
+
+Two approaches of continuous delivery: Nightly Builds (cutoff time at night) vs. Continuous
+Second method: commit continuously. Put test and verification services in the build environment,
+always running cycles to test codes.
+
+Developer can send codes from repos to CI server, and server can pass the codes ahead to go through
+tests and verifications that the testers may have already created. Only when code does not pass,
+it gets sent back to developer to modify. Isolate testing task from the developers (and their
+machines) can improve productivity of developers.
+
+# CI Tools are mostly open source:
+Bamboo (good for multi-platforms),
+Buildbot (build and release quickly), Apache Gump (for Java),
+Travis CI (for hosted Github projects),
+Jenkins (central tool for automation, forked from Hudson)
+
+
+# Features:
+(Note: Jenkins is a self-contained Java program, and can run on most popular OSes)
+- Easy installation
+- Easy configuration
+- Plugins (100s of them available)
+- Extensible (to fit in your environment). Extend, not configure to your need.
+- Distributed (easy tool for DevOps)
+
+# Jenkin Pipeline:
+Development -> code commit -> build -> test -> release -> deploy/deliver -> production
+(Example: Etsy will release up to 50 versions of their website every single day)
+
+# Jenkins Architecture:
+1) Developer deposit codes to source code repo,
+2) Jenkin pulls codes from repo and run tests on them, and use build server
+   like Maven to build the code. If code fails, it will be sent back to dev.
+   Then finally execute specific test scripts (which can be written in Selenium),
+   and both Maven and Selenium are plugins that run in Jenkins environment.
+
+   Note: Jenkins does not allow multiple files and builds to be executed on a single server.
+   Need to run different versions of Jenkins instead.
+
+# Master-Slave Architecture
+From remote repo, Jenkins server (Master environment) pull code and distribute to multiple
+slave environments to run multiple build and tests concurrently, ultimately controlled by
+Master server.
+
+# Case Study:
+CloudBees: enterprise Jenkins, used by companies e.g. Bosch.
+3 day build process reduced to less than 3 hours.
+
+_________________________________________________________________
+
+### Exploratory exercise: explore the options available on Jenkins' UI:
+
+
+On the left options panel:
+ 
+
+"+ New Item":
+can be used to build new jobs, as desribed in next section.
+
+
+"People":
+Includes all known “users”, including login identities which the current security realm can enumerate,
+as well as people mentioned in commit messages in recorded changelogs. At this point, two IDs can be seen:
+- oneself (e.g. "admin")
+- SYSTEM
+One may choose to add description after clicking into them.
+
+
+"Build History":
+This will show graphical timeline of build history, and also a simple log record of
+the different number of builds. Clicking further into the build history items,
+one can eventually see log (console output) file of each history item,
+which comes with the option to view as plain text.
+
+
+"Manage Jenkins":
+- On top of the main page area, there is an encouragement to set up distributed builds.
+- There is also a notification on upgrading Java from 1.8 to Java 11.
+
+- System Configurations available:
+   - Configure System (for global settings and paths)
+   - Global Tool Configuration (for tools, their locations and automatic installers)
+   - Manage Plugins
+   - Manage Nodes and Clouds (manage the various nodes that Jenkins runs jobs on)
+
+- Security settings:
+   - Configure Global Security,
+   - Configure Credential Providers
+   - Manage Credentials
+   - Manage Users
+   
+- Status Information:
+   - Syetem Information (for troubleshooting)
+   - Load Statistics (resource utilization)
+   - System Log (captures output from java.util.logging output)
+   - About Jenkins (standard software info on version and licensing)
+
+ - Troubleshooting
+   - Manage Old Data
+
+ - Tools and Actions
+   - Reload Config from Disk 
+     (discard all loaded data in memory, and reload everything from file system.)
+   - Script Console (for admin, troubleshooting, etc.)
+   - Jenkins CLI (to manage Jenkins from shell or script)
+   - Prepare for Shutdown (stop executing new builds to allow eventual safe shutdown)
+
+
+"My Views"
+Primarily show my builds.
+One can make new views which are of the types of:
+Global view, list view or My View.
+## Note that the left options panel can dynamically change if different menus are more relevant.
+
+
+"Credentials"
+Showing stores scoped to certain user(s), or stores from parent 
+(Jenkins seems to be the parent with global domains)
+
+
+
+On the left panel, one can also see Build Queue and Build Executor Status.
+
+
+A rather informative hands-on attempt at creating a build is as follows,
+which informs many of the observations above.
+
+______________________________________________________________________
+
+
+2) Create First Job in Jenkins:
+
+- Go to either "New Item" or "create new jobs".
+- enter item name
+- can take "Freestle project" (URL will show the job name too)
+- can parameterize the the project
+- go to SCM tab to configure the SCM
+- build triggers: can build periodically with a schedule, with cron
+- build environment: can choose Build by adding build steps, with options such as
+  execute Windows batch command, shell, Maven, etc.
+- just provide the path of the script (e.g. shell) from the repo directory,
+  put in the command box for Execute Shell:
+  _______________________________
+  cd [path from repo directory, if any]
+  ./[file name of code]
+  _______________________________
+
+Due to failed GitHub authentication, after executing build for 3 times, they all failed.
+Cause of failure was shown in the logs provided (failure in authentication).
+
+ ________________________________________________________________ 
+
+
