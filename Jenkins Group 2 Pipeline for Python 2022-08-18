@@ -18,22 +18,19 @@ Running on Jenkins in /var/lib/jenkins/workspace/Group 2 Pipeline 2022-08-18
 Selected Git installation does not exist. Using Default
 The recommended git tool is: NONE
 No credentials specified
-Cloning the remote Git repository
-Cloning repository https://github.com/thisfeather/wiley-C279
- > git init /var/lib/jenkins/workspace/Group 2 Pipeline 2022-08-18 # timeout=10
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/Group 2 Pipeline 2022-08-18/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/thisfeather/wiley-C279 # timeout=10
 Fetching upstream changes from https://github.com/thisfeather/wiley-C279
  > git --version # timeout=10
  > git --version # 'git version 2.34.1'
  > git fetch --tags --force --progress -- https://github.com/thisfeather/wiley-C279 +refs/heads/*:refs/remotes/origin/* # timeout=10
- > git config remote.origin.url https://github.com/thisfeather/wiley-C279 # timeout=10
- > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
-Avoid second fetch
  > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
-Checking out Revision 667662f3dd09ca74443ec789858b05f12ea5ceb3 (refs/remotes/origin/main)
+Checking out Revision af064d6c0a79a8b5feb9d926447e3ecaedd0730e (refs/remotes/origin/main)
  > git config core.sparsecheckout # timeout=10
- > git checkout -f 667662f3dd09ca74443ec789858b05f12ea5ceb3 # timeout=10
+ > git checkout -f af064d6c0a79a8b5feb9d926447e3ecaedd0730e # timeout=10
 Commit message: "Update Jenkinsfile"
-First time build. Skipping changelog.
+ > git rev-list --no-walk 667662f3dd09ca74443ec789858b05f12ea5ceb3 # timeout=10
 [Pipeline] }
 [Pipeline] // stage
 [Pipeline] withEnv
@@ -46,106 +43,30 @@ First time build. Skipping changelog.
 ### This is a Build stage designed by Group 2:
 
 [Pipeline] echo
-building the application...
-
-[Pipeline] echo
 
 
-This is the outcome of running the 1st Python script, inventoryClass.py:
+This is the outcome of running the Python script, helloJenkinsWorld.py:
 
 [Pipeline] sh
-+ python3 ./pythonJobsJenkins/inventoryClass.py
++ python3 ./pythonJobsJenkins/helloJenkinsWorld.py
+... Jenkins building ...
+   ... Jenkins building ...
+      ... Jenkins building ...
+         ... Jenkins building ...
 
+Building seems okay.
 
-The SKU Code is: MOS-DEL-1234
-The brand is: Dell
-The product name is: Wireless Mouse Model 1234
-The price is: 15.5
-The discount applicability is: False
-The unit(s) of stock available is: 34
+ Hello,
+ Hello, Hello,
+ Hello, Hello, Hello,
+ Hello, Hello, Hello, Hello, Jenkins World!!
 
-
-The SKU Code is: KEB-TOS-3310
-The brand is: Toshiba
-The product name is: Wireless Keyboard Model 3310
-The price is: 27.8
-The discount applicability is: True
-The unit(s) of stock available is: 26
-
-
-The SKU Code is: THD-KST-2688
-The brand is: Kingston
-The product name is: Thumb Drive 128GB Model 2688
-The price is: 58.8
-The discount applicability is: True
-The unit(s) of stock available is: 43
-
-
-The SKU Code is: TAB-WAC-4730
-The brand is: Wacom
-The product name is: Drawing Tablet Model 4730
-The price is: 670.7
-The discount applicability is: True
-The unit(s) of stock available is: 16
-
-Welcome to Awesome Electronics!
-Dell Wireless Mouse Model 1234
-Now at: $15.50
-Download our app to check out our latest products and promotion!
-
-
-Welcome to Awesome Electronics!
-Toshiba Wireless Keyboard Model 3310
-Now at 10% discount!!
-    ONLY $25.02 !!
-Original Price: $27.80 //
-
-Less than 30 units left! What are you waiting for?
-
-
-Welcome to Awesome Electronics!
-Kingston Thumb Drive 128GB Model 2688
-Now at 10% discount!!
-    ONLY $52.92 !!
-Original Price: $58.80 //
-
-Less than 50 units left! Get your promo code from our app!
-
-
-Welcome to Awesome Electronics!
-Wacom Drawing Tablet Model 4730
-Now at 15% discount!!
-    ONLY $570.10 !!
-Original Price: $670.70 //
-
-Less than 20 units left! Hurry!
+Building stage done.
 
 [Pipeline] echo
 
 
-This is the outcome of running the 2nd Python script, animalClass.py:
-
-[Pipeline] sh
-+ python3 ./pythonJobsJenkins/animalClass.py
-
-These are attributes of: Monkey
-Number of legs: 2
-Category: mammal
-Have visible ears or not: True
-
-These are attributes of: Lizard
-Number of legs: 4
-Category: reptile
-Have visible ears or not: False
-
-These are attributes of: Eagle
-Number of legs: 2
-Category: bird
-Have visible ears or not: False
-[Pipeline] echo
-
-
-End of Python scripts
+End of Python script.
 
 [Pipeline] }
 [Pipeline] // stage
@@ -156,8 +77,14 @@ End of Python scripts
 
 ### This is a Test stage designed by Group 2.
 
-[Pipeline] echo
-testing the application...
+[Pipeline] sh
++ python3 ./pythonJobsJenkins/testHelloJenkinsWorld.py
+... Jenkins testing ...
+   ... Jenkins testing ...
+      ... Jenkins testing ...
+         ... Jenkins testing ...
+
+Testing seems okay.
 
 [Pipeline] }
 [Pipeline] // stage
@@ -168,8 +95,14 @@ testing the application...
 
 ### This is a Deploy stage designed by Group 2.
 
-[Pipeline] echo
-deploying the application...
+[Pipeline] sh
++ python3 ./pythonJobsJenkins/deployHelloJenkinsWorld.py
+... Jenkins deploying ...
+   ... Jenkins deploying ...
+      ... Jenkins deploying ...
+         ... Jenkins deploying ...
+
+Deploying seems okay.
 
 [Pipeline] }
 [Pipeline] // stage
