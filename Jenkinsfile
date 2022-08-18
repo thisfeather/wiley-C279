@@ -8,9 +8,9 @@ pipeline {
                 echo "\n\n### This is a Build stage designed by Group 2:\n"
 		echo "building the application...\n"
                 echo "\n\nThis is the outcome of running the 1st Python script, inventoryClass.py:\n"
-                python3 ./pythonJobsJenkins/inventoryClass.py
+                sh 'python3 ./pythonJobsJenkins/inventoryClass.py'
                 echo "\n\nThis is the outcome of running the 2nd Python script, animalClass.py:\n"
-                python3 ./pythonJobsJenkins/animalClass.py
+                sh 'python3 ./pythonJobsJenkins/animalClass.py'
                 echo "\n\nEnd of Python scripts\n"
             }
         }
