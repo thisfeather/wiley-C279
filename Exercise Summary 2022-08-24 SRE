@@ -1,0 +1,548 @@
+Exercise Summary 2022-08-24 SRE
+
+Carl Tang Yong Han
+
+
+### Exercise: Example Runbook
+
+ubuntu@ip-172-31-14-130:~$ ps -ef
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 Aug22 ?        00:00:09 /sbin/init
+root           2       0  0 Aug22 ?        00:00:00 [kthreadd]
+root           3       2  0 Aug22 ?        00:00:00 [rcu_gp]
+root           4       2  0 Aug22 ?        00:00:00 [rcu_par_gp]
+root           5       2  0 Aug22 ?        00:00:00 [netns]
+root           7       2  0 Aug22 ?        00:00:00 [kworker/0:0H-events_highpri
+root          10       2  0 Aug22 ?        00:00:00 [mm_percpu_wq]
+root          11       2  0 Aug22 ?        00:00:00 [rcu_tasks_rude_]
+root          12       2  0 Aug22 ?        00:00:00 [rcu_tasks_trace]
+root          13       2  0 Aug22 ?        00:00:01 [ksoftirqd/0]
+root          14       2  0 Aug22 ?        00:00:02 [rcu_sched]
+root          15       2  0 Aug22 ?        00:00:00 [migration/0]
+root          16       2  0 Aug22 ?        00:00:00 [idle_inject/0]
+root          17       2  0 Aug22 ?        00:00:00 [cpuhp/0]
+root          18       2  0 Aug22 ?        00:00:00 [kdevtmpfs]
+root          19       2  0 Aug22 ?        00:00:00 [inet_frag_wq]
+root          20       2  0 Aug22 ?        00:00:00 [kauditd]
+root          21       2  0 Aug22 ?        00:00:00 [khungtaskd]
+root          22       2  0 Aug22 ?        00:00:00 [oom_reaper]
+root          23       2  0 Aug22 ?        00:00:00 [writeback]
+root          24       2  0 Aug22 ?        00:00:04 [kcompactd0]
+root          25       2  0 Aug22 ?        00:00:00 [ksmd]
+root          26       2  0 Aug22 ?        00:00:00 [khugepaged]
+root          72       2  0 Aug22 ?        00:00:00 [kintegrityd]
+root          73       2  0 Aug22 ?        00:00:00 [kblockd]
+root          74       2  0 Aug22 ?        00:00:00 [blkcg_punt_bio]
+root          75       2  0 Aug22 ?        00:00:00 [xen-balloon]
+root          76       2  0 Aug22 ?        00:00:00 [tpm_dev_wq]
+root          77       2  0 Aug22 ?        00:00:00 [ata_sff]
+root          78       2  0 Aug22 ?        00:00:00 [md]
+root          79       2  0 Aug22 ?        00:00:00 [edac-poller]
+root          80       2  0 Aug22 ?        00:00:00 [devfreq_wq]
+root          81       2  0 Aug22 ?        00:00:00 [watchdogd]
+root          83       2  0 Aug22 ?        00:00:00 [kworker/0:1H-kblockd]
+root          86       2  0 Aug22 ?        00:00:05 [kswapd0]
+root          87       2  0 Aug22 ?        00:00:00 [ecryptfs-kthrea]
+root          89       2  0 Aug22 ?        00:00:00 [kthrotld]
+root          90       2  0 Aug22 ?        00:00:00 [acpi_thermal_pm]
+root          91       2  0 Aug22 ?        00:00:00 [xenbus]
+root          92       2  0 Aug22 ?        00:00:00 [xenwatch]
+root          93       2  0 Aug22 ?        00:00:00 [nvme-wq]
+root          94       2  0 Aug22 ?        00:00:00 [nvme-reset-wq]
+root          95       2  0 Aug22 ?        00:00:00 [nvme-delete-wq]
+root          96       2  0 Aug22 ?        00:00:00 [scsi_eh_0]
+root          97       2  0 Aug22 ?        00:00:00 [scsi_tmf_0]
+root          98       2  0 Aug22 ?        00:00:00 [scsi_eh_1]
+root          99       2  0 Aug22 ?        00:00:00 [scsi_tmf_1]
+root         101       2  0 Aug22 ?        00:00:00 [vfio-irqfd-clea]
+root         102       2  0 Aug22 ?        00:00:00 [mld]
+root         103       2  0 Aug22 ?        00:00:00 [ipv6_addrconf]
+root         112       2  0 Aug22 ?        00:00:00 [kstrp]
+root         115       2  0 Aug22 ?        00:00:00 [zswap-shrink]
+root         116       2  0 Aug22 ?        00:00:00 [kworker/u31:0]
+root         121       2  0 Aug22 ?        00:00:00 [charger_manager]
+root         122       2  0 Aug22 ?        00:00:01 [jbd2/xvda1-8]
+root         123       2  0 Aug22 ?        00:00:00 [ext4-rsv-conver]
+root         162       1  0 Aug22 ?        00:00:01 /lib/systemd/systemd-journal
+root         179       2  0 Aug22 ?        00:00:00 [ipmi-msghandler]
+root         191       2  0 Aug22 ?        00:00:00 [kaluad]
+root         192       2  0 Aug22 ?        00:00:00 [kmpath_rdacd]
+root         194       2  0 Aug22 ?        00:00:00 [kmpathd]
+root         196       2  0 Aug22 ?        00:00:00 [kmpath_handlerd]
+root         199       1  0 Aug22 ?        00:00:09 /sbin/multipathd -d -s
+root         208       1  0 Aug22 ?        00:00:00 /lib/systemd/systemd-udevd
+root         221       2  0 Aug22 ?        00:00:00 [cryptd]
+systemd+     385       1  0 Aug22 ?        00:00:01 /lib/systemd/systemd-network
+systemd+     387       1  0 Aug22 ?        00:00:00 /lib/systemd/systemd-resolve
+root         449       1  0 Aug22 ?        00:00:00 /usr/sbin/acpid
+root         454       1  0 Aug22 ?        00:00:00 /usr/sbin/cron -f -P
+message+     455       1  0 Aug22 ?        00:00:00 @dbus-daemon --system --addr
+_chrony      466       1  0 Aug22 ?        00:00:03 /usr/sbin/chronyd -F 1
+_chrony      467     466  0 Aug22 ?        00:00:00 /usr/sbin/chronyd -F 1
+root         478       1  0 Aug22 ?        00:00:00 /usr/bin/python3 /usr/bin/ne
+root         479       1  0 Aug22 ?        00:00:00 /usr/libexec/polkitd --no-de
+root         506       1  0 Aug22 ?        00:00:00 /lib/systemd/systemd-logind
+root         519       1  0 Aug22 ?        00:00:00 /usr/libexec/udisks2/udisksd
+root         657       1  0 Aug22 ?        00:00:00 /usr/sbin/ModemManager
+root         662       1  0 Aug22 ?        00:00:00 /usr/bin/python3 /usr/share/
+root         668       1  0 Aug22 ttyS0    00:00:00 /sbin/agetty -o -p -- \u --k
+root         670       1  0 Aug22 tty1     00:00:00 /sbin/agetty -o -p -- \u --n
+root         689       1  0 Aug22 ?        00:00:00 sshd: /usr/sbin/sshd -D -o A
+root        1123       1  0 Aug22 ?        00:00:09 /snap/amazon-ssm-agent/5656/
+root        1148    1123  0 Aug22 ?        00:00:10 /snap/amazon-ssm-agent/5656/
+root        2086       1  0 Aug22 ?        00:00:00 /usr/libexec/packagekitd
+root        3177       1  0 Aug22 ?        00:02:43 /usr/bin/containerd
+root        7150       1  0 Aug22 ?        00:00:52 /usr/bin/dockerd -H fd:// --
+root        7656    7150  0 Aug22 ?        00:00:00 /usr/bin/docker-proxy -proto
+root        7661    7150  0 Aug22 ?        00:00:00 /usr/bin/docker-proxy -proto
+root        7675       1  0 Aug22 ?        00:00:23 /usr/bin/containerd-shim-run
+root        7695    7675  0 Aug22 ?        00:00:03 docker-init -- dockerd --hos
+root        7784       2  0 Aug22 ?        00:00:00 bpfilter_umh
+root        7797    7695  0 Aug22 ?        00:00:16 dockerd --host=unix:///var/r
+root        7803    7797  0 Aug22 ?        00:04:34 containerd --config /var/run
+root        9538    7150  0 Aug22 ?        00:00:00 /usr/bin/docker-proxy -proto
+root        9543    7150  0 Aug22 ?        00:00:00 /usr/bin/docker-proxy -proto
+root        9556    7150  0 Aug22 ?        00:00:00 /usr/bin/docker-proxy -proto
+root        9561    7150  0 Aug22 ?        00:00:00 /usr/bin/docker-proxy -proto
+root        9576       1  0 Aug22 ?        00:00:30 /usr/bin/containerd-shim-run
+ubuntu      9599    9576  0 Aug22 ?        00:00:04 /usr/bin/tini -- /usr/local/
+ubuntu      9646    9599  0 Aug22 ?        00:04:21 java -Duser.home=/var/jenkin
+ubuntu     10914    9646  0 Aug22 ?        00:00:00 [jenkins.sh] <defunct>
+root       11166    7150  0 Aug22 ?        00:00:00 /usr/bin/docker-proxy -proto
+root       11180    7150  0 Aug22 ?        00:00:00 /usr/bin/docker-proxy -proto
+root       11197       1  0 Aug22 ?        00:00:24 /usr/bin/containerd-shim-run
+root       11215   11197  0 Aug22 pts/0    00:00:00 nginx: master process nginx
+systemd+   11270   11215  0 Aug22 pts/0    00:00:00 nginx: worker process
+root       11966       1  0 Aug22 ?        00:00:16 /usr/lib/snapd/snapd
+syslog     26407       1  0 Aug23 ?        00:00:00 /usr/sbin/rsyslogd -n -iNONE
+root       28214       2  0 Aug23 ?        00:00:00 [kworker/0:1-cgroup_destroy]
+root       30992       2  0 03:43 ?        00:00:00 [kworker/u30:0-events_unboun
+root       31119     689  0 05:04 ?        00:00:00 sshd: ubuntu [priv]
+ubuntu     31122       1  0 05:04 ?        00:00:00 /lib/systemd/systemd --user
+ubuntu     31124   31122  0 05:04 ?        00:00:00 (sd-pam)
+ubuntu     31208   31119  0 05:04 ?        00:00:00 sshd: ubuntu@pts/0
+ubuntu     31210   31208  0 05:04 pts/0    00:00:00 -bash
+root       31441       2  0 06:07 ?        00:00:00 [kworker/u30:3-events_power_
+root       31583       2  0 06:07 ?        00:00:00 [kworker/0:0-events]
+root       31615     689  0 06:23 ?        00:00:00 sshd: ubuntu [priv]
+ubuntu     31694   31615  0 06:23 ?        00:00:00 sshd: ubuntu@pts/1
+ubuntu     31695   31694  0 06:23 pts/1    00:00:00 -bash
+root       31704       2  0 06:23 ?        00:00:00 [kworker/u30:1]
+ubuntu     31722   31695  0 06:27 pts/1    00:00:00 ps -ef
+
+
+# Take, for example, this process:
+
+ubuntu@ip-172-31-14-130:~$ ps -ef | grep kdevtmpfs
+root          18       2  0 Aug22 ?        00:00:00 [kdevtmpfs]
+ubuntu     31729   31695  0 06:30 pts/1    00:00:00 grep --color=auto kdevtmpfs
+
+
+# We are not sure if log files exist for this process, hence we check:
+
+ubuntu@ip-172-31-14-130:~$ ls /var/log/
+amazon    cloud-init-output.log  journal    syslog
+apt       cloud-init.log         kern.log   ubuntu-advantage-timer.log
+auth.log  dist-upgrade           landscape  unattended-upgrades
+btmp      dmesg                  lastlog    wtmp
+chrony    dpkg.log               private
+
+# It seems there isn't many log folders that correspond with our list of running processes.
+
+# We look up one of the files to see if there is any relevant error message:
+
+ubuntu@ip-172-31-14-130:~$ cat /var/log/ubuntu-advantage-timer.log
+2022-08-22 08:12:54,648 - timer.py:(46) [DEBUG]: Executed job: update_messaging
+2022-08-22 08:12:54,649 - timer.py:(46) [DEBUG]: Executed job: update_status
+2022-08-22 14:49:01,133 - timer.py:(46) [DEBUG]: Executed job: update_messaging
+2022-08-22 21:29:08,201 - timer.py:(46) [DEBUG]: Executed job: update_messaging
+2022-08-22 21:29:08,202 - timer.py:(46) [DEBUG]: Executed job: update_status
+2022-08-23 04:22:52,524 - timer.py:(46) [DEBUG]: Executed job: update_messaging
+2022-08-23 11:06:45,303 - timer.py:(46) [DEBUG]: Executed job: update_messaging
+2022-08-23 11:06:45,303 - timer.py:(46) [DEBUG]: Executed job: update_status
+2022-08-23 18:02:58,112 - timer.py:(46) [DEBUG]: Executed job: update_messaging
+2022-08-24 00:05:57,985 - timer.py:(46) [DEBUG]: Executed job: update_messaging
+2022-08-24 00:05:57,985 - timer.py:(46) [DEBUG]: Executed job: update_status
+2022-08-24 06:12:08,051 - timer.py:(46) [DEBUG]: Executed job: update_messaging
+
+# No error message found for us to work on.
+
+# Now try and look into another log folder:
+
+ubuntu@ip-172-31-14-130:~$ ls /var/log/unattended-upgrades/
+unattended-upgrades-dpkg.log      unattended-upgrades.log
+unattended-upgrades-shutdown.log
+
+# We look up the log files to find any error message:
+
+ubuntu@ip-172-31-14-130:~$ cat /var/log/unattended-upgrades/unattended-upgrades.log
+2022-08-23 06:00:03,195 INFO Starting unattended upgrades script
+2022-08-23 06:00:03,196 INFO Allowed origins are: o=Ubuntu,a=jammy, o=Ubuntu,a=jammy-security, o=UbuntuESMApps,a=jammy-apps-security, o=UbuntuESM,a=jammy-infra-security
+2022-08-23 06:00:03,196 INFO Initial blacklist:
+2022-08-23 06:00:03,196 INFO Initial whitelist (not strict):
+2022-08-23 06:32:18,820 INFO Starting unattended upgrades script
+2022-08-23 06:32:18,821 INFO Allowed origins are: o=Ubuntu,a=jammy, o=Ubuntu,a=jammy-security, o=UbuntuESMApps,a=jammy-apps-security, o=UbuntuESM,a=jammy-infra-security
+2022-08-23 06:32:18,821 INFO Initial blacklist:
+2022-08-23 06:32:18,821 INFO Initial whitelist (not strict):
+2022-08-23 06:32:26,256 INFO Packages that will be upgraded: cloud-init git git-man intel-microcode libcurl3-gnutls libfreetype6 libgnutls30 libnss3 libpython3.10 libpython3.10-minimal libpython3.10-stdlib libssl3 libtirpc-common libtirpc3 libxslt1.1 linux-aws linux-headers-aws linux-image-aws openssl python3-jwt python3.10 python3.10-minimal
+2022-08-23 06:32:26,257 INFO Writing dpkg log to /var/log/unattended-upgrades/unattended-upgrades-dpkg.log
+2022-08-23 06:34:21,895 INFO All upgrades installed
+2022-08-24 01:54:02,972 INFO Starting unattended upgrades script
+2022-08-24 01:54:02,974 INFO Allowed origins are: o=Ubuntu,a=jammy, o=Ubuntu,a=jammy-security, o=UbuntuESMApps,a=jammy-apps-security, o=UbuntuESM,a=jammy-infra-security
+2022-08-24 01:54:02,975 INFO Initial blacklist:
+2022-08-24 01:54:02,975 INFO Initial whitelist (not strict):
+2022-08-24 06:07:34,752 INFO Starting unattended upgrades script
+2022-08-24 06:07:34,753 INFO Allowed origins are: o=Ubuntu,a=jammy, o=Ubuntu,a=jammy-security, o=UbuntuESMApps,a=jammy-apps-security, o=UbuntuESM,a=jammy-infra-security
+2022-08-24 06:07:34,753 INFO Initial blacklist:
+2022-08-24 06:07:34,753 INFO Initial whitelist (not strict):
+2022-08-24 06:07:36,701 INFO Packages that will be upgraded: python3-twisted
+2022-08-24 06:07:36,701 INFO Writing dpkg log to /var/log/unattended-upgrades/unattended-upgrades-dpkg.log
+2022-08-24 06:07:46,009 INFO All upgrades installed
+
+# Suppose this is a long log, we can try and grep for "error"
+
+ubuntu@ip-172-31-14-130:~$ cat /var/log/unattended-upgrades/unattended-upgrades.log | grep -i error
+(No outcome)
+
+# Similarly, searching for 404 and 203 doesn't give anything matching:
+
+ubuntu@ip-172-31-14-130:~$ cat /var/log/unattended-upgrades/unattended-upgrades.log | grep -i 404
+ubuntu@ip-172-31-14-130:~$ cat /var/log/unattended-upgrades/unattended-upgrades.log | grep -i 203
+
+# Hence we check for new entries:
+
+ubuntu@ip-172-31-14-130:~$ tail -f /var/log/unattended-upgrades/*
+==> /var/log/unattended-upgrades/unattended-upgrades-dpkg.log <==
+NEEDRESTART-SVC: systemd-logind.service
+NEEDRESTART-SVC: systemd-manager
+NEEDRESTART-SVC: systemd-networkd.service
+NEEDRESTART-SVC: systemd-resolved.service
+NEEDRESTART-SVC: systemd-udevd.service
+NEEDRESTART-SVC: udisks2.service
+NEEDRESTART-SVC: unattended-upgrades.service
+NEEDRESTART-SVC: user@1000.service
+Log ended: 2022-08-24  06:07:45
+
+
+==> /var/log/unattended-upgrades/unattended-upgrades-shutdown.log <==
+
+==> /var/log/unattended-upgrades/unattended-upgrades.log <==
+2022-08-24 01:54:02,974 INFO Allowed origins are: o=Ubuntu,a=jammy, o=Ubuntu,a=jammy-security, o=UbuntuESMApps,a=jammy-apps-security, o=UbuntuESM,a=jammy-infra-security
+2022-08-24 01:54:02,975 INFO Initial blacklist:
+2022-08-24 01:54:02,975 INFO Initial whitelist (not strict):
+2022-08-24 06:07:34,752 INFO Starting unattended upgrades script
+2022-08-24 06:07:34,753 INFO Allowed origins are: o=Ubuntu,a=jammy, o=Ubuntu,a=jammy-security, o=UbuntuESMApps,a=jammy-apps-security, o=UbuntuESM,a=jammy-infra-security
+2022-08-24 06:07:34,753 INFO Initial blacklist:
+2022-08-24 06:07:34,753 INFO Initial whitelist (not strict):
+2022-08-24 06:07:36,701 INFO Packages that will be upgraded: python3-twisted
+2022-08-24 06:07:36,701 INFO Writing dpkg log to /var/log/unattended-upgrades/unattended-upgrades-dpkg.log
+2022-08-24 06:07:46,009 INFO All upgrades installed
+
+# We can see that there is no new entry, compared to previous printout.
+
+
+
+// Improvised practices on Actions based on what is discovered about logs above.
+
+## Section 1
+
+# Again, as there are no actual app running that we can work on, we continue to check out other commands nonetheless:
+
+ubuntu@ip-172-31-14-130:~$ ls /etc/
+ModemManager            init.d                  ppp
+NetworkManager          initramfs-tools         profile
+PackageKit              inputrc                 profile.d
+X11                     iproute2                protocols
+acpi                    iscsi                   python3
+adduser.conf            issue                   python3.10
+alternatives            issue.net               rc0.d
+apparmor                kernel                  rc1.d
+apparmor.d              kernel-img.conf         rc2.d
+apport                  landscape               rc3.d
+apt                     ld.so.cache             rc4.d
+bash.bashrc             ld.so.conf              rc5.d
+bash_completion         ld.so.conf.d            rc6.d
+bash_completion.d       ldap                    rcS.d
+bindresvport.blacklist  legal                   resolv.conf
+binfmt.d                libaudit.conf           rmt
+byobu                   libblockdev             rpc
+ca-certificates         libnl-3                 rsyslog.conf
+ca-certificates.conf    locale.alias            rsyslog.d
+chrony                  locale.gen              screenrc
+cloud                   localtime               security
+console-setup           logcheck                selinux
+containerd              login.defs              services
+cron.d                  logrotate.conf          shadow
+cron.daily              logrotate.d             shadow-
+cron.hourly             lsb-release             shells
+cron.monthly            lvm                     skel
+cron.weekly             machine-id              sos
+crontab                 magic                   ssh
+cryptsetup-initramfs    magic.mime              ssl
+crypttab                manpath.config          subgid
+dbus-1                  mdadm                   subgid-
+debconf.conf            mime.types              subuid
+debian_version          mke2fs.conf             subuid-
+default                 modprobe.d              sudo.conf
+deluser.conf            modules                 sudo_logsrvd.conf
+depmod.d                modules-load.d          sudoers
+dhcp                    mtab                    sudoers.d
+docker                  multipath               sysctl.conf
+dpkg                    multipath.conf          sysctl.d
+e2scrub.conf            nanorc                  systemd
+ec2_version             needrestart             terminfo
+environment             netconfig               timezone
+ethertypes              netplan                 tmpfiles.d
+fstab                   network                 ubuntu-advantage
+fuse.conf               networkd-dispatcher     ucf.conf
+fwupd                   networks                udev
+gai.conf                newt                    udisks2
+groff                   nftables.conf           ufw
+group                   nsswitch.conf           update-manager
+group-                  opt                     update-motd.d
+grub.d                  os-release              update-notifier
+gshadow                 overlayroot.conf        usb_modeswitch.conf
+gshadow-                overlayroot.local.conf  usb_modeswitch.d
+gss                     pam.conf                vim
+hdparm.conf             pam.d                   vmware-tools
+hibinit-config.cfg      passwd                  vtrgb
+host.conf               passwd-                 wgetrc
+hostname                perl                    xattr.conf
+hosts                   pki                     xdg
+hosts.allow             pm                      zsh_command_not_found
+hosts.deny              polkit-1
+init                    pollinate
+
+# There is no app.conf item found under /etc/.
+
+
+## Section 2
+
+# We now check ownership of the log files:
+
+ubuntu@ip-172-31-14-130:~$ ls -la /var/log/unattended-upgrades/                 total 44
+drwxr-x---  2 root adm     4096 Aug 23 06:00 .
+drwxrwxr-x 10 root syslog  4096 Aug 22 08:12 ..
+-rw-r--r--  1 root adm    26535 Aug 24 06:07 unattended-upgrades-dpkg.log
+-rw-r--r--  1 root root       0 Aug 22 07:26 unattended-upgrades-shutdown.log
+-rw-r--r--  1 root root    2120 Aug 24 06:07 unattended-upgrades.log
+
+# These files are probably owned by the root admin. For the last three log files,
+# The owner is able to write while all users get to read the files.
+# These log files are not executable anyway.
+
+
+## Section 3:
+
+# Now we try and test for connectivity.
+
+ubuntu@ip-172-31-14-130:~$ netstat -tln | grep 8080
+Command 'netstat' not found, but can be installed with:
+sudo apt install net-tools
+
+# As netstat is not available, we make the necessary installation:
+
+ubuntu@ip-172-31-14-130:~$ sudo apt install net-tools
+
+# After installation, we invoke netstate again:
+
+ubuntu@ip-172-31-14-130:~$ netstat -tln | grep 8080
+tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN
+tcp6       0      0 :::8080                 :::*                    LISTEN
+
+# it seems port 8080 is still in use, hence there is no loss of connectivity.
+
+ubuntu@ip-172-31-14-130:~$ sudo netstat --tlnp
+netstat: unrecognized option '--tlnp'
+
+# We tried to run netstat with options, which did not work:
+
+ubuntu@ip-172-31-14-130:~$ sudo netstat --tlnp
+netstat: unrecognized option '--tlnp'
+
+# Amending to single "-" instead of double, gives us PID/program names:
+
+ubuntu@ip-172-31-14-130:~$ sudo netstat -tlnp
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      387/systemd-resolve
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      689/sshd: /usr/sbin
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      11166/docker-proxy
+tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN      9556/docker-proxy
+tcp        0      0 0.0.0.0:2376            0.0.0.0:*               LISTEN      7656/docker-proxy
+tcp        0      0 0.0.0.0:50000           0.0.0.0:*               LISTEN      9538/docker-proxy
+tcp6       0      0 :::22                   :::*                    LISTEN      689/sshd: /usr/sbin
+tcp6       0      0 :::80                   :::*                    LISTEN      11180/docker-proxy
+tcp6       0      0 :::8080                 :::*                    LISTEN      9561/docker-proxy
+tcp6       0      0 :::2376                 :::*                    LISTEN      7661/docker-proxy
+tcp6       0      0 :::50000                :::*                    LISTEN      9543/docker-proxy
+
+# We notice that docker is running, hence we can try and go back to the beginning and check for this process:
+
+ubuntu@ip-172-31-14-130:~$ ps -ef | grep docker
+root        7150       1  0 Aug22 ?        00:00:52 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+root        7656    7150  0 Aug22 ?        00:00:00 /usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 2376 -container-ip 172.20.0.2 -container-port 2376
+root        7661    7150  0 Aug22 ?        00:00:00 /usr/bin/docker-proxy -proto tcp -host-ip :: -host-port 2376 -container-ip 172.20.0.2 -container-port 2376
+root        7695    7675  0 Aug22 ?        00:00:03 docker-init -- dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:2376 --tlsverify --tlscacert /certs/server/ca.pem --tlscert /certs/server/cert.pem --tlskey /certs/server/key.pem --storage-driver overlay2
+root        7797    7695  0 Aug22 ?        00:00:16 dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:2376 --tlsverify --tlscacert /certs/server/ca.pem --tlscert /certs/server/cert.pem --tlskey /certs/server/key.pem --storage-driver overlay2
+root        7803    7797  0 Aug22 ?        00:04:38 containerd --config /var/run/docker/containerd/containerd.toml --log-level info
+root        9538    7150  0 Aug22 ?        00:00:00 /usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 50000 -container-ip 172.20.0.3 -container-port 50000
+root        9543    7150  0 Aug22 ?        00:00:00 /usr/bin/docker-proxy -proto tcp -host-ip :: -host-port 50000 -container-ip 172.20.0.3 -container-port 50000
+root        9556    7150  0 Aug22 ?        00:00:00 /usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 8080 -container-ip 172.20.0.3 -container-port 8080
+root        9561    7150  0 Aug22 ?        00:00:00 /usr/bin/docker-proxy -proto tcp -host-ip :: -host-port 8080 -container-ip 172.20.0.3 -container-port 8080
+root       11166    7150  0 Aug22 ?        00:00:00 /usr/bin/docker-proxy -proto tcp -host-ip 0.0.0.0 -host-port 80 -container-ip 172.17.0.2 -container-port 80
+root       11180    7150  0 Aug22 ?        00:00:00 /usr/bin/docker-proxy -proto tcp -host-ip :: -host-port 80 -container-ip 172.17.0.2 -container-port 80
+ubuntu     32042   31695  0 07:07 pts/1    00:00:00 grep --color=auto docker
+
+
+# However, no such log file available for Docker:
+
+ubuntu@ip-172-31-14-130:~$ ls /var/log/docker/
+ls: cannot access '/var/log/docker/': No such file or directory
+
+
+## Section 4:
+
+We check and see if there is indeed some lock file in /var/run/:
+
+ubuntu@ip-172-31-14-130:~$ ls -a /var/run/
+.                dmeventd-server       sendsigs.omit.d
+..               docker                shm
+NetworkManager   docker.pid            snapd
+acpid.pid        docker.sock           snapd-snap.socket
+acpid.socket     initctl               snapd.socket
+agetty.reload    lock                  sshd
+blkid            log                   sshd.pid
+chrony           lvm                   sudo
+cloud-init       machine-id            systemd
+console-setup    motd.dynamic          tmpfiles.d
+containerd       mount                 udev
+credentials      multipathd.pid        udisks2
+crond.pid        needrestart           unattended-upgrades.lock
+crond.reboot     netns                 unattended-upgrades.progress
+cryptsetup       reboot-required       user
+dbus             reboot-required.pkgs  utmp
+dmeventd-client  screen                uuidd
+
+# There is no app.lock file, but there is a lock file.
+
+ubuntu@ip-172-31-14-130:~$ cat /var/run/lock
+cat: /var/run/lock: Is a directory
+
+# Which turns out to be a directory, which contains more sub-directories:
+
+ubuntu@ip-172-31-14-130:~$ ls /var/run/lock/
+lvm  subsys
+
+
+
+## There is no real ticket regarding any actually running app,
+   hence the above was just an exploration of common problem-solving commands.
+
+
+____________________________________________________
+
+
+### Exercise: Pipeline
+
+## A Report on Current Level of Toil in SDLC. (For a mock-up SDLC)
+
+
+This is a SDLC for a new feature in an existing app.
+
+Assuming that automation engineering is not yet in place, the following identified toils are to be mostly performed manually.
+
+
+
+# Stage 1: Deciding on feature among suggested features to implement
+- This stage will also decide the specific characteristics of the feature chosen
+- Prioritizing to be done on discussion based on Kanban, lead by Product Manager.
+- Key development leads are involved in voting for features and characteristics of the feature.
+
+- Toil: need to collaborate among the above stakeholders, and to collate voting outcome
+  and display / announce required list of characteristics for dev team to work on.
+- Estimated time needed: 2 hrs for meeting / discuss and 30 mins to collate and disseminate outcomes.
+  Actual relevant toil is one man with 30 mins manhour doing the collation and dissemination.
+- Discussion: the automation of this is optional. The time it takes to create such a voting form is almost the time it takes to make meeting minutes, hence if the collator is adept at making voting forms, such option basically eliminates manual calculation of complex voting outcomes. However, the decision on the characteristics of a feature might not be so much a matter of democratic voting, hence this imaginary use case might just be meaningless. Chances are, the discussion and agreement on all the above deciding points, might just be done over some sort of Agile ceremonies. It is not worth trying to automate the collaboration of a small team involved in a "feature", with an even smaller senior team which would have the final say.
+
+
+
+# Stage 2: Development
+- Lead Developers assign tasks / portions of the feature to dev team
+- Pseudocodes / flowcharts for each portion generated, posted for lead developer to approve
+- After each pseudocode approval, team members will immediately work on approved part and start coding.
+
+- Toil: sending pseudocodes to Lead Dev, waiting for approval and put them all in a repo for reference and documentation
+- Estimated time needed: 15 minutes for each pseudocode by junior dev. Assuming there are 10 junior dev.
+- Total manhour spent just to get approval (not the writing up of pseudocode): 2 hr 30 mins.
+- Discussion: The automation required is more administrative rather than technical. If such suitable off-shelf system is available, implementing it for improving the efficiency of approval and disemination process might be worth the automation efforts. However it would take more benefits to justify spending time making another layer of system that would take up resources. After all, the major selling point of this automation system is just the notification for the stakeholders. Maybe some plugins on GitHub is all that is needed (if available), otherwise a standard in-house messaging system (like Slack) should be more than enough to accomplish these tasks. More SRE involvement would be over-engineering and over-complication of the workflow. Besides, the Dev Teams are usually physically located within the same space anyway, which makes such a "productivity automation system" even more redundant. For work-from-home arrangements, the abovementioned communication tools should be good enough.
+
+
+
+# Stage 3: Build & Run Unit Test
+- Test team will take over and run test after building, and issues will be reflected back to Dev team to solve.
+- The Dev-Build-Test process might iterate 20 times to get the app good enough for the next step.
+
+- Toil: building and running pre-scripted tests, and communicate with the Dev for any specific failing or issue, possibly with test logs (categorized).
+- The part of the toil (not the testing per se) for 20 such iterative cycles, if each cycle requires 15 minutes human actions (suppose the toil part need one staffer), would mean:
+- Estimated time needed: 5 hrs
+- Discussion: depending on the amount of different unit tests needed, automation by SRE Team might not be meaningful. Dev Team or Test Team would typically write up tests for the many specific nuts and bolts of the feature, which would be hard to re-use usually. SRE involvement here for toil-elimination can be limited, but the Dev or Test Team is already creating custom-built tests for specific uses anyway, as part of their natural testing and debugging efforts in development work. Too much human discernment and specific know-how and product knowledge (of the actual source codes) are needed to make involvement of yet another team in this matter meaningful or efficient. Hence SRE-style automation at this stage is not needed.
+
+
+
+## Stage 4: Deployment
+- Deploying new codes to pre-production
+
+- Estimated time needed: 30 mins, estimated repetition of 8 repeats due to re-deployment resulting from findings of the following testing stage, which would require repeating previous processes as developers receive feedback to modify their codes. The estimated toil can be up to 4 hours (for features that are tested and found with issues of around 8 times), which makes 2 hours (max) spent on automation a worthwhile manhour investment. Unlike deployment for production, which usually do not need re-deployment, at this pre-testing stage, redeployments can start to build up and become mundane and unenjoyable.
+
+
+
+## Stage 5: Post-deployment QA Testing
+- Unautomated testing and test outcome communication, forming the actual toil before implementing automation.
+- Estimated time needed: 10 hrs
+- Discussion: to produce high volume of consistent and error-free testing which also log and report, spending 4 hours writing and perfecting automated testing might be worth the manhours, especially when one wants to scale up the testing. To further cut down automation development / programming time,  use of relevant software for automated testing would be helpful, e.g. Selenium. As the tests are feature-specific and are usually not reuseable for other tests of other lifecycles, the major justification for automation would be the high volumes and combination varieties of tests.
+
+
+
+## Stage 6: Deploy New Code to Production
+
+- Estimated time needed: 30 mins.
+- Discussion: Not much human discernment needed for this mundane process, hence automating it seems meaningful at first sight. However for one and only one feature in the SDLC, spending around 30 mins to automate a 30-min manual toil might not worth the time investment. The only justification is to minimize human errors. However if re-deployment is needed due to due to issues that require code-fixing as feedbacked by users (which are not discovered via automated testing), automation with Puppet might be worth the efforts. Anyways, if such bug fixes are defined as yet another backlog to be developed in the next SDLC, then such repeated deployment for this life cycle for this feature is non existent or not sufficient to justify toil automation.
+
+
+
+## Stage 7: Monitoring
+- Checking that the app feature is working every day, for beginning, mid and end of the day, for 180 days
+  (after which the feature will either get iterated away or is stable enough to not requiring follow-up
+   monitoring, until such time users complain about this feature breaking after other versions of app updates.)
+
+- Estimated time needed: 3 times/day x 5 mins/time x 180 days = 45 hours (assuming only one staffer needed)
+- Discussion: The monitoring would require some level of intelligence, in particular in the categorization of why the feature fails. This would require more time in programmming into the monitoring system, or scripting an automation for reporting, however the consistency of the automated report not dependent on different staff on duty, can be worth the automation development. Assuming a quality, informative and useful monitoring, categorization and alerting automation solution takes 10 hours to program (maybe Grafana or Prometheus can be programmed to such useful extent) or code as scripts, there is still meaningful savings of manpower throughout this life cycle for the automation to be justified. The savings is 35 hrs, more than 4 man-days. 
+
+- Checking overall traffic over 24-hours (daily), and find out and report failed requests during that period.
+
+- Estimated time needed: 5 mins/day x 180 days = 15 hours
+- Discussion: scripting and testing the automated reporting takes 2 hours. There is savings of manhours of roughly two man-day, which is meaningful to automate. Besides, this mundane process is not particularly enjoyable, although documentation and the relative ease to manually perform it makes it easy for most people on the team to do it without major issues.
+
+- Generating reports on the number of active users every month of different tiers of activity levels.
+
+- Estimated time needed: 30 mins/month x 6 months = 3 hours
+- Discussion: This process is mundane, repetitive and prone to error, and there is a need for consistent formating across different reports, even across different app features. Scripting up a simple report takes 1 hour, and the script / automation can be modified for reuse for other features to be monitored, which makes it an economic choice. Hence this toil should be scripted and automated away.
+
+
+
+## End of Toil Reporting.
+
+
+___________________________________________
+
+
+
+
+
+
+
+
+
+
+
