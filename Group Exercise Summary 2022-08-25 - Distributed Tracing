@@ -1,0 +1,81 @@
+Group Exercise Summary 2022-08-25 - Distributed Tracing
+
+### Exercise: Distributed Tracing
+
+Group 2:
+Aaron Low, Britney Toh, Carl Tang
+
+
+
+### The Tickets:
+
+## Ticket 1:
+Users have discovered that they are unable to perform analysis on their interested stocks.
+They are reporting that all other elements of the system are working fine.
+
+Analysis: NoSQL database server, used to gather stock market data, might be facing issue.
+The microservice on Kubernetes, in particular the feature for analysis on stocks (for buy or sell), might have issues.
+Redis cache might also have data corruption that impacts normal query response.
+
+
+
+## Ticket 2
+Users who have reported the initial ticket have since stated that they are able perform analysis on some of their stocks such as BA, BAA, BARC.
+
+Analysis: Chances are, the microservice with stocks analytical feature has no issue.
+If the problem does not come from the Redis cache, it might be due to issues of data sources,
+of which the NoSQL server which collates data might not be responsible for.
+Individual companies with their usual data distribution sources might have issue allowing the NoSQL server pulling in data normally.
+
+
+
+## Ticket 3
+Those reporting on ticket 1 have also noticed that if they move their time line they are able to perform
+analysis on stocks up to 10:00am today.
+
+Analysis: The relevant break in this architecture most likely happens only after 10:00am today.
+The monitoring system is showing that there have been some errors in the logs since 9:30 am today coming from the analytics services.
+The logs have shown issues about not finding data, or simply ending as the container died.
+
+
+
+## Ticket 4
+There are users that are reporting that they are not able to get any analytics.
+These are mainly through the simple analysis routines.
+
+Analysis: if these users do not share the same data source as the initial reporting user, indirectly via NoSQL,
+e.g. from NASDAQ, we might want to investigate if there are user-specific issues such as authentication.
+However, assuming authentication is not the issue that users are facing (as previously reported),
+and that these users do share the same data sources (e.g. from certain common stocks exchange),
+we can look up our dashboard:
+There is a warning on the dashboard that shows one of the feeds is "flapping" (oscillating between OK and not).
+This further confirms that the NoSQL server is having problem getting its usual feeds from data sources (e.g. certain stocks exchange).
+
+
+
+## Initial Analysis from Support:
+Database: The NoSQL database contains symbol data for symbols beginning with: A-F, N-R;
+This is since 9:30 am today until the current time.
+Analysis: this further confirms and narrow down our troubleshooting: symbols from G-M are facing issues on the NoSQL database.
+This range of stock symbols feature some of the most actively traded stocks including Google (GOOGL), Grab (GRAB), Meta (META, formerly Facebook), so we suspect that the high trading traffic in these range of stocks might be a cause of issue.
+
+
+
+## Recent Releases:
+Checking back through the release calendar shows that there was an update to the Lambda functions last night
+to improve performance and reduce run time.
+Analysis: since this issue only happens today, starting 9:30am, and knowing that the Lambda function was only updated last night;
+and further knowing this business information:
+Regular trading hours for the U.S. stock market, including the New York Stock Exchange (NYSE) and the Nasdaq Stock Market (Nasdaq), are 9:30 a.m. to 4 p.m., except stock market holidays.
+We know that the analytical system has been impacted since trading started today, which further confirms that
+the update yesterday is the primary cause of the user complaint.
+A theory on the potential issue with the Lambda function is:
+- Increase in query latency during peak demand may cause Lambda function to start timing out at some point.
+- Perhaps there was not enough integration tests performed during the Lambda update.
+
+
+## Summary:
+Based on the above process of elimination, with further inputs from sources,
+we thus isolate and prioritize the Lambda function update as the key issue to solve.
+
+
