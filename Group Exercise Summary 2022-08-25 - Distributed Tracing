@@ -43,10 +43,9 @@ The logs have shown issues about not finding data, or simply ending as the conta
 There are users that are reporting that they are not able to get any analytics.
 These are mainly through the simple analysis routines.
 
-Analysis: if these users do not share the same data source as the initial reporting user, indirectly via NoSQL,
-e.g. from NASDAQ, we might want to investigate if there are user-specific issues such as authentication.
-However, assuming authentication is not the issue that users are facing (as previously reported),
-and that these users do share the same data sources (e.g. from certain common stocks exchange),
+Analysis: if these users do not share the same data sources as the initial reporting user, indirectly via NoSQL database,
+e.g. from NASDAQ, we might need to collect more information for troubleshooting.
+However, assuming that these users do share the same data sources (e.g. from certain common stocks exchange),
 we can look up our dashboard:
 There is a warning on the dashboard that shows one of the feeds is "flapping" (oscillating between OK and not).
 This further confirms that the NoSQL server is having problem getting its usual feeds from data sources (e.g. certain stocks exchange).
@@ -56,7 +55,7 @@ This further confirms that the NoSQL server is having problem getting its usual 
 ## Initial Analysis from Support:
 Database: The NoSQL database contains symbol data for symbols beginning with: A-F, N-R;
 This is since 9:30 am today until the current time.
-Analysis: this further confirms and narrow down our troubleshooting: symbols from G-M are facing issues on the NoSQL database.
+Analysis: this further confirms and narrows down our troubleshooting: symbols from G-M are facing issues on the NoSQL database.
 This range of stock symbols feature some of the most actively traded stocks including Google (GOOGL), Grab (GRAB), and Meta (META, formerly Facebook),
 so we suspect that the high trading traffic in these range of stocks might be a cause of issue.
 
@@ -67,8 +66,8 @@ Checking back through the release calendar shows that there was an update to the
 to improve performance and reduce run time.
 Analysis: since this issue only happens today, starting 9:30am, and knowing that the Lambda function was only updated last night;
 and further knowing this business information:
-Regular trading hours for the U.S. stock market, including the New York Stock Exchange (NYSE) and the Nasdaq Stock Market (Nasdaq),
-are 9:30 a.m. to 4 p.m., except stock market holidays.
+"Regular trading hours for the U.S. stock market, including the New York Stock Exchange (NYSE) and the Nasdaq Stock Market (Nasdaq),
+are 9:30 a.m. to 4 p.m., except stock market holidays."
 We know that the analytical system has been impacted since trading started today, which further confirms that
 the update yesterday is the primary cause of the user complaint.
 A theory on the potential issue with the Lambda function is:
