@@ -1,6 +1,8 @@
-Research Topics Summary 2022-08-25 - Observability
+Research Topics Summary 2022-08-25 - Observability etc.
 
 Group 2: Aaron Low, Britney Toh, Carl Tang
+
+
 
 
 ### Observability
@@ -92,29 +94,36 @@ and durability (in storage systems like databases).
 
 ### Capacity and Performance
 
-[pg 20 of Observability slide:]
+Reference: https://static.googleusercontent.com/media/sre.google/en//static/pdf/login_winter20_10_torres.pdf
 
-Web performance:
-- Average response time
+Capacity in general, refers to resources that you have at hand that you can utilize to provide a service to your end-user.
 
-System metrics:
-- CPU usage, disk read/write speeds, memory demands
+  -- Simple examples can be the number of servers available, the disk space, cpu processing power, etc.
 
-App availability and uptime:
-- (Used in SLA)
+Some principles that are mentioned are that,
+    1. Services must use their resources efficiently
+    2. Services must run reliably
+    3. Service growth must be anticipated
+    
+Point 1 and 2 depends on finding a middle ground for the services to work. You have to give sufficient resources to the services that they can run reliably, but 
+not allocate so much resources that they don't run efficiently. Point 3 refers to potential growth that your service can face. If you are working with physical
+servers, (versus cloud computing) upgrading capacity and incorporating them can take a significant time and expend resources.
 
-Request rates:
-- traffic received (any volume changes), coinciding users
+In the operations environment, it can be hard to deal with number 3, as it sorts of ties in the previous points. Having more traffic than expected can cause services
+to not run as reliably as well as cause problems, yet you do not want to allocate so much to the services that you have a lot of unused capacity.
 
-Customer satisfaction:
-- (Feedback, likes, star rates?)
 
-Error rates:
-- app failures at software level (might need categorization of error codes)
+In the event that capacity runs out, it can cause failure in certain ways, depending on the type of failure.
 
-Cloud-related metrics:
-- number of servers or app instances running
-- nodes of slaves deployed
+If the bottleneck lies in the processing power, network speed, or storage throughput, it can cause requests to pile up and form a backlog.
+This is expected to continue to stack up, and will only be resolved once the peak period is over, or the server is restarted to purge the requests.
+
+If the bottleneck is in the storage filling up, running out of RAM capacity, this will cause services to fail in the way of the service crashing and being unable
+to run properly. One related problem could be the CrashLoopBackOff problem that kubernetes faces (among other causes).
+
+
+To protect against such failures, there is a need for redundancy. This refers to having excess capacity than your expected traffic such that it can handle, to a limited
+extent, the excess loads. There are also a lot more detailed solutions and potential problems mentioned in the article that is beyond the scope of this summary.
 
 
 
@@ -142,6 +151,27 @@ might lead to eventual breach of SLA, which can come with commercial or legal co
 
 ### Alerts
 
+# Big Picture:
+
+Alerting requires that you properly set up your system so that it only sends alerts when there is actually a problem.
+For Google, being alerted for a minor issue like a single system failure is unacceptable, as it will be too much noise for the engineers to act on.
+They would rather build their systems to be robust enough such that it can still run with a single system failure.
+
+So, the scale of the company depends on how strict the alert system should be. For smaller companies, a single system failure can be a rather big problem.
+
+For alerts to happen, data is monitored over a certain time period, and when the errors exceed a certain threshold, then an alert is sent.
+Without setting a threshold, an alert may be sent out every single time a minor error happened that could be subsequently fixed (if you provided for it in the code).
+Once again, this will be too much noise, and unactionable or overwhelm your engineers.
+
+Therefore, other rules must be set in place besides a simple threshold monitoring to restrict the noise. Google notes that other such issues can include inhibiting
+certain alerts when others are active, or accumulating the alerts into one label versus showing multiple alerts for the same label.
+
+Then, there is a grading of the alert levels; is it a critical error? Then it should go to the engineers ASAP.
+Is it not that critical? Then it will go to the bugs backlog, to be solved amongst others.
+The really minor ones should not be an alert but rather be an indicator in the monitoring system.
+
+# Further Discussion:
+
 Alerts are notifications intended to be read by a human and that is pushed to a system such as a bug or ticket queue,
 an email alias, or a pager. Respectively, these alerts are classified as "tickets", "email alerts", and "pages".
 
@@ -168,5 +198,17 @@ The four "Golden Signals" to monitor and to receive alerts for:
   internal protocols might be needed to track those yet-to-be-defined-and-captured failures.
 - Saturation: how "full" the service is, usually measuring the resources that are most constrained (memory, I/O, etc).
   Note: systems might start to degrade in performance before achieving 100% utilization.
+
+
+
+
+### Reference Sources:
+https://en.wikipedia.org/wiki/Service_level_indicator
+Reference: https://static.googleusercontent.com/media/sre.google/en//static/pdf/login_winter20_10_torres.pdf
+https://en.wikipedia.org/wiki/Service-level_objective
+https://sre.google/sre-book/practical-alerting/
+https://sre.google/sre-book/monitoring-distributed-systems/
+
+
 
 
