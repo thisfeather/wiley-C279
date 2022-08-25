@@ -57,7 +57,8 @@ This further confirms that the NoSQL server is having problem getting its usual 
 Database: The NoSQL database contains symbol data for symbols beginning with: A-F, N-R;
 This is since 9:30 am today until the current time.
 Analysis: this further confirms and narrow down our troubleshooting: symbols from G-M are facing issues on the NoSQL database.
-This range of stock symbols feature some of the most actively traded stocks including Google (GOOGL), Grab (GRAB), Meta (META, formerly Facebook), so we suspect that the high trading traffic in these range of stocks might be a cause of issue.
+This range of stock symbols feature some of the most actively traded stocks including Google (GOOGL), Grab (GRAB), and Meta (META, formerly Facebook),
+so we suspect that the high trading traffic in these range of stocks might be a cause of issue.
 
 
 
@@ -66,12 +67,15 @@ Checking back through the release calendar shows that there was an update to the
 to improve performance and reduce run time.
 Analysis: since this issue only happens today, starting 9:30am, and knowing that the Lambda function was only updated last night;
 and further knowing this business information:
-Regular trading hours for the U.S. stock market, including the New York Stock Exchange (NYSE) and the Nasdaq Stock Market (Nasdaq), are 9:30 a.m. to 4 p.m., except stock market holidays.
+Regular trading hours for the U.S. stock market, including the New York Stock Exchange (NYSE) and the Nasdaq Stock Market (Nasdaq),
+are 9:30 a.m. to 4 p.m., except stock market holidays.
 We know that the analytical system has been impacted since trading started today, which further confirms that
 the update yesterday is the primary cause of the user complaint.
 A theory on the potential issue with the Lambda function is:
 - Increase in query latency during peak demand may cause Lambda function to start timing out at some point.
 - Perhaps there was not enough integration tests performed during the Lambda update.
+- Lambda function failing might have caused the breaking of analytics for the high-traffic-volume stocks,
+  which exonerated the NoSQL database as the culprit and de-prioritize it from the troubleshooting and problem-solving.
 
 
 ## Summary:
