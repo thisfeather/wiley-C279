@@ -1,0 +1,172 @@
+Research Topics Summary 2022-08-25 - Observability
+
+Group 2: Aaron Low, Britney Toh, Carl Tang
+
+
+### Observability
+
+What can observability data tell us?
+  - Why performance is degrading
+  - What dependency behaviors have changed
+  - Why app is failing
+  - Which part of app to fix
+
+Three parts of observability data:
+  - Logs: Record of past events
+    - Automatically created in the application or operating system
+    - Used for root cause analysis of why a metric changed or where an event began
+  - Metrics: Current quantifiable data about system components
+    - Compared to a defined baseline to analyse process status
+    - Trends in metric changes indicate underlying issue
+  - Traces: Capture activity for a business transaction
+    - Illustrates a complete transaction
+    - Hundreds of data points help to indicate errors, diagnose security threats and detect and isolate component or network issues
+
+Benefits of observability:
+  - Overview of complex system
+  - Faster feature release
+  - Observe impact of updates
+  
+Application Performance Monitoring:
+  - Purpose:
+    - Maintain uninterrupted business processes
+    - Monitor overall app
+    - Link app performance to business outcomes
+    - Isolate and fix errors before they affect end user
+    - Reduce mean time to repair 
+    
+  - Components:
+    1. Runtime app architecture discovery
+      - Analyse hardware and software used
+      - Anticipate potential problems (pattern recognition or performance)
+      
+    2. End-user experience monitoring
+      - Gather user-based performance data (from user's POV)
+      - Details on analysed client (location, OS, browser)
+      - Done through:
+        - Synthetic monitoring: Simulates an end user to determine problems BEFORE app is opened
+        - Agentless monitoring: Analyse network traffic DURING app usage
+        
+    3. User-defined transaction profilling
+      - Focus on recreaing specific user interactions to test and understand conditions that could lead to performance problems
+      - Trace business transaction movement across various components
+      - Reveal when and where events are occuring
+      - Optimise performance by identifying bottlenecks
+      
+    4. Component Monitoring
+      - Provides a deeper understanding of specific elements and pathways by tracking all components of IT infrastructure
+        (servers, OS, middleware, app components, network components)
+      
+    5. Analytics and Reporting
+      - Ensure good ROI
+      - Translate data gathered into usable info
+      - Define performance baseline using historical and current data
+      - Identify areas of improvement
+      - Identify, locate and resolve performance issues 
+      - Predict and alleviate potential future issues
+      
+  - Critical APM metrics:
+    - Web performance monitoring
+    - System metrics
+    - App availability and uptime
+    - Request rates
+    - Customer satisfaction
+    - Error rates
+    - Number of instances
+
+
+
+
+### Service Level Indicator
+
+In the broad field of IT,
+a Service Level Indicator (SLI) is a measure of the service level provided by a service provider to a customer.
+
+While every system differs in the provided services, there are typically common SLIs in use, such as availability,
+latency, throughput, error rate, etc. Certain specific systems also have service-specific SLIs, for instance
+"correctness", end-to-end latency (primarily for complex data processing systems in the form of pipelines),
+and durability (in storage systems like databases).
+
+
+
+
+### Capacity and Performance
+
+[pg 20 of Observability slide:]
+
+Web performance:
+- Average response time
+
+System metrics:
+- CPU usage, disk read/write speeds, memory demands
+
+App availability and uptime:
+- (Used in SLA)
+
+Request rates:
+- traffic received (any volume changes), coinciding users
+
+Customer satisfaction:
+- (Feedback, likes, star rates?)
+
+Error rates:
+- app failures at software level (might need categorization of error codes)
+
+Cloud-related metrics:
+- number of servers or app instances running
+- nodes of slaves deployed
+
+
+
+
+### Service Level Objectives
+
+Service Level Objectives (SLOs) are meant to define the expected service between the service provider and the customer.
+SLOs are defined based on SLIs. The SLO comprises quality of service (QoS) measurements (featuring SLIs) that combine
+to form the achievement value of the SLO. SLOs offer a quantitative method to define the level of service that customer
+may expect from the provider, and the SLOs may subject to service's urgency, budget, resources, etc, and is dependent on
+the nature and architechture or the service.
+
+SLOs are the key component of an SLA (Service Level Agreement), specifying the measurable characteristics of the SLA.
+The SLO is a commitment to maintain a particular state of the service in a given period, as part of the terms of agreement.
+Examples of common SLOs could be availability of a web app, the server response time to TCP requests,
+the speed by which a given percentage of help desk calls should be answered,
+or the incident response time by which tickets of a certain percentage of certain severity should be resolved.
+
+SLOs are typically described as a "number of nines": 99% (2 nines), 99.999% (5 nines), etc.
+Whichever 100% less the SLO would be the error budget. Exceeding the error budget in service provision
+might lead to eventual breach of SLA, which can come with commercial or legal consequences e.g. penalties.
+
+
+
+
+### Alerts
+
+Alerts are notifications intended to be read by a human and that is pushed to a system such as a bug or ticket queue,
+an email alias, or a pager. Respectively, these alerts are classified as "tickets", "email alerts", and "pages".
+
+Alerts tell the relevant team that something is not working well enough or not optimally, and requires human attention.
+Either a troubleshooting of problem is needed, or a preemptive prevention of potential problems is needed.
+
+Rules need to be set regarding monitoring and alerting, for instance:
+- Does the rule detect an otherwise undetected condition that is important?
+- To what extent the staff can ignore certain alerts without significant adverse effects?
+- Does the alert actually indicate some effects that end users can perceive?
+- When do we need immediate actions, and when can we wait? Any long-term solutions on root cause needed?
+- How many people on the team need to be alerted and be responsible for certain alerts?
+
+We should avoid over-complication of monitoring and alert system, to prioritize the watching on indicators
+that matter. Monitoring itself should not become a burden for maintenance as a complex and fragile software system.
+- The rules that define the capturing of authentic incidents should be simple, predictable and reliable;
+- Configurations that are rarely in use or exercised (e.g. less than once a quarter) should be removed;
+- Signals collected but not exposed to dashboard or not used by any alert in any way, should be removed.
+
+The four "Golden Signals" to monitor and to receive alerts for:
+- Latency: the time it takes to service a request.
+- Traffic: how much demand is placed on the system. E.g. HTTP requests per second in the case of web service.
+- Errors: The rate of requests that fail (e.g. HTTP 500s). Where common protocols are insufficient to express all failures,
+  internal protocols might be needed to track those yet-to-be-defined-and-captured failures.
+- Saturation: how "full" the service is, usually measuring the resources that are most constrained (memory, I/O, etc).
+  Note: systems might start to degrade in performance before achieving 100% utilization.
+
+
