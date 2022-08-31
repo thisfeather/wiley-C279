@@ -1,0 +1,183 @@
+Seminar Summary 2022-08-31
+
+Carl Tang Yong Han
+
+
+### Topic 1: Incident Management
+
+Incident: unplanned interruption of service or reduction in quality of service.
+  - hardware failure, software updates, config changes, accidental events, malicious attacks.
+
+Incident management: raise incident (detect, log, acknowlede), fixing (assess, action, communicate),
+response team (escalate? delegate?), resolve (then document and learn)
+
+Levels of incident:
+  - SEV 1: critical disruption to business, need public notification
+  - SEV 2: significant impact on customer's use of the service
+  - SEV 3: low impact, but need immediate attention, can escalate to SEV 2
+  - SEV 4: minor issue, no impact on customers' use of service
+
+Incident bigger than team: require multiple teams (with redundancy), higher level of communication,
+control and coordination, need handoffs to team across time zones.
+
+Incident Management Process: identify key roles & chain of command, define responsibilities,
+capture response efforts for analysis and learning, communicate.
+  - Note: chain of command: everyone has a single person to report to.
+
+Good incident management: < MTTR, < losses, > communication, > MTTF, learn from failures.
+
+Common terminology: avoid codes, acronyms, domain-specific language (for diverse response team)
+
+Incident action planning: specified timeframe, specified incident objectives and actions to-do,
+identify needed resources.
+
+Clear communications: instant messaging, conferencing bridge, shared folders (info sharing)
+
+Resource management: resource identification, adding subject matter experts (SMEs) to response team,
+planning for additional physical or cloud-based IT resources.
+
+Clear Chain of Command:
+Incident Commander
+  - work with scribe
+     - Operations Lead
+        - Network Ops
+	- Database Ops
+	- App SMEs
+     - Communications Lead
+     - Planning Lead
+
+Four functional areas:
+  - Incident Command: objectives, strategies, priorities, overall responsibility
+  - Communications: coordinate internal & external comm, formulate messages, update comm channels.
+  - Operations: arranges for resources and services, directs all ops resources.
+  - Planning: tracking system changes, collect and analyze info, document follow-up tasks.
+
+Scribe: assist IC, captures comm, actions and discussions from conference bridge.
+        use visible comm tool (chatrooms, Google doc), capture all info for future use.
+        Capture sufficient details to allow analysis during postmortem.
+	No info sanitation, not edited to make the response appear better.
+
+Incident commanders:
+  - Selecting: self-designated initial IC, IC on-Call
+  - Changing: individual discovering the incident assumes IC role until on-Call IC joins in.
+              incident changes in complexity, IC needs to rest, rotation needed, follow-the-sun
+
+Transfer of command: include thorough transfer of command briefing, notify the whole response team.
+
+Operations lead: work with IC to develop theories of cause, recommend changes to IC, coordinate
+                 ops team to restore service. Bring in SMEs to assist. NOTE: make sure that ONLY
+		 ops team is making changes to the system.
+
+Communications lead: internal & external comm. Periodic updates to status page, social media, etc.
+                     may be delegated to maintain incident documentation
+
+Planning lead: supports OL & IC, capture long-term issues, create tickets, arranging handoffs,
+               tracking system divergence from SLO, ordering food for Ops team.
+
+Service-specific Subject-Matter Expert (SME): called in to advise service-specific knowledge
+                                              may not normally be involved in ops
+SME on-Call Responsibilities: familiarize with other roles, join incident comms ASAP,
+      offer theories and suggests, support decisions made by IC, focus on resolving incident,
+      leave incident channel when asked.
+
+Incident: When to deal with it:
+  - needs immediate and dedicated effort to resolve (based on level and impact)
+  - deal with it ASAP when: imminent failure to meet SLO, customer complaint
+  - declare incident immediately unless fix is obvious and easy.
+
+Impacts: who and how many impacted, service unavailable (consider dependencies), SLO/SLA violation,
+         monetary (loss of income, penalties), regulatory (legal, loss of license, criminal risk).
+
+Incident Management Checklist:
+  - Acknowledge incident (initialize internal & external comm channels)
+  - Research issue (triage severity, initial diagnosis, identify systems impacted, dependencies)
+  - Fixable or Escalate (check for playbook, automated fix, people responsible, gather info)
+  - Root cause analysis
+  - Documentation (follow-up task tickets, close incident)
+
+Closing incident: communicate,  preventive measures, key indicators to monitor,
+                  documentation for future references, postmortem.
+
+Enterprise Command Center (ECC): unified commands allows unified efforts, one voice in comm             (for customers and public), involve executies, emphasized urgency, handles conflicting goals.
+
+
+
+
+### Topic 2: Postmortem
+
+Discussion of an incident on the why, the impact, actions taken and it's prevention for future.
+
+- allows learning from mistake to improve systems and processes, allow team contribution
+to build trust and resiliency, allow teams to continuously learn, prepare for future incidents.
+
+- Continuous improvement: learn from past experience, increase team communication,
+improve team morale.
+
+- Ineffective type of postmortem: blameful
+
+- Blameless postmortem: no finger-pointing and blaming, focus on improving performance and
+preventing future incidents.
+
+   - embrace risk (for learning), encourage honesty and acceptance of value (removing fear),
+     share information and build a timeline.
+
+Structure of postmortem: title, date of report, authors, incident status, incident summary,
+impacts, root causes, trigger, resolution, detection, action items, lessons learned, timeline,
+supporting information.
+
+- Impact statement: internal or external? Customers lost, income lost, regulatory / legal consequence.
+
+- Detection: who? when did it start? MTTD, and how to improve MTTD.
+
+- Timeline: tasks completed during recovery, and MTTR.
+
+- Root causes: go from proximate causes to root causes, to prevent re-occurence.
+
+- (Corrective) actions: deadlines, assign responsibilities, follow-up.
+   consider automation as fix, or refer to dev team.
+
+- Build blameless culture: share postmortem reports, practice blameless postmortems,
+give awards and recognition wherever due.
+
+
+
+
+### Topic 3: Embracing Risk, Feedback and Fatigue
+
+Incidents will occur, so prepare and plan for them, and practice response procedures.
+High change velocity can use up error budgets fast.
+Avoid purely individual efforts, work in team. On-call rotation might be needed.
+
+Sources of failure: system complexity, security attacks, database corruption, component update.
+
+On-call rotation: for (necessary) 24/7 service availability, consider centralize vs. global,
+and minimize heroics: set proper expectation, and prevent burnouts.
+
+Alert fatigue: common for systems at edge point
+  - False positives, repeated alerting of the same issue, and alerts with seld-heal cycles.
+  - too many alerts, can lead to ignored alerts.
+
+Burnout: on-call rotation and alert fatigue lead to:
+  - missed deadlines, health issues, obsession with problems, self-doubt, behavioural changes, etc.
+  - result in loss of productivity or leaving.
+
+Continuous improvement:
+  - automation, documentation, toil reduction, SLO updates, update monitoring and alerts
+
+Documentation needs updating: postmortems, engineered improvements, better procedures,
+corrections discovered during practice.
+
+Toil is low value work that can prevent higher value work.
+
+SLO: adjusted up or down to balance business expectations and customer satisfaction.
+
+Update monitoring: identify better SLIs, alert more accurately, provide better warning
+of impending incidents.
+
+Improve alerts: reduce false positives, improve alert info, point to likely resources,
+automated ticket generation, focus on those needing immediate human intervention.
+
+
+_____________________________________________________
+
+
