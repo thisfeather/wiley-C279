@@ -1,14 +1,19 @@
-from flask import Flask, 
+from flask import Flask
+import logging
 
 import time
 from random import seed
 from random import randint
 
-app = Flask(__name_)
+
+logging.basicConfig(filename="record.log", level=logging.DEBUG)
+
+
+app = Flask(__name__)
 
 @app.route('/')
 def number_stream():
-    
+
     userID = 0
 
     while userID != 500000:
@@ -23,7 +28,7 @@ def number_stream():
             # Allow any error actions here, e.g. loop breaking
 
         print("\n\nUser ID is:", userID)
-        
+
         printString = ""
         for i in range(userID):
             printString += str(userID)
@@ -36,7 +41,17 @@ def number_stream():
         time.sleep(milliseconds)
 
 
+    # Show different logging levels
+    app.logger.debug("debug log info")
+    app.logger.info("Info log information")
+    app.logger.warning("Warning log info")
+    app.logger.error("Error log info")
+    app.logger.critical("Critical log info")
+
+
+    return 0
+
+
+
 if __name__ == '__main__':
-    app.run()
-
-
+    app.run(debug=True)
